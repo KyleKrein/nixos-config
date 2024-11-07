@@ -78,11 +78,11 @@
      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      kitty
      kdePackages.qtwayland
-     libsForQt5.qt5.qtwayland
-     libsForQt5.qt5.qtsvg
+     #libsForQt5.qt5.qtwayland
+     #libsForQt5.qt5.qtsvg
      kdePackages.qtsvg
-     kio-fuse #to mount remote filesystems via FUSE
-     libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
+     #kio-fuse #to mount remote filesystems via FUSE
+     #libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
      kdePackages.kio-fuse #to mount remote filesystems via FUSE
      kdePackages.kio-extras #extra protocols support (sftp, fish and more)
      fastfetch
@@ -114,29 +114,30 @@
      libheif.out
 
      #kde
-     libsForQt5.systemsettings
-     libsForQt5.kate
-     libsForQt5.gwenview
-     libsForQt5.breeze-icons
-     libsForQt5.breeze-qt5
-     libsForQt5.ark
-     libsForQt5.qtstyleplugin-kvantum
-     libsForQt5.okular
-     libsForQt5.kcalc
+     kdePackages.systemsettings
+     kdePackages.kate
+     kdePackages.gwenview
+     kdePackages.breeze-icons
+     kdePackages.breeze
+     kdePackages.ark
+     kdePackages.qtstyleplugin-kvantum
+     kdePackages.okular
+     kdePackages.kcalc
      polkit-kde-agent
-     libsForQt5.kdeconnect-kde
+     kdePackages.kdeconnect-kde
      kdePackages.kdesdk-thumbnailers
-     libsForQt5.kdegraphics-thumbnailers
      kdePackages.kdegraphics-thumbnailers
      catppuccin-kvantum
 
      #kde support tools
      libsForQt5.qt5ct
-     kdePackages.qt6ct
-     libsForQt5.kimageformats
-     libsForQt5.dolphin
-     libsForQt5.dolphin-plugins
+     qt6ct
+     kdePackages.kimageformats
+     kdePackages.dolphin
+     kdePackages.dolphin-plugins
   ];
+  programs.kdeconnect.enable = true;
+  programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
   #xdg.portal = {
   #  enable = true;
   #  config = {
@@ -296,6 +297,7 @@
   	enable = true;
   	package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   	xwayland.enable = true;
+	systemd.setPath.enable = true;
   };
   #services.hypridle.enable = true;
 

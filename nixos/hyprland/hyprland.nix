@@ -23,14 +23,15 @@ in
 			};
 
 			exec-once = [
-				"waybar &"
-				"nm-applet &"
-				"swaync &"
-				"solaar -w hide &"
-				"hypridle &"
+				"dbus-update-activation-environment --systemd --all"
+				"${pkgs.waybar}/bin/waybar &"
+				"${pkgs.networkmanagerapplet}/bin/nm-applet &"
+				"${pkgs.swaynotificationcenter}/bin/swaync &"
+				"${pkgs.solaar}/bin/solaar -w hide &"
+				"${pkgs.hypridle}/bin/hypridle &"
 				"${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" #https://nixos.wiki/wiki/Polkit
-				"clipse -listen &"
-				"swww-daemon &"
+				"${pkgs.clipse}/bin/clipse -listen &"
+				"${pkgs.swww}/bin/swww-daemon &"
 				"${pkgs.swww}/bin/swww img ${wallpaper-image} &"
 			];
 			exec = [
@@ -40,11 +41,11 @@ in
 			"$mod" = "SUPER";
 			"$mainMod" = "$mod";
 			"$terminal" = "${pkgs.kitty}/bin/kitty";
-			"$fileManager" = "dolphin";
-			"$browser" = "firefox";
-			"$menu" = "wofi --show drun";
+			"$fileManager" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+			"$browser" = "${pkgs.firefox}/bin/firefox";
+			"$menu" = "${pkgs.wofi}/bin/wofi --show drun";
 			"$clipboardManager" = "$terminal --class clipse -e 'clipse'";
-			"$makeRegionScreenshot" = "grim -g \"$(slurp -w 0)\" - | satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
+			"$makeRegionScreenshot" = "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
 			bind = [
 				"$mod, T, exec, $terminal"
 				"$mod, Q, killactive,"
@@ -100,7 +101,7 @@ in
 				"$mainMod CTRL, J, resizeactive, 0 50"
 
 				"$mainMod, P, exec, $makeRegionScreenshot"
-				"$mainMod ALT, L, exec, hyprlock"
+				"$mainMod ALT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 			];
 
 			bindm = [
@@ -166,9 +167,9 @@ in
 				active_opacity = 0.9;
 				inactive_opacity = 0.7;
 
-				drop_shadow = true;
-				shadow_range = 4;
-				shadow_render_power = 3;
+				#drop_shadow = true;
+				#shadow_range = 4;
+				#shadow_render_power = 3;
 				#"col.shadow" = "rgba(1a1a1aee)";
 
 				blur = {
