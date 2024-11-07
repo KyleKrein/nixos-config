@@ -71,8 +71,9 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    obs-studio
-    vesktop
+    #obs-studio
+    #vesktop
+    #vscode-fhs
   ];
 
 

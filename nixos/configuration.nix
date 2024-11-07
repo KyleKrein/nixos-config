@@ -136,6 +136,12 @@
      kdePackages.kimageformats
      kdePackages.dolphin
      kdePackages.dolphin-plugins
+
+
+     # user packages
+     obs-studio
+     vesktop
+     vscode-fhs
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
@@ -246,6 +252,9 @@
   	enable = true;
   	image = ./hyprland/wallpaper.jpg;
 	autoEnable = true;
+	opacity = {
+		desktop = 0.5;
+	};
 	targets = {
 		gtk.enable = true;
 	};

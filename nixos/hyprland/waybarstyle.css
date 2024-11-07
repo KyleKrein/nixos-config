@@ -10,7 +10,7 @@ window {
 	/*font-weight: bold;*/
 }
 window#waybar {
-    background: rgba(0, 0, 0, 0);
+    background: transparent;/*rgba(0, 0, 0, 0);*/
 }
 /*-----module groups----*/
 .modules-right {

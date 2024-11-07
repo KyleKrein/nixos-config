@@ -12,14 +12,13 @@
       #${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
     style = ''
       ${builtins.readFile ./waybarstyle.css}
-
-
+	
       * {
         font-size: 15px;
       }
     '';
     settings = [{
-      height = 20;
+      height = 36;
       layer = "top";
       position = "top";
       tray = { spacing = 3; };
@@ -27,7 +26,7 @@
       		#"hyprland/window" 
 		"clock"
 	];
-      modules-left = [ "hyprland/workspaces" ];
+      modules-left = [ "hyprland/workspaces" "hyprland/window" ];
       modules-right = [
         "pulseaudio"
         "network"
