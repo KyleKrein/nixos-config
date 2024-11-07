@@ -95,7 +95,9 @@
 	userName = "Aleksandr Lebedev";
 	userEmail = "alex.lebedev2003@icloud.com";
 	extraConfig = {
-		credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+		credential.helper = "manager";#"${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+		credential."https://github.com".username = "KyleKrein";
+		credential.credentialStore = "cache";
 	};
   };
 

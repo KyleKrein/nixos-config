@@ -96,6 +96,7 @@
      wofi
      wl-clipboard
      git
+     git-credential-manager
      hyprpicker
      networkmanagerapplet
      egl-wayland
