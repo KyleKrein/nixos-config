@@ -68,7 +68,7 @@
 	platformTheme = "qt5ct";
 	style = "kvantum";
   };
- 
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -129,6 +129,8 @@
      kdePackages.kdesdk-thumbnailers
      kdePackages.kdegraphics-thumbnailers
      catppuccin-kvantum
+     shared-mime-info
+     #kdePackages.plasma-workspace
 
      #kde support tools
      libsForQt5.qt5ct
@@ -145,6 +147,13 @@
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
+  xdg = {
+	menus.enable = true;
+	mime.enable = true;
+  };
+  #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
+  # This fixes the unpopulated MIME menus
+  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   #xdg.portal = {
   #  enable = true;
   #  config = {
@@ -309,7 +318,7 @@
   	xwayland.enable = true;
 	systemd.setPath.enable = true;
   };
-  #services.hypridle.enable = true;
+  services.hypridle.enable = true;
 
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;

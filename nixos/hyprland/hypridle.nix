@@ -5,7 +5,7 @@ suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${lib.getExe pkgs.playerctl} -a status | ${lib.getExe pkgs.ripgrep} Playing -q
     # only suspend if nothing is playing
     if [ $? == 1 ]; then
-      loginctl lock-session
+      #loginctl lock-session
       ${pkgs.systemd}/bin/systemctl suspend
     fi
   '';
@@ -44,6 +44,7 @@ listener = [
 #  timeout=360;
 #}
 {
+  on-resume = "hyprctl dispatch dpms on";
   on-timeout = suspendScript.outPath;
   timeout = 900;
 }
