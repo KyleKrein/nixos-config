@@ -44,6 +44,16 @@
 		#nix-flatpak.nixosModules.default
 	   ];
         };
+        mac = nixpkgs.lib.nixosSystem {
+           specialArgs = { hostname = "nixos-macbook-kylekrein"; system = "aarch64-linux"; inherit inputs; };
+           
+           modules = [
+               	./nixos/configuration.nix
+		./nixos/mac-hardware-conf.nix
+	       	inputs.home-manager.nixosModules.default
+		stylix.nixosModules.stylix
+	   ];
+        };
       };
     };
 }
