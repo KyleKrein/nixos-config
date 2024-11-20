@@ -2,21 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, stylix, hostname, inputs, ... }:
+{ config, pkgs, stylix, hostname, system, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.default
       ./firefox.nix
-      ./libvirt.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = if hostname == "nixosbtw" then true else false;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -70,6 +68,7 @@
   };
 
   # Allow unfree packages
+  nixpkgs.system = system;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
@@ -162,7 +161,7 @@
   };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
-  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  #environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   #xdg.portal = {
   #  enable = true;
   #  config = {
@@ -201,7 +200,7 @@
 
 
   programs.steam = {
- 	enable = true;
+ 	enable = if system == "x86_64-linux" then true else false;
  	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
  	dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   	localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
@@ -275,10 +274,10 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedUDPPorts = [ 22 ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  #networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -290,7 +289,7 @@
   
   programs.hyprland = {
   	enable = true;
-  	package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  	package = inputs.hyprland.packages."${system}".hyprland;
   	xwayland.enable = true;
 	systemd.setPath.enable = true;
   };

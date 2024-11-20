@@ -16,7 +16,7 @@ in
 			monitor = if hostname == "nixosbtw" then [
 				"DP-1,2560x1440@75,1600x0,1.6"
 				"DP-3,2560x1440@75,0x0,1.6"
-			] else ",auto,auto,1.6";
+			] else ",highres,auto,1.6";
 
 			xwayland = {
 				force_zero_scaling = true;
@@ -113,6 +113,10 @@ in
 			input = {
 				kb_layout = "us, ru";
 				kb_options = "grp:caps_toggle";
+
+				touchpad = {
+					natural_scroll = true;
+				};
 			};
 			env = [
 				"LIBVA_DRIVER_NAME,nvidia"

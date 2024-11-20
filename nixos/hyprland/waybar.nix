@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, hostname, ... }:
 
 {
   programs.waybar = {
@@ -34,7 +34,7 @@
         #"memory"
         #"temperature"
 	"hyprland/language"
-      ] #++ (if config.hostId == "yoga" then [ "battery" ] else [ ])
+      ] ++ (if hostname != "nixosbtw" then [ "battery" ] else [ ])
       ++ [
         "tray"
 	"custom/notification"
@@ -42,11 +42,11 @@
 	"custom/power"
       ];
       battery = {
-        format = "{capacity}% {icon}";
-        format-alt = "{time} {icon}";
-        format-charging = "{capacity}% ";
+        format = " {capacity}% {icon} ";
+        format-alt = " {time} {icon} ";
+        format-charging = " {capacity}%  ";
         format-icons = [ "" "" "" "" "" ];
-        format-plugged = "{capacity}% ";
+        format-plugged = " {capacity}%  ";
         states = {
           critical = 15;
           warning = 30;
