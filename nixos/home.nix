@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, stylix, ... }:
 
   let
   #nur = import (builtins.fetchTarball {
@@ -19,7 +19,10 @@
   # manage.
   home.username = "kylekrein";
   home.homeDirectory = "/home/kylekrein";
-
+  stylix = {
+	enable = true;
+	targets.hyprlock.enable = false;
+  };
   qt = {
 	enable = true;
 	platformTheme.name = "qtct";
@@ -37,6 +40,11 @@
     # The important bit is here, links the theme directory from the package to a directory under `~/.config`
     # where Kvantum should find it.
     "Kvantum/catppuccin-mocha".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/catppuccin-mocha";
+  };
+
+  programs.fzf = {
+	enable = true;
+	enableBashIntegration = true;
   };
 
   #xdg.configFile."qt5ct/qt5ct.conf".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {

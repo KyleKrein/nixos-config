@@ -4,8 +4,7 @@
 	enable = true;
 	settings = {
 background = {
-    monitor = {
-    #path = /home/me/someImage.png   # supports png, jpg, webp (no animations, though)
+    #path = ;
     color = "rgba(25, 20, 20, 1.0)";
 
     # all these options are taken from hyprland, see https://wiki.hyprland.org/Configuring/Variables/#blur for explanations
@@ -16,10 +15,8 @@ background = {
     brightness = 0.8172;
     vibrancy = 0.1696;
     vibrancy_darkness = 0.0;
-    };
 };
 input-field  = {
-    monitor = {
     size = "200, 50";
     outline_thickness = 3;
     dots_size = 0.33; # Scale of input-field height, 0.2 - 0.8
@@ -51,7 +48,6 @@ input-field  = {
     position = "0, -20";
     halign = "center";
     valign = "center";
-    };
 };
 };
 	};

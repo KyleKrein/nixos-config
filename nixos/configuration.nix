@@ -71,12 +71,17 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      kitty
+     yazi
+     tealdeer
+     fzf
+     lazygit
      kdePackages.qtwayland
      #libsForQt5.qt5.qtwayland
      #libsForQt5.qt5.qtsvg
@@ -144,6 +149,10 @@
      obs-studio
      vesktop
      vscode-fhs
+
+     # development
+     clang_18
+     dotnetCorePackages.sdk_8_0_3xx
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
@@ -177,7 +186,10 @@
      	font-awesome
 	hack-font
   ];
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+  	NIXOS_OZONE_WL = "1"; 
+	MANPAGER = "nvim +Man!";
+  };
   hardware = {
 	graphics = {
 		enable = true;
@@ -259,7 +271,7 @@
   };
   stylix = {
   	enable = true;
-  	image = ./hyprland/wallpaper.jpg;
+  	image = "${./hyprland/wallpaper.jpg}";
 	autoEnable = true;
 	opacity = {
 		desktop = 0.5;

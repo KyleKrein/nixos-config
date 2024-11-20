@@ -41,7 +41,8 @@ in
 			"$mod" = "SUPER";
 			"$mainMod" = "$mod";
 			"$terminal" = "${pkgs.kitty}/bin/kitty";
-			"$fileManager" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+			"$fileManager" = "$terminal ${pkgs.yazi}/bin/yazi";
+			"$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
 			"$browser" = "${pkgs.firefox}/bin/firefox";
 			"$menu" = "${pkgs.wofi}/bin/wofi --show drun";
 			"$clipboardManager" = "$terminal --class clipse -e 'clipse'";
@@ -53,6 +54,7 @@ in
 				"$mod, B, exec, $browser"
 				"$mod SHIFT, V, togglefloating,"
 				"$mod, C, exec, $fileManager"
+				"$mod SHIFT, C, exec, $fileManager2"
 				"$mod, F, fullscreen,"
 				"$mod, R, exec, $menu"
 				"$mod, V, exec, $clipboardManager"
