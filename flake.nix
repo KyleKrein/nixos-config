@@ -20,27 +20,28 @@
   };
 
   outputs = { self, nixpkgs, stylix, nix-flatpak, ... }@inputs:
-    let 
-       system = "x86_64-linux";
-       pkgs = import nixpkgs {
-          inherit system;
-          config = {
-             allowUnfree = true;
-	     
-          };
-       };
+    let
+       #system = "x86_64-linux";
+       #pkgs = import nixpkgs {
+       #   inherit system;
+       #   config = {
+       #      allowUnfree = true;	     
+       #   };
+       #};
     in
     {
       nixosConfigurations = {
         homepc = nixpkgs.lib.nixosSystem {
-           specialArgs = { inherit system; inherit inputs; };
+           specialArgs = { hostname = "nixosbtw"; system = "x86_64-linux"; inherit inputs; };
            
            modules = [
 	   	#nur.nixosModules.nur
                	./nixos/configuration.nix
+		./nixos/nvidia.nix
+		./nixos/homepc-hardware-conf.nix
 	       	inputs.home-manager.nixosModules.default
 		stylix.nixosModules.stylix
-		nix-flatpak.nixosModules.default
+		#nix-flatpak.nixosModules.default
 	   ];
         };
       };

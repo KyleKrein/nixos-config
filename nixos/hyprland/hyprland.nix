@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, hostname, ... }:
 let
 toggle_monitors = ./toggle_monitors.sh;
 wallpaper-image = ./wallpaper.jpg;
@@ -13,10 +13,10 @@ in
 		enable = true;
 		xwayland.enable = true;
 		settings = {
-			monitor = [
+			monitor = if hostname == "nixosbtw" then [
 				"DP-1,2560x1440@75,1600x0,1.6"
 				"DP-3,2560x1440@75,0x0,1.6"
-			];
+			] else ",auto,auto,1.6";
 
 			xwayland = {
 				force_zero_scaling = true;
