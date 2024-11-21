@@ -75,7 +75,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+     (catppuccin-sddm.override {
+	flavor = "mocha";
+#	font = "";
+	fontSize = "16";
+	#background;
+	loginBackground = false;
+     })
+
      kitty
      yazi
      tealdeer
@@ -159,6 +166,11 @@
 	menus.enable = true;
 	mime.enable = true;
   };
+
+  programs.neovim = {
+	enable = true;
+	defaultEditor = true;
+  };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
   #environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
@@ -188,6 +200,7 @@
   environment.sessionVariables = {
   	NIXOS_OZONE_WL = "1"; 
 	MANPAGER = "nvim +Man!";
+	EDITOR = "nvim";
   };
   hardware = {
 	graphics = {
@@ -296,7 +309,11 @@
   services.hypridle.enable = true;
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+	enable = true;
+	theme = "catppuccin-mocha";
+	package = pkgs.kdePackages.sddm;
+  };
  # services.displayManager.sddm.wayland.enable = true;
   nix = {
      settings.experimental-features = ["nix-command" "flakes"];
