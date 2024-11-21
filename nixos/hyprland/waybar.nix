@@ -42,14 +42,14 @@
 	"custom/power"
       ];
       battery = {
-        format = " {capacity}% {icon} ";
-        format-alt = " {time} {icon} ";
+        format = " {time} {icon} ";
+        format-alt = " {capacity}% {icon} ";
         format-charging = " {capacity}%  ";
         format-icons = [ "" "" "" "" "" ];
         format-plugged = " {capacity}%  ";
         states = {
-          critical = 15;
-          warning = 30;
+          critical = 10;
+          warning = 20;
         };
       };
       clock = {
