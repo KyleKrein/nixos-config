@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, stylix, hostname, system, inputs, ... }:
+{ config, pkgs, stylix, hostname, system, nixvim, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.default
+      inputs.nixvim.nixosModules.nixvim
       ./firefox.nix
     ];
 
@@ -167,9 +168,19 @@
 	mime.enable = true;
   };
 
-  programs.neovim = {
+  programs.nixvim = {
 	enable = true;
 	defaultEditor = true;
+
+	colorschemes.catppuccin.enable = true;
+	plugins = {
+		lualine.enable = true;
+	};
+
+	opts = {
+		number = true;
+		shiftwidth = 4;
+	};
   };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
@@ -240,7 +251,7 @@
   };
 
   home-manager = {
-	extraSpecialArgs = {inherit pkgs; inherit hostname; inherit inputs;};
+	extraSpecialArgs = {inherit pkgs; inherit hostname; inherit nixvim; inherit inputs;};
 	users = {
 		"kylekrein" = import ./home.nix;
 	};

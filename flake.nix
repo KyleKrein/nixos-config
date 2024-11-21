@@ -7,6 +7,10 @@
 
 
     };
+    nixvim = {
+	url = "github:nix-community/nixvim";
+	inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
     nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
@@ -19,7 +23,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, stylix, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs, stylix, nixvim, nix-flatpak, ... }@inputs:
     let
        #systems = ["aarch64-linux" "x86_64-linux" ];
        #forAllSystems = nixpkgs.lib.genAttrs systems;

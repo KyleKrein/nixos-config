@@ -1,4 +1,4 @@
-{ config, pkgs, stylix, ... }:
+{ config, pkgs, stylix, inputs, ... }:
 
   let
   #nur = import (builtins.fetchTarball {
@@ -14,6 +14,7 @@
   imports =
     [
 	./hyprland/hyprland.nix
+	./nixvim
     ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
