@@ -14,6 +14,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
     nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    apple-silicon-support.url = "github:zzywysm/nixos-asahi";
 
     #nur.url = "github:nix-community/NUR";
 
@@ -42,8 +43,12 @@
            specialArgs = { hostname = "nixosbtw"; system = x86; inherit inputs; };
            
            system = x86;
-	  # pkgs = import nixpkgs {
+	  #pkgs = import nixpkgs {
 	#	system = x86;
+	#	config = {
+	#	    allowBroken = true;
+	#	    allowUnfree = true;
+	#	};
 	 #  };
            modules = [
 	   	#nur.nixosModules.nur
@@ -59,11 +64,19 @@
         mac = nixpkgs.lib.nixosSystem {
            specialArgs = { hostname = "nixos-macbook-kylekrein"; system = arm; inherit inputs; };
            system = arm;
-	  # pkgs = import nixpkgs {
+	  #pkgs = import nixpkgs {
 	#	system = arm;
-	 #  };
+	#	overlays = [
+	#	    (import ./nixos/macos/widevine.nix)
+	#	];
+	#	config = {
+	#	    allowBroken = true;
+	#	    allowUnfree = true;
+	#	};
+	 # };
            modules = [
                	./nixos/configuration.nix
+		inputs.apple-silicon-support.nixosModules.default
 		./nixos/mac-hardware-conf.nix
 		./nixos/macos/configuration.nix
 	       	inputs.home-manager.nixosModules.default

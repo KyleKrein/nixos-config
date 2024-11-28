@@ -1,13 +1,29 @@
 { pkgs, lib, ... }:
-{
+let
+in
+{	
+	#nixpkgs.overlays = [
+	#    (import ./widevine-overlay.nix)
+	#];
+	#nixpkgs.config.allowUnsupportedSystem = true;
 	imports = [
-		./apple-silicon-support
+		#./apple-silicon-support
 	];
 	hardware.asahi = {
 		peripheralFirmwareDirectory = ./firmware;
 		useExperimentalGPUDriver = true;
+		#experimentalGPUInstallMode = "overlay";
 		setupAsahiSound = true;
 	};
+
+	powerManagement = {
+	    enable = true;
+	    powertop.enable = true;
+	};
 	#hardware.graphics.enable32Bit = lib.mkForce false;
-	environment.systemPackages = with pkgs; [mesa mesa.drivers];
+	environment.systemPackages = with pkgs; [mesa mesa.drivers 
+	#widevine-cdm 
+	#widevinecdm-aarch64
+	];
+
 }

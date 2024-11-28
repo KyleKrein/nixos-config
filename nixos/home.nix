@@ -1,4 +1,4 @@
-{ config, pkgs, stylix, inputs, ... }:
+{ config, pkgs, stylix, hostname, inputs, ... }:
 
   let
   #nur = import (builtins.fetchTarball {
@@ -15,6 +15,7 @@
     [
 	./hyprland/hyprland.nix
 	./nixvim
+	#"${if hostname != "nixosbtw" then ./macos/homemac.nix else ./empty.nix }"
     ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
