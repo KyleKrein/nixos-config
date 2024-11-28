@@ -132,6 +132,8 @@ in
 				#"QT_STYLE_OVERRIDE,Breeze"
 				#"GDK_SCALE,1.6"
 				#"QT_SCALE_FACTOR,1.6"
+
+				"GSK_RENDERER,ngl" #for satty until https://github.com/NixOS/nixpkgs/issues/359069 is fixed
 			];
 
 			cursor = {
