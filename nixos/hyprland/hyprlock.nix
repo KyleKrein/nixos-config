@@ -3,12 +3,15 @@
 	programs.hyprlock = {
 	enable = true;
 	settings = {
+	general = {
+	    enable_fingerprint = true;
+	};
 background = {
     #path = ;
-    color = "rgba(25, 20, 20, 1.0)";
+    #color = "rgba(25, 20, 20, 1.0)";
 
     # all these options are taken from hyprland, see https://wiki.hyprland.org/Configuring/Variables/#blur for explanations
-    blur_passes = 0; # 0 disables blurring
+    blur_passes = 1; # 0 disables blurring
     blur_size = 7;
     noise = 0.0117;
     contrast = 0.8916;
@@ -17,7 +20,7 @@ background = {
     vibrancy_darkness = 0.0;
 };
 input-field  = {
-    size = "200, 50";
+    size = "600, 100";
     outline_thickness = 3;
     dots_size = 0.33; # Scale of input-field height, 0.2 - 0.8
     dots_spacing = 0.15; # Scale of dots' absolute size, -1.0 - 1.0
@@ -25,17 +28,17 @@ input-field  = {
     dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
     dots_fade_time = 200; # Milliseconds until a dot fully fades in
     dots_text_format = "";# Text character used for the input indicator. Leave empty for a rectangle that will be rounded via dots_rounding (default).
-    outer_color = "rgb(151515)";
-    inner_color = "rgb(200, 200, 200)";
-    font_color = "rgb(10, 10, 10)";
-    font_family = "Noto Sans"; # Font used for placeholder_text, fail_text and dots_text_format.
+    #outer_color = "rgb(151515)";
+    #inner_color = "rgb(200, 200, 200)";
+    #font_color = "rgb(10, 10, 10)";
+    #font_family = "Noto Sans"; # Font used for placeholder_text, fail_text and dots_text_format.
     fade_on_empty = false;
     fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
     placeholder_text = "<i>Input Password...</i>"; # Text rendered in the input box when it's empty.
     hide_input = false;
     rounding = -1; # -1 means complete rounding (circle/oval)
-    check_color = "rgb(204, 136, 34)";
-    fail_color = "rgb(204, 34, 34)"; # if authentication failed, changes outer_color and fail message color
+    #check_color = "rgb(204, 136, 34)";
+    #fail_color = "rgb(204, 34, 34)"; # if authentication failed, changes outer_color and fail message color
     fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>"; # can be set to empty
     fail_timeout = 2000; # milliseconds before fail_text and fail_color disappears
     fail_transition = 300; # transition time in ms between normal outer_color and fail_color

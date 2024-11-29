@@ -23,7 +23,7 @@
   home.homeDirectory = "/home/kylekrein";
   stylix = {
 	enable = true;
-	targets.hyprlock.enable = false;
+	targets.hyprlock.enable = true;
   };
   qt = {
 	enable = true;
