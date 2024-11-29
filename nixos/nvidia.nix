@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;#pkgs.linuxPackages_latest;
   hardware = {
 	graphics = {
 		enable = true;

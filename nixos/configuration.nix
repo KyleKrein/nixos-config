@@ -127,7 +127,6 @@
      libheif.out
 
      #kde
-     kdePackages.systemsettings
      kdePackages.kate
      kdePackages.gwenview
      kdePackages.breeze-icons
