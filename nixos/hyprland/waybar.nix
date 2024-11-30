@@ -117,14 +117,15 @@
       "custom/power" = {
 	format = "⏻ ";
 	tooltip = false;
-	menu = "on-click";
-	menu-file = ./power_menu.xml;
-	menu-actions = {
-		shutdown = "shutdown -h now";
-		reboot = "reboot";
-		suspend = "systemctl suspend";
-		hibernate = "systemctl hibernate";
-	};
+	#menu = "on-click";
+	#menu-file = ./power_menu.xml;
+	#menu-actions = {
+	#	shutdown = "shutdown -h now";
+	#	reboot = "reboot";
+	#	suspend = "systemctl suspend";
+	#	hibernate = "systemctl hibernate";
+	#};
+        on-click = "wlogout";
       };
 
       "custom/notification" = {

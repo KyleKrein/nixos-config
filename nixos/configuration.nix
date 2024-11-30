@@ -115,6 +115,7 @@
      kitty-themes
      btop
      hyprlock
+     wlogout
      hypridle
      solaar
      pavucontrol

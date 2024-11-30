@@ -38,9 +38,6 @@
           text = "$USER";
           font_family = "Fira Code";
           font_size = 56;
-          font_color = "rgb(255, 255, 255)";
-          shadow_color = "rgba(0, 0, 0, 0.5)";
-          shadow_offset = "2, 2";
           position = "0, 100";
           halign = "center";
           valign = "center";
@@ -49,9 +46,6 @@
           text = "$TIME";
           font_family = "Roboto";
           font_size = 72;
-          font_color = "rgb(255, 255, 255)";
-          shadow_color = "rgba(0, 0, 0, 0.7)";
-          shadow_offset = "3, 3";
           position = "-40, -40";
           halign = "right";
           valign = "top";
@@ -60,9 +54,6 @@
           text = "$LAYOUT";
           font_family = "JetBrains Mono";
           font_size = 28;
-          font_color = "rgb(200, 200, 200)";
-          shadow_color = "rgba(0, 0, 0, 0.5)";
-          shadow_offset = "1, 1";
           position = "-20, 20";
           halign = "right";
           valign = "bottom";
