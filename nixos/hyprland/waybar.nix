@@ -1,4 +1,4 @@
-{ pkgs, lib, hostname, ... }:
+{ pkgs, lib, hwconfig, ... }:
 
 {
   programs.waybar = {
@@ -34,7 +34,7 @@
         #"memory"
         #"temperature"
 	"hyprland/language"
-      ] ++ (if hostname != "nixosbtw" then [ "battery" ] else [ ])
+      ] ++ (if hwconfig.isLaptop then [ "battery" ] else [ ])
       ++ [
         "tray"
 	"custom/notification"

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, stylix, hostname, system, nixvim, inputs, ... }:
+{ config, pkgs, stylix, hwconfig, username, nixvim, inputs, ... }:
 
 {
   imports =
@@ -14,9 +14,9 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = if hostname == "nixosbtw" then true else false;
+  boot.loader.efi.canTouchEfiVariables = if hwconfig.hostname == "${username}-homepc" then true else false;
 
-  networking.hostName = hostname;
+  networking.hostName = hwconfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -55,7 +55,7 @@
   services.udisks2.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kylekrein = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Aleksandr Lebedev";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -69,7 +69,7 @@
   };
 
   # Allow unfree packages
-  nixpkgs.system = system;
+  nixpkgs.system = hwconfig.system;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
@@ -182,6 +182,13 @@
 		shiftwidth = 4;
 	};
   };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/${username}/nixos-config";
+  };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
   #environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
@@ -234,7 +241,7 @@
 
 
   programs.steam = {
- 	enable = if system == "x86_64-linux" then true else false;
+ 	enable = if hwconfig.system == "x86_64-linux" then true else false;
  	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
  	dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   	localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
@@ -261,9 +268,9 @@
   };
 
   home-manager = {
-	extraSpecialArgs = {inherit pkgs; inherit hostname; inherit nixvim; inherit inputs;};
+	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit username; inherit nixvim; inherit inputs;};
 	users = {
-		"kylekrein" = import ./home.nix;
+		"${username}" = import ./home.nix;
 	};
   };
   stylix = {
@@ -323,7 +330,7 @@
   
   programs.hyprland = {
   	enable = true;
-  	package = inputs.hyprland.packages."${system}".hyprland;
+  	package = inputs.hyprland.packages."${hwconfig.system}".hyprland;
   	xwayland.enable = true;
 	systemd.setPath.enable = true;
   };

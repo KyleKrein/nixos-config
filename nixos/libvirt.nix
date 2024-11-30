@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-let
-	username = "kylekrein";
-in
+{ pkgs, username, ... }:
 {
   virtualisation = {
     libvirtd = {

@@ -1,4 +1,4 @@
-{ pkgs, lib, hostname, ... }:
+{ pkgs, lib, hwconfig, username, ... }:
 let
 toggle_monitors = ./toggle_monitors.sh;
 wallpaper-image = ./wallpaper.jpg;
@@ -13,7 +13,7 @@ in
 		enable = true;
 		xwayland.enable = true;
 		settings = {
-			monitor = if hostname == "nixosbtw" then [
+			monitor = if hwconfig.hostname == "${username}-homepc" then [
 				"DP-1,2560x1440@75,1600x0,1.6"
 				"DP-3,2560x1440@75,0x0,1.6"
 			] else ",highres,auto,1.6";
@@ -23,6 +23,7 @@ in
 			};
 
 			exec-once = [
+				"${if hwconfig.isLaptop then "brightnessctl set 25%" else ""}"
 				"dbus-update-activation-environment --systemd --all"
 				"${pkgs.waybar}/bin/waybar &"
 				"${pkgs.networkmanagerapplet}/bin/nm-applet &"

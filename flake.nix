@@ -36,11 +36,20 @@
        #};
        arm = "aarch64-linux";
        x86 = "x86_64-linux";
+       username = "kylekrein";
     in
     {
       nixosConfigurations = {
-        homepc = nixpkgs.lib.nixosSystem {
-           specialArgs = { hostname = "nixosbtw"; system = x86; inherit inputs; };
+        "${username}-homepc" = nixpkgs.lib.nixosSystem {
+           specialArgs = { 
+	    
+	    hwconfig = {
+		hostname = "${username}-homepc";
+		isLaptop = false;
+		system = x86;
+	    };
+	    inherit username;
+	   inherit inputs; };
            
            system = x86;
 	  #pkgs = import nixpkgs {
@@ -61,8 +70,16 @@
 		#nix-flatpak.nixosModules.default
 	   ];
         };
-        mac = nixpkgs.lib.nixosSystem {
-           specialArgs = { hostname = "nixos-macbook-kylekrein"; system = arm; inherit inputs; };
+        "${username}-mac" = nixpkgs.lib.nixosSystem {
+           specialArgs = { 
+	    hwconfig = {
+		hostname = "${username}-mac";
+		isLaptop = true;
+		system = arm;
+	    };
+	    inherit username;
+	   inherit inputs; };
+           
            system = arm;
 	  #pkgs = import nixpkgs {
 	#	system = arm;

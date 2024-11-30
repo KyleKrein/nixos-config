@@ -1,4 +1,4 @@
-{ config, pkgs, stylix, hostname, inputs, ... }:
+{ config, pkgs, stylix, hwconfig, username, inputs, ... }:
 
   let
   #nur = import (builtins.fetchTarball {
@@ -19,11 +19,10 @@
     ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kylekrein";
-  home.homeDirectory = "/home/kylekrein";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
   stylix = {
 	enable = true;
-	targets.hyprlock.enable = true;
   };
   qt = {
 	enable = true;
