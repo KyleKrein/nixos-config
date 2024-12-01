@@ -5,7 +5,6 @@ suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${lib.getExe pkgs.playerctl} -a status | ${lib.getExe pkgs.ripgrep} Playing -q
     # only suspend if nothing is playing
     if [ $? == 1 ]; then
-      #loginctl lock-session
       ${pkgs.systemd}/bin/systemctl suspend
     fi
   '';
@@ -18,7 +17,7 @@ services.hypridle = {
 
 general = {
   lock_cmd="pidof hyprlock || hyprlock";
-  before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
+  before_sleep_cmd = "loginctl lock-session && sleep 3s";    # lock before suspend.
   after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
   ignore_dbus_inhibit = false;
 };
