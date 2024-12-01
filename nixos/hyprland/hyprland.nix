@@ -16,7 +16,12 @@ in
 			monitor = if hwconfig.hostname == "${username}-homepc" then [
 				"DP-1,2560x1440@75,1600x0,1.6"
 				"DP-3,2560x1440@75,0x0,1.6"
-			] else ",highres,auto,1.6";
+			] else [",highres,auto,1.6"]
+			++
+			[
+			    "FALLBACK,1920x1080@60,auto,1" #to fix crash on hyprlock https://github.com/hyprwm/hyprlock/issues/434#issuecomment-2341710088
+			]
+			;
 
 			xwayland = {
 				force_zero_scaling = true;
@@ -29,7 +34,7 @@ in
 				"${pkgs.networkmanagerapplet}/bin/nm-applet &"
 				"${pkgs.swaynotificationcenter}/bin/swaync &"
 				"${pkgs.solaar}/bin/solaar -w hide &"
-				"${pkgs.hypridle}/bin/hypridle &"
+				#"${pkgs.hypridle}/bin/hypridle &"
 				"${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" #https://nixos.wiki/wiki/Polkit
 				"${pkgs.clipse}/bin/clipse -listen &"
 				"${pkgs.swww}/bin/swww-daemon &"

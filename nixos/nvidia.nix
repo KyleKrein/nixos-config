@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;#pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware = {
 	graphics = {
 		enable = true;
@@ -37,7 +37,7 @@
     		nvidiaSettings = true;
 
     		# Optionally, you may need to select the appropriate driver version for your specific GPU.
-    		package = config.boot.kernelPackages.nvidiaPackages.stable;	
+    		package = config.boot.kernelPackages.nvidiaPackages.beta;	
 	};
 		
 	logitech.wireless.enable = true;

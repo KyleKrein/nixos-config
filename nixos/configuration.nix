@@ -175,6 +175,8 @@
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
+  programs.hyprlock.enable = true;
+
   xdg = {
 	menus.enable = true;
 	mime.enable = true;
@@ -372,6 +374,9 @@
   };
  # services.displayManager.sddm.wayland.enable = true;
   nix = {
-     settings.experimental-features = ["nix-command" "flakes"];
+     settings = {
+	experimental-features = ["nix-command" "flakes"];
+	auto-optimise-store = true;
+    };
   };
 }

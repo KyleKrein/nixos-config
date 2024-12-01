@@ -15,6 +15,7 @@
     [
 	./hyprland/hyprland.nix
 	./nixvim
+	./fastfetch
 	#"${if hostname != "nixosbtw" then ./macos/homemac.nix else ./empty.nix }"
     ];
   # Home Manager needs a bit of information about you and the paths it should

@@ -1,10 +1,17 @@
 { pkgs, lib, ... }:
+let
+    profile-image = ./profile-image.png;
+in
 {
   programs.hyprlock = {
     enable = true;
     settings = {
       general = {
-        enable_fingerprint = true;
+        #enable_fingerprint = true;
+	disable_loading_bar = true;
+	hide_cursor = true;
+	no_fade_in = false;
+	grace = 10;
       };
       background = {
         blur_passes = 1;
@@ -15,12 +22,22 @@
         vibrancy = 0.1696;
         vibrancy_darkness = 0.0;
       };
+      image = {
+            path = "${profile-image}";
+            size = 150;
+            border_size = 4;
+            #border_color = "rgb(0C96F9)";
+            rounding = -1; # Negative means circle
+            position = "0, 220";
+            halign = "center";
+            valign = "center";
+      };
       input-field = {
         size = "600, 100";
         outline_thickness = 3;
         dots_size = 0.33;
         dots_spacing = 0.15;
-        dots_center = false;
+        dots_center = true;
         dots_rounding = -1;
         dots_fade_time = 200;
         placeholder_text = "<i>Input Password...</i>";
