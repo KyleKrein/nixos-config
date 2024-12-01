@@ -83,6 +83,7 @@
 	#background;
 	loginBackground = false;
      })
+     nix-output-monitor
 
      kitty
      yazi
