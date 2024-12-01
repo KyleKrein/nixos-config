@@ -142,6 +142,17 @@
      kdePackages.kdesdk-thumbnailers
      kdePackages.kdegraphics-thumbnailers
      catppuccin-kvantum
+     kdePackages.kservice
+     kdePackages.kdbusaddons
+     kdePackages.kfilemetadata
+     kdePackages.kconfig
+     kdePackages.kcoreaddons
+     kdePackages.kcrash
+     kdePackages.kguiaddons
+     kdePackages.ki18n
+     kdePackages.kitemviews
+     kdePackages.kwidgetsaddons
+     kdePackages.kwindowsystem
      shared-mime-info
      #kdePackages.plasma-workspace
 
@@ -168,6 +179,21 @@
 	menus.enable = true;
 	mime.enable = true;
   };
+  xdg.portal = {
+    enable = true;
+    config = {
+      hyprland = {
+        default = [
+          "hyprland"
+          "kde"
+        ];
+      };
+    };
+    configPackages = with pkgs; [
+      xdg-desktop-portal-hyprland
+      kdePackages.xdg-desktop-portal-kde
+    ];
+  };
 
   programs.nixvim = {
 	enable = true;
@@ -192,7 +218,8 @@
   };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
-  #environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  environment.etc."/xdg/menus/applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   #xdg.portal = {
   #  enable = true;
   #  config = {
@@ -212,8 +239,8 @@
 	"share/thumbnailers"
   ];
   fonts.packages = with pkgs; [ 
-  	(nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) 
-     	font-awesome
+     	nerd-fonts.jetbrains-mono
+	font-awesome
 	hack-font
   ];
   environment.sessionVariables = {
