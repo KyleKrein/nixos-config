@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, stylix, hwconfig, username, nixvim, inputs, ... }:
+{ config, lib, pkgs, stylix, hwconfig, username, nixvim, inputs, ... }:
 
 {
   imports =
@@ -11,10 +11,31 @@
       inputs.nixvim.nixosModules.nixvim
       ./firefox.nix
     ];
-
+  
+  boot = { 
+    plymouth = {
+	enable = true;
+    };
+    # Enable "Silent Boot"
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
+    # Hide the OS choice for bootloaders.
+    # It's still possible to open the bootloader list by pressing any key
+    # It will just not appear on screen unless a key is pressed
+    loader.timeout = 0;
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = if hwconfig.hostname == "${username}-homepc" then true else false;
+  boot.loader.efi.canTouchEfiVariables = if hwconfig.hostname != "${username}-mac" then true else false;
 
   networking.hostName = hwconfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -312,6 +333,11 @@
 	};
 	targets = {
 		gtk.enable = true;
+		plymouth = {
+		    enable = true;
+		    #logo = ./fastfetch/nixos.png;
+		    logoAnimated = false;
+		};
 	};
 	fonts = {
 		sizes = {

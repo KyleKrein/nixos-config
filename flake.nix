@@ -13,7 +13,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
-    nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    #nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
     apple-silicon-support.url = "github:zzywysm/nixos-asahi";
 
     #nur.url = "github:nix-community/NUR";
@@ -24,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, stylix, nixvim, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs, stylix, nixvim, ... }@inputs:
     let
        #systems = ["aarch64-linux" "x86_64-linux" ];
        #forAllSystems = nixpkgs.lib.genAttrs systems;
