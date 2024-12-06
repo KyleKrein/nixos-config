@@ -16,10 +16,10 @@ in
 		setupAsahiSound = true;
 	};
 
-	powerManagement = {
-	    enable = true;
-	    powertop.enable = true;
-	};
+	#powerManagement = {
+	#    enable = true;
+	#    powertop.enable = true;
+	#};
 	#hardware.graphics.enable32Bit = lib.mkForce false;
 	environment.systemPackages = with pkgs; [mesa mesa.drivers 
 	#widevine-cdm 

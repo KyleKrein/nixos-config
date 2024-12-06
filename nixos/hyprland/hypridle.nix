@@ -17,7 +17,7 @@ services.hypridle = {
 
 general = {
   lock_cmd="pidof hyprlock || hyprlock";
-  before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
+  before_sleep_cmd = "pidof hyprlock || loginctl lock-session";    # lock before suspend.
   after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
   ignore_dbus_inhibit = false;
 };
@@ -37,6 +37,10 @@ listener = [
 {
   on-timeout="notify-send \"You're idle. Locking in 30 seconds.\"";
   timeout=830;
+}
+{
+    on-timeout = "pidof hyprlock && systemctl suspend";
+    timeout = 120;
 }
 #{
 #  on-timeout="loginctl lock-session";
