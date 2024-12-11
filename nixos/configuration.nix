@@ -106,6 +106,8 @@
      })
      nix-output-monitor
 
+     gparted
+     exfatprogs
      kitty
      yazi
      tealdeer
