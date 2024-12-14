@@ -150,6 +150,7 @@
      clipse
      libheif #https://github.com/NixOS/nixpkgs/issues/164021
      libheif.out
+     blender
 
      #kde
      kdePackages.kate
