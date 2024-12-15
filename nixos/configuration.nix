@@ -3,18 +3,28 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, stylix, hwconfig, username, nixvim, inputs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.default
       inputs.nixvim.nixosModules.nixvim
       ./firefox.nix
+      ./modules/services/autoupgrade
     ];
+    kylekrein.services.autoUpgrade = {
+	enable = true;
+	pushUpdates = if hwconfig.hostname == "${username}-homepc" then true else false;
+	configDir = "/home/${username}/nixos-config";
+	user = username;
+    };
   
   boot = { 
     plymouth = {
 	enable = true;
+    };
+    loader = {
+	systemd-boot.enable = true;
+	efi.canTouchEfiVariables = if hwconfig.hostname != "${username}-mac" then true else false;
     };
     # Enable "Silent Boot"
     consoleLogLevel = 0;
@@ -33,9 +43,6 @@
     # It will just not appear on screen unless a key is pressed
     loader.timeout = 0;
   };
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = if hwconfig.hostname != "${username}-mac" then true else false;
 
   networking.hostName = hwconfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -246,21 +253,6 @@
   # This fixes the unpopulated MIME menus
   environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   environment.etc."/xdg/menus/applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-  #xdg.portal = {
-  #  enable = true;
-  #  config = {
-  #    hyprland = {
-  #      default = [
-  #        "hyprland"
-  #        "kde"
-  #      ];
-  #    };
-  #  };
-  #  configPackages = with pkgs; [
-  #    xdg-desktop-portal-hyprland
-  #    kdePackages.xdg-desktop-portal-kde
-  #  ];
-  #};
   environment.pathsToLink = [
 	"share/thumbnailers"
   ];
@@ -390,6 +382,7 @@
   programs.hyprland = {
   	enable = true;
   	package = inputs.hyprland.packages."${hwconfig.system}".hyprland;
+	portalPackage = inputs.hyprland.packages.${hwconfig.system}.xdg-desktop-portal-hyprland;
   	xwayland.enable = true;
 	systemd.setPath.enable = true;
   };
@@ -406,6 +399,8 @@
      settings = {
 	experimental-features = ["nix-command" "flakes"];
 	auto-optimise-store = true;
+	substituters = ["https://hyprland.cachix.org"];
+	trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
   };
 }
