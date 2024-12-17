@@ -14,7 +14,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
     #nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
-    apple-silicon-support.url = "github:zzywysm/nixos-asahi";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
 
     #nur.url = "github:nix-community/NUR";
     sops-nix.url = "github:Mic92/sops-nix";
