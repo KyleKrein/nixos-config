@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, inputs, ... }:
 {
     imports = [
 	inputs.impermanence.nixosModules.home-manager.impermanence
@@ -11,6 +11,8 @@
       "Documents"
       "Videos"
       "VirtualBox VMs"
+      "Git"
+      "blender"
       ".gnupg"
       ".ssh"
       ".nixops"

@@ -79,7 +79,7 @@
 	#	};
 	 #  };
            modules = [
-		inputs.impermanence.nixosModules.impermamence
+		inputs.impermanence.nixosModules.impermanence
 		inputs.disko.nixosModules.default
 		(import ./nixos/modules/disko/impermanence-disko.nix { device = "/dev/nvme0n1"; } )
 		./nixos/modules/impermanence

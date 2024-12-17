@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
 
     fileSystems."/persist".neededForBoot = true;
