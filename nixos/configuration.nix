@@ -14,7 +14,7 @@
     kylekrein.services.autoUpgrade = {
 	enable = true;
 	pushUpdates = if hwconfig.hostname == "${username}-homepc" then true else false;
-	configDir = "${if hwconfig.useImpermanence then "/persist/nixos-config" else "/home/${username}/nixos-config"}";
+	configDir = "/home/${username}/nixos-config";
 	user = username;
     };
   
@@ -248,7 +248,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "${if hwconfig.useImpermanence then "/persist/nixos-config" else "/home/${username}/nixos-config"}";
+    flake = "/home/${username}/nixos-config";
   };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
