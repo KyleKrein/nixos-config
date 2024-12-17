@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, username, ... }:
 {
 
     fileSystems."/persist".neededForBoot = true;
@@ -18,6 +18,11 @@
 	{ file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
 	];
     };
+    systemd.tmpfiles.rules = {
+	"d /persist/home/ 1777 root root -" # /persist/home created, owned by root
+	"d /persist/home/${username} 0770 ${username} users -" # /persist/home/<user> created, owned by that user
+	"d /persist/nixos-config/ 0770 ${username} users -"
+    }
 
     programs.fuse.userAllowOther = true;
     boot.initrd.postDeviceCommands = lib.mkAfter ''
