@@ -17,6 +17,7 @@
 	"/etc/machine-id"
 	{ file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
 	];
+	"/etc/shadow"
     };
     systemd.tmpfiles.rules = [
 	"d /persist/home/ 0777 root root -" # /persist/home created, owned by root
