@@ -1,4 +1,4 @@
-{ config, pkgs, stylix, hwconfig, username, inputs, ... }:
+{ config, pkgs, stylix, hwconfig, first-nixos-install, username, inputs, ... }:
 
   let
   #nur = import (builtins.fetchTarball {
@@ -17,7 +17,7 @@
 	./nixvim
 	./fastfetch
 	#"${if hostname != "nixosbtw" then ./macos/homemac.nix else ./empty.nix }"
-    ];
+    ] ++ if hwconfig.useImpermanence then [ ./modules/impermanence/home.nix ] else [];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;

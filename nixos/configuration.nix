@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, stylix, hwconfig, username, nixvim, inputs, ... }:
+{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, username, nixvim, inputs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -314,7 +314,7 @@
   };
 
   home-manager = {
-	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit username; inherit nixvim; inherit inputs;};
+	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit username; inherit first-nixos-install; inherit nixvim; inherit inputs;};
 	users = {
 		"${username}" = import ./home.nix;
 	};

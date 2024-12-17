@@ -1,3 +1,4 @@
+{ hwconfig, first-nixos-install, ... }:
 {
   programs.fastfetch = {
     enable = true;
@@ -84,14 +85,14 @@
           "break"
           {
               type = "custom";
-              format = "┌────────────────────Uptime / Age────────────────────┐";
+              format = "┌────────────────────Age / Uptime────────────────────┐";
           }
           {
               type = "command";
               key = "│  ";
               text = #bash
               ''
-                birth_install=$(stat -c %W /)
+                birth_install=${if hwconfig.useImpermanence then "${first-nixos-install}" else "$(stat -c %W /)"}
                 current=$(date +%s)
                 delta=$((current - birth_install))
                 delta_days=$((delta / 86400))

@@ -17,11 +17,19 @@
     apple-silicon-support.url = "github:zzywysm/nixos-asahi";
 
     #nur.url = "github:nix-community/NUR";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {
 	url = "github:nix-community/home-manager";
 	inputs.nixpkgs.follows = "nixpkgs";
     };
+
+     disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = { self, nixpkgs, stylix, nixvim, ... }@inputs:
@@ -37,6 +45,15 @@
        arm = "aarch64-linux";
        x86 = "x86_64-linux";
        username = "kylekrein";
+
+       general-modules = [
+	    #inputs.sops-nix.nixosModules.sops
+	    inputs.home-manager.nixosModules.default
+	    stylix.nixosModules.stylix
+
+       ];
+
+       first-nixos-install = "1729112485"; #stat -c %W /
     in
     {
       nixosConfigurations = {
@@ -47,8 +64,10 @@
 		hostname = "${username}-homepc";
 		isLaptop = false;
 		system = x86;
+		useImpermanence = true;
 	    };
 	    inherit username;
+	    inherit first-nixos-install;
 	   inherit inputs; };
            
            system = x86;
@@ -60,15 +79,17 @@
 	#	};
 	 #  };
            modules = [
+		inputs.impermanence.nixosModules.impermamence
+		inputs.disko.nixosModules.default
+		(import ./nixos/modules/disko/impermanence-disko.nix { device = "/dev/nvme0n1"; } )
+		./nixos/modules/impermanence
 	   	#nur.nixosModules.nur
                	./nixos/configuration.nix
 		./nixos/nvidia.nix
 		./nixos/homepc-hardware-conf.nix
-	       	inputs.home-manager.nixosModules.default
-		stylix.nixosModules.stylix
 		./nixos/libvirt.nix
 		#nix-flatpak.nixosModules.default
-	   ];
+	   ] ++ general-modules;
         };
         "${username}-mac" = nixpkgs.lib.nixosSystem {
            specialArgs = { 
@@ -76,8 +97,10 @@
 		hostname = "${username}-mac";
 		isLaptop = true;
 		system = arm;
+		useImpermanence = false;
 	    };
 	    inherit username;
+	    inherit first-nixos-install;
 	   inherit inputs; };
            
            system = arm;
@@ -96,9 +119,7 @@
 		inputs.apple-silicon-support.nixosModules.default
 		./nixos/mac-hardware-conf.nix
 		./nixos/macos/configuration.nix
-	       	inputs.home-manager.nixosModules.default
-		stylix.nixosModules.stylix
-	   ];
+	   ] ++ general-modules;
         };
       };
     };
