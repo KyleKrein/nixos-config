@@ -87,6 +87,7 @@
     isNormalUser = true;
     description = "Aleksandr Lebedev";
     extraGroups = [ "networkmanager" "wheel" ];
+    initialPassword = "1234";
     packages = with pkgs; [];
   };
 
