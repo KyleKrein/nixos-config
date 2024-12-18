@@ -10,6 +10,15 @@ Rebuild system
 nh os switch
 ~~~
 
+Generate hardware report
+~~~
+sudo nix run \
+  --option experimental-features "nix-command flakes" \
+  --option extra-substituters https://numtide.cachix.org \
+  --option extra-trusted-public-keys numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE= \
+  github:numtide/nixos-facter -- -o facter.json
+~~~
+
 ## Install system
 Assuming that you're in nixos installer
 ~~~

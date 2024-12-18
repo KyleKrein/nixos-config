@@ -11,7 +11,9 @@
       ./firefox.nix
       ./modules/services/autoupgrade
       ./modules/sops
+      ./hosts/${hwconfig.hostname}
     ];
+    facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
     kylekrein.services.autoUpgrade = {
 	enable = true;
 	pushUpdates = if hwconfig.hostname == "${username}-homepc" then true else false;

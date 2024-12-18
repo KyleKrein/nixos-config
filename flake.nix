@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs = {
     	url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-
     };
     nixvim = {
 	url = "github:nix-community/nixvim";
@@ -28,6 +26,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     
     impermanence.url = "github:nix-community/impermanence";
   };
@@ -50,7 +49,7 @@
 	    inputs.sops-nix.nixosModules.sops
 	    inputs.home-manager.nixosModules.default
 	    stylix.nixosModules.stylix
-
+	    inputs.nixos-facter-modules.nixosModules.facter
        ];
 
        first-nixos-install = "1729112485"; #stat -c %W /
@@ -86,7 +85,7 @@
 	   	#nur.nixosModules.nur
                	./nixos/configuration.nix
 		./nixos/nvidia.nix
-		./nixos/homepc-hardware-conf.nix
+		#./nixos/homepc-hardware-conf.nix
 		./nixos/libvirt.nix
 		#nix-flatpak.nixosModules.default
 	   ] ++ general-modules;
