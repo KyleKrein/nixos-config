@@ -108,7 +108,7 @@
 	extraConfig = {
 		credential.helper = "manager";#"${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
 		credential."https://github.com".username = "KyleKrein";
-		credential.credentialStore = "cache";
+		credential.credentialStore = "plaintext";
 	};
   };
 
