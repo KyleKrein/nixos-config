@@ -95,11 +95,15 @@
 	    isNormalUser = true;
 	    description = "Aleksandr Lebedev";
 	    extraGroups = [ "networkmanager" "wheel" ];
-	    #initialPassword = "1234";
-	    hashedPasswordFile = config.sops.secrets."users/${username}".path;
+	    initialPassword = "1234";
 	    packages = with pkgs; [];
 	    };
 	};
+	#test = {
+	#    isNormalUser = true;
+	#    initialPassword = "1234";
+	#    extraGroups = [ "networkmanager" ];
+	#};
   };
 
   qt = {
