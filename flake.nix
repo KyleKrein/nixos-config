@@ -115,9 +115,10 @@
 	#	};
 	 # };
            modules = [
-               	./nixos/configuration.nix
-		inputs.apple-silicon-support.nixosModules.default
 		inputs.impermanence.nixosModules.impermanence
+               	./nixos/configuration.nix
+		./nixos/modules/impermanence
+		inputs.apple-silicon-support.nixosModules.default
 		./nixos/mac-hardware-conf.nix
 		./nixos/macos/configuration.nix
 	   ] ++ general-modules;

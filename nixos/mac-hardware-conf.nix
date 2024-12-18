@@ -14,13 +14,15 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "none";
+    device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "defaults" "size = 3G" "mode = 755" ];
+    options = [ "defaults" "size=3G" "mode=755" ];
   };
   fileSystems."/persist" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
+      depends = [ "/" ];
+      neededForBoot = true;
     };
   fileSystems."/nix" = {
     device = "/persist/nix";
@@ -30,7 +32,7 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/EFI\\x20-\\x20NIXOS";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      #options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
