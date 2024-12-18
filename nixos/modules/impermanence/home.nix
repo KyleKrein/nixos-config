@@ -23,6 +23,7 @@
 	    directory = ".local/share/Steam";
 	    method = "symlink";
 	}
+	".steam"
 	".mozilla"
 	".local/share/TelegramDesktop"
 	".config/solaar"
