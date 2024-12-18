@@ -47,7 +47,7 @@
        username = "kylekrein";
 
        general-modules = [
-	    #inputs.sops-nix.nixosModules.sops
+	    inputs.sops-nix.nixosModules.sops
 	    inputs.home-manager.nixosModules.default
 	    stylix.nixosModules.stylix
 

@@ -15,8 +15,6 @@
     ];
     files = [
 	"/etc/machine-id"
-	"/etc/shadow"
-	"/etc/passwd"
 	{ file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
 	];
     };

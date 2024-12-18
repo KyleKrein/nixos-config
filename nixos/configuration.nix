@@ -10,6 +10,7 @@
       inputs.nixvim.nixosModules.nixvim
       ./firefox.nix
       ./modules/services/autoupgrade
+      ./modules/sops
     ];
     kylekrein.services.autoUpgrade = {
 	enable = true;
@@ -82,13 +83,23 @@
   
   services.udisks2.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${username} = {
-    isNormalUser = true;
-    description = "Aleksandr Lebedev";
-    extraGroups = [ "networkmanager" "wheel" ];
-    initialPassword = "1234";
-    packages = with pkgs; [];
+  users = {
+    mutableUsers = false;
+    users = {
+	root = {
+	    # disable root login here, and also when installing nix by running nixos-install --no-root-passwd
+	    # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/3
+	    hashedPassword = "!";  # disable root logins, nothing hashes to !
+	};
+	${username} = {
+	    isNormalUser = true;
+	    description = "Aleksandr Lebedev";
+	    extraGroups = [ "networkmanager" "wheel" ];
+	    #initialPassword = "1234";
+	    hashedPasswordFile = config.sops.secrets."users/${username}".path;
+	    packages = with pkgs; [];
+	    };
+	};
   };
 
   qt = {
