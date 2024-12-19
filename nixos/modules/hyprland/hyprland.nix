@@ -13,7 +13,7 @@ in
 		enable = true;
 		xwayland.enable = true;
 		settings = {
-			monitor = if hwconfig.hostname == "${username}-homepc" then [
+			monitor = if hwconfig.hostname == "kylekrein-homepc" then [
 				"DP-1,2560x1440@75,1600x0,1.6"
 				"DP-3,2560x1440@75,0x0,1.6"
 			] else [",highres,auto,1.6"]

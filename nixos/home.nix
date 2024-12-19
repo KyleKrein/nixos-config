@@ -13,11 +13,12 @@
 {
   imports =
     [
-	./hyprland/hyprland.nix
-	./nixvim
-	./fastfetch
+	./modules/hyprland
+	./modules/nixvim
+	./modules/fastfetch
+	./homes/${username}
 	#"${if hostname != "nixosbtw" then ./macos/homemac.nix else ./empty.nix }"
-    ] ++ (if hwconfig.useImpermanence then [ ./modules/impermanence/home.nix ] else []);
+    ] ++ (if hwconfig.useImpermanence then [ (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } ) ] else []);
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
@@ -101,44 +102,7 @@
       #Also available: Catppuccin-Frappe Catppuccin-Latte Catppuccin-Macchiato Catppuccin-Mocha
       # See all available kitty themes at: https://github.com/kovidgoyal/kitty-themes/blob/46d9dfe230f315a6a0c62f4687f6b3da20fd05e4/themes.json
     };
-  programs.git = {
-	enable = true;
-	userName = "Aleksandr Lebedev";
-	userEmail = "alex.lebedev2003@icloud.com";
-	extraConfig = {
-		credential.helper = "manager";#"${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
-		credential."https://github.com".username = "KyleKrein";
-		credential.credentialStore = "plaintext";
-	};
-  };
-
   
-  #gtk = {
-#	  enable = true;
-#	  cursorTheme.name = "Bibata-Modern-Ice";
-#	  cursorTheme.package = pkgs.bibata-cursors;
-#	  theme.package = pkgs.adw-gtk3;
-#	  theme.name = "adw-gtk3";
-#	  iconTheme.package = gruvboxPlus;
-#	  iconTheme.name = "GruvboxPlus";
- # };
-
-  #programs.firefox = {
-  #enable = true;
-  #profiles."kylekrein".extensions = with nur.repos.rycee.firefox-addons; [
-   # ublock-origin
-    #darkreader
-    #videospeed
-    #auto-tab-discard
-    #privacy-badger
-    #sponsorblock
-  #];
-  #profiles.default = {
-  #  id = 0;
-  #  name = "Default";
-  #  isDefault = true;
-  #};
-#};
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

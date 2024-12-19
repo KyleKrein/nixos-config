@@ -1,4 +1,4 @@
-{ lib, username, ... }:
+{ lib, ... }:
 {
 
     fileSystems."/persist".neededForBoot = true;
@@ -20,7 +20,7 @@
     };
     systemd.tmpfiles.rules = [
 	"d /persist/home/ 0777 root root -" # /persist/home created, owned by root
-	"d /persist/home/${username} 0700 ${username} users -" # /persist/home/<user> created, owned by that user
+	#"d /persist/home/${username} 0700 ${username} users -" # /persist/home/<user> created, owned by that user
 	#"d /persist/nixos-config 0700 ${username} users -"
     ];
 

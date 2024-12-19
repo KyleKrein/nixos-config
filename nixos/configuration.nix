@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, username, nixvim, inputs, ... }:
+{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, nixvim, inputs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.default
       inputs.nixvim.nixosModules.nixvim
-      ./firefox.nix
+      ./modules/firefox
       ./modules/services/autoupgrade
       ./modules/sops
       ./hosts/${hwconfig.hostname}
@@ -16,9 +16,9 @@
     facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
     kylekrein.services.autoUpgrade = {
 	enable = true;
-	pushUpdates = if hwconfig.hostname == "${username}-homepc" then true else false;
-	configDir = "/home/${username}/nixos-config";
-	user = username;
+	pushUpdates = if hwconfig.hostname == "kylekrein-homepc" then true else false;
+	configDir = "/etc/nixos-config";
+	user = "root";
     };
   
   boot = { 
@@ -27,7 +27,7 @@
     };
     loader = {
 	systemd-boot.enable = true;
-	efi.canTouchEfiVariables = if hwconfig.hostname != "${username}-mac" then true else false;
+	efi.canTouchEfiVariables = if hwconfig.hostname != "kylekrein-mac" then true else false;
     };
     # Enable "Silent Boot"
     consoleLogLevel = 0;
@@ -93,19 +93,7 @@
 	    # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/3
 	    hashedPassword = "!";  # disable root logins, nothing hashes to !
 	};
-	${username} = {
-	    isNormalUser = true;
-	    description = "Aleksandr Lebedev";
-	    extraGroups = [ "networkmanager" "wheel" ];
-	    initialPassword = "1234";
-	    packages = with pkgs; [];
-	    };
-	};
-	#test = {
-	#    isNormalUser = true;
-	#    initialPassword = "1234";
-	#    extraGroups = [ "networkmanager" ];
-	#};
+    };
   };
 
   qt = {
@@ -265,7 +253,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/${username}/nixos-config";
+    flake = "/etc/nixos-config";
   };
   #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
   # This fixes the unpopulated MIME menus
@@ -332,14 +320,11 @@
   };
 
   home-manager = {
-	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit username; inherit first-nixos-install; inherit nixvim; inherit inputs;};
-	users = {
-		"${username}" = import ./home.nix;
-	};
+	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit first-nixos-install; inherit nixvim; inherit inputs;};
   };
   stylix = {
   	enable = true;
-  	image = "${./hyprland/wallpaper.jpg}";
+  	image = "${./modules/hyprland/wallpaper.jpg}";
 	autoEnable = true;
 	opacity = {
 		desktop = 0.5;
