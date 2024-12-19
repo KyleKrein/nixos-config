@@ -113,9 +113,6 @@
 		      inputs.impermanence.nixosModules.impermanence
 			  ./nixos/configuration.nix
 			  ./nixos/modules/impermanence
-			  inputs.apple-silicon-support.nixosModules.default
-			  ./nixos/hosts/kylekrein-mac/mac-hardware-conf.nix
-			  ./nixos/hardware/macos/configuration.nix
 		  ] ++ general-modules;
 	      };
 	  };

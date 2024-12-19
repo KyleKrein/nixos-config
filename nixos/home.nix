@@ -1,14 +1,6 @@
 { config, pkgs, stylix, hwconfig, first-nixos-install, username, inputs, ... }:
 
   let
-  #nur = import (builtins.fetchTarball {
-  # Get the revision by choosing a version from https://github.com/nix-community/NUR/commits/master
-  #url = "https://github.com/nix-community/NUR/archive/e7fee426abaf126e6bfb6c84f710f57f0e83491c.tar.gz";
-  # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
- #sha256 = "01wx2il71dnsvviqphpdykr6h0hazf6x28ml7xrpr8fdkg1lvpjs";
-#}) pkgs {};
-
-  # gruvboxPlus = import ./gruvbox-plus.nix {inherit pkgs;};
   in
 {
   imports =
@@ -17,7 +9,6 @@
 	./modules/nixvim
 	./modules/fastfetch
 	./homes/${username}
-	#"${if hostname != "nixosbtw" then ./macos/homemac.nix else ./empty.nix }"
     ] ++ (if hwconfig.useImpermanence then [ (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } ) ] else []);
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
