@@ -1,15 +1,15 @@
-{ config, pkgs, stylix, hwconfig, first-nixos-install, username, inputs, ... }:
+{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, username, inputs, ... }:
 
   let
   in
 {
   imports =
     [
-	./modules/hyprland
 	./modules/nixvim
 	./modules/fastfetch
-	./homes/${username}
-    ] ++ (if hwconfig.useImpermanence then [ (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } ) ] else []);
+    ] ++ (if hwconfig.useImpermanence then [ (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } ) ] else [])
+    ++ (if config.programs.hyprland.enable then [./modules/hyprland/home.nix] else [])
+    ++ lib.optional (builtins.pathExists ./homes/${username}) ./homes/${username};
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;

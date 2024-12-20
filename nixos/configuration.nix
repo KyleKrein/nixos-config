@@ -119,6 +119,10 @@
      })
      nix-output-monitor
 
+     fd
+     (pkgs.writeShellScriptBin "root-files" ''
+     sudo ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
+     '') #https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
      gparted
      exfatprogs
      kitty
@@ -137,32 +141,14 @@
      fastfetch
      firefox
      telegram-desktop
-     waybar
-     swaynotificationcenter
-     libnotify
-     swww
      vlc
-     wofi
      wl-clipboard
      git
      git-credential-manager
-     hyprpicker
-     networkmanagerapplet
      egl-wayland
      kitty-themes
      btop
-     hyprlock
-     wlogout
-     hypridle
      solaar
-     pavucontrol
-     brightnessctl
-     satty
-     grim
-     slurp
-     clipse
-     libheif #https://github.com/NixOS/nixpkgs/issues/164021
-     libheif.out
      blender
 
      #kde
@@ -199,40 +185,14 @@
      kdePackages.kimageformats
      kdePackages.dolphin
      kdePackages.dolphin-plugins
-
-
      # user packages
      obs-studio
      vesktop
      vscode-fhs
-
-     # development
-     #clang_18
-     #dotnetCorePackages.sdk_8_0_3xx
   ];
   programs.kdeconnect.enable = true;
-  programs.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
-  programs.hyprlock.enable = true;
+  programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
 
-  xdg = {
-	menus.enable = true;
-	mime.enable = true;
-  };
-  xdg.portal = {
-    enable = true;
-    config = {
-      hyprland = {
-        default = [
-          "hyprland"
-          "kde"
-        ];
-      };
-    };
-    configPackages = with pkgs; [
-      xdg-desktop-portal-hyprland
-      kdePackages.xdg-desktop-portal-kde
-    ];
-  };
 
   programs.nixvim = {
 	enable = true;
@@ -255,13 +215,6 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/etc/nixos-config";
   };
-  #https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/3
-  # This fixes the unpopulated MIME menus
-  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-  environment.etc."/xdg/menus/applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-  environment.pathsToLink = [
-	"share/thumbnailers"
-  ];
   fonts.packages = with pkgs; [ 
      	nerd-fonts.jetbrains-mono
 	font-awesome
@@ -293,7 +246,7 @@
 
 
   programs.steam = {
- 	enable = if hwconfig.system == "x86_64-linux" then true else false;
+ 	enable = (hwconfig.system == "x86_64-linux");
  	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
  	dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   	localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
@@ -382,15 +335,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
   
-  programs.hyprland = {
-  	enable = true;
-  	package = inputs.hyprland.packages."${hwconfig.system}".hyprland;
-	portalPackage = inputs.hyprland.packages.${hwconfig.system}.xdg-desktop-portal-hyprland;
-  	xwayland.enable = true;
-	systemd.setPath.enable = true;
-  };
-  services.hypridle.enable = true;
-
   services.xserver.enable = true;
   services.displayManager.sddm = {
 	enable = true;
@@ -402,8 +346,8 @@
      settings = {
 	experimental-features = ["nix-command" "flakes"];
 	auto-optimise-store = true;
-	substituters = ["https://hyprland.cachix.org"];
-	trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+	substituters = ["https://hyprland.cachix.org" "https://nix-gaming.cachix.org" ];
+	trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
     };
   };
 }

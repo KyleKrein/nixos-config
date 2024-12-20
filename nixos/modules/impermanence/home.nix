@@ -21,12 +21,13 @@
 	".local/share/direnv"
 	{
 	    directory = ".local/share/Steam";
-	    method = "symlink";
+	    #method = "symlink";
 	}
 	".steam"
 	".mozilla"
 	".local/share/TelegramDesktop"
 	".config/solaar"
+	".config/kdeconnect"
     ];
     files = [
       ".screenrc"

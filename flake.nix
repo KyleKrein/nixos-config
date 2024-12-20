@@ -28,6 +28,8 @@
     };
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     impermanence.url = "github:nix-community/impermanence";
   };
 
