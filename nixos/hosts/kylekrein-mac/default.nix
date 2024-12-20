@@ -5,7 +5,7 @@
 	./mac-hardware-conf.nix
 	../../hardware/macos/configuration.nix
 
-
+	../../modules/hyprland
 
 	../../users/kylekrein
     ];
