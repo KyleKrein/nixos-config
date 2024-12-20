@@ -33,7 +33,7 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, nixpkgs, stylix, nixvim, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
       let
 #systems = ["aarch64-linux" "x86_64-linux" ];
 #forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -43,17 +43,10 @@
 #      allowUnfree = true;	     
 #   };
 #};
-      arm = "aarch64-linux";
-  x86 = "x86_64-linux";
+    arm = "aarch64-linux";
+    x86 = "x86_64-linux";
 
-  general-modules = [
-      inputs.sops-nix.nixosModules.sops
-	  inputs.home-manager.nixosModules.default
-	  stylix.nixosModules.stylix
-	  inputs.nixos-facter-modules.nixosModules.facter
-  ];
-
-  first-nixos-install = "1729112485"; #stat -c %W /
+    first-nixos-install = "1729112485"; #stat -c %W /
       in
       {
 	  nixosConfigurations = {
@@ -78,16 +71,10 @@
 #	};
 #  };
 		  modules = [
-		      inputs.impermanence.nixosModules.impermanence
-			  inputs.disko.nixosModules.default
 			  (import ./nixos/modules/disko/impermanence-disko.nix { device = "/dev/nvme0n1"; } )
-			  ./nixos/modules/impermanence
-#nur.nixosModules.nur
 			  ./nixos/configuration.nix
-			  ./nixos/hardware/nvidia.nix
-#./nixos/homepc-hardware-conf.nix
 #nix-flatpak.nixosModules.default
-		  ] ++ general-modules;
+		  ];
 	      };
 	      "kylekrein-mac" = nixpkgs.lib.nixosSystem {
 		  specialArgs = { 
@@ -112,10 +99,8 @@
 #	};
 # };
 		  modules = [
-		      inputs.impermanence.nixosModules.impermanence
 			  ./nixos/configuration.nix
-			  ./nixos/modules/impermanence
-		  ] ++ general-modules;
+		  ];
 	      };
 	  };
       };

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, hwconfig, inputs, stylix, first-nixos-install, ... }:
+{ pkgs, config, lib, hwconfig, inputs, first-nixos-install, ... }:
 let username = "tania";
 in
 {
@@ -20,6 +20,6 @@ in
 	};
     };
 
-    home-manager.users."${username}" = import ../../home.nix { inherit lib; inherit username; inherit inputs; inherit stylix; inherit first-nixos-install; inherit hwconfig; inherit config; inherit pkgs; };
+    home-manager.users."${username}" = import ../../home.nix { inherit lib; inherit username; inherit inputs; inherit first-nixos-install; inherit hwconfig; inherit config; inherit pkgs; };
     systemd.tmpfiles.rules = (if hwconfig.useImpermanence then ["d /persist/home/${username} 0700 ${username} users -"] else []); # /persist/home/<user> created, owned by that user
 }

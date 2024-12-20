@@ -1,4 +1,4 @@
-{ pkgs, config, lib, hwconfig, inputs, stylix, first-nixos-install, ... }:
+{ pkgs, config, lib, hwconfig, inputs, first-nixos-install, ... }:
 let username = "kylekrein";
 in
 {
@@ -18,7 +18,7 @@ in
 	};
     };
 
-    home-manager.users."${username}" = import ../../home.nix { inherit lib; inherit username; inherit inputs; inherit stylix; inherit first-nixos-install; inherit hwconfig; inherit config; inherit pkgs; };
+    home-manager.users."${username}" = import ../../home.nix { inherit lib; inherit username; inherit inputs; inherit first-nixos-install; inherit hwconfig; inherit config; inherit pkgs; };
     kylekrein.services.autoUpgrade = {
 	configDir = lib.mkForce "/home/${username}/nixos-config";
 	user = lib.mkForce username;

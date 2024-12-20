@@ -2,17 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, nixvim, inputs, ... }:
+{ config, lib, pkgs, hwconfig, first-nixos-install, inputs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
-      inputs.home-manager.nixosModules.default
-      inputs.nixvim.nixosModules.nixvim
-      ./modules/firefox
-      ./modules/services/autoupgrade
-      ./modules/sops
-      ./hosts/${hwconfig.hostname}
-    ];
+    [
+	inputs.sops-nix.nixosModules.sops
+	inputs.home-manager.nixosModules.default
+	inputs.stylix.nixosModules.stylix
+	inputs.nixos-facter-modules.nixosModules.facter
+	inputs.home-manager.nixosModules.default
+	inputs.nixvim.nixosModules.nixvim
+	inputs.disko.nixosModules.default
+
+	./modules/firefox
+	./modules/services/autoupgrade
+	./modules/sops
+	./hosts/${hwconfig.hostname}
+    ]
+    ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
     facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
     kylekrein.services.autoUpgrade = {
 	enable = true;
@@ -22,6 +29,8 @@
     };
   
   boot = { 
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
     plymouth = {
 	enable = true;
     };
@@ -273,7 +282,7 @@
   };
 
   home-manager = {
-	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit first-nixos-install; inherit nixvim; inherit inputs;};
+	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit first-nixos-install; inherit inputs;};
   };
   stylix = {
   	enable = true;

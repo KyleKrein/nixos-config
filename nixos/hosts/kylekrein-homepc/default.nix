@@ -1,6 +1,8 @@
 { pkgs, lib, hwconfig, inputs, ... }:
 {
     imports = [
+	../../hardware/nvidia
+
 	../../modules/hyprland
 	
 	../../modules/libvirt

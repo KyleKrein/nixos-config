@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stylix, hwconfig, first-nixos-install, username, inputs, ... }:
+{ config, lib, pkgs, hwconfig, first-nixos-install, username, inputs, ... }:
 
   let
   in
