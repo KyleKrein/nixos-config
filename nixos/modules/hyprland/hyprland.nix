@@ -39,6 +39,7 @@ in
 				"${pkgs.clipse}/bin/clipse -listen &"
 				"${pkgs.swww}/bin/swww-daemon &"
 				"${pkgs.swww}/bin/swww img ${wallpaper-image} &"
+				#"${pkgs.kando}/bin/kando"
 			];
 			exec = [
 
@@ -64,6 +65,7 @@ in
 				"$mod, F, fullscreen,"
 				"$mod, R, exec, $menu"
 				"$mod, V, exec, $clipboardManager"
+				#"CTRL, SPACE, global, kando:example-menu"
 				"$mod SHIFT, I, exec, source ${toggle_monitors}"
 				"$mod SHIFT, O, exec, hyprctl dispatch dpms on"
 				# Move focus with mainMod + arrow keys
@@ -159,6 +161,17 @@ in
 
 			};
 
+			windowrule = [
+				#kando
+				"noblur, kando"
+				"opaque, kando"
+				"size 100% 100%, kando"
+				"noborder, kando"
+				"noanim, kando"
+				"float, kando"
+				"pin, kando"
+			];
+
 			windowrulev2 = [
 				# Ignore maximize requests from apps. You'll probably like this.
 				"suppressevent maximize, class:.*"
@@ -173,6 +186,7 @@ in
 				#for clipboard manager
 				"float,class:(clipse)"
 				"size 622 652,class:(clipse)" # set the size of the window as necessary
+
 			];
 
 			decoration = {

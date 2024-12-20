@@ -7,8 +7,8 @@
     [
 	./modules/nixvim
 	./modules/fastfetch
-    ] ++ (if hwconfig.useImpermanence then [ (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } ) ] else [])
-    ++ (if config.programs.hyprland.enable then [./modules/hyprland/home.nix] else [])
+    ] ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } )
+    ++ lib.optional (config.programs.hyprland.enable) ./modules/hyprland/home.nix
     ++ lib.optional (builtins.pathExists ./homes/${username}) ./homes/${username};
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -39,6 +39,17 @@
   programs.fzf = {
 	enable = true;
 	enableBashIntegration = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    icons = "always";
+  };
+
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd cd" ];
+    enableBashIntegration = true;
   };
 
   #xdg.configFile."qt5ct/qt5ct.conf".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {

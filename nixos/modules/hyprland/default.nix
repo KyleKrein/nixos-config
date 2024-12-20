@@ -1,6 +1,8 @@
 { pkgs, inputs, hwconfig, ... }:
 {
     environment.systemPackages = with pkgs; [
+	kando
+
 	kdePackages.qtwayland
 	#libsForQt5.qt5.qtwayland
 	#libsForQt5.qt5.qtsvg

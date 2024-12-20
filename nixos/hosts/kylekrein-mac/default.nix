@@ -3,7 +3,7 @@
     imports = [
 	inputs.apple-silicon-support.nixosModules.default
 	./mac-hardware-conf.nix
-	../../hardware/macos/configuration.nix
+	../../hardware/apple-silicon-linux
 
 	../../modules/hyprland
 
