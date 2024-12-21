@@ -111,11 +111,6 @@
 	style = "kvantum";
   };
 
-  # Allow unfree packages
-  nixpkgs.system = hwconfig.system;
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

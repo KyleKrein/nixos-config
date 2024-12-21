@@ -63,13 +63,16 @@
 		      inherit inputs; };
 
 		  system = x86;
-#pkgs = import nixpkgs {
-#	system = x86;
-#	config = {
-#	    allowBroken = true;
-#	    allowUnfree = true;
-#	};
-#  };
+pkgs = import nixpkgs {
+	system = x86;
+	overlays = [
+          inputs.hyprpanel.overlay
+        ];
+	config = {
+	    allowBroken = true;
+	    allowUnfree = true;
+	};
+  };
 		  modules = [
 			  (import ./nixos/modules/disko/impermanence-disko.nix { device = "/dev/nvme0n1"; } )
 			  ./nixos/configuration.nix
@@ -88,16 +91,18 @@
 		      inherit inputs; };
 
 		  system = arm;
-#pkgs = import nixpkgs {
-#	system = arm;
-#	overlays = [
-#	    (import ./nixos/macos/widevine.nix)
-#	];
-#	config = {
-#	    allowBroken = true;
-#	    allowUnfree = true;
-#	};
-# };
+pkgs = import nixpkgs {
+	system = arm;
+	overlays = [
+	    #(import ./nixos/macos/widevine.nix)
+	    inputs.hyprpanel.overlay
+	];
+	config = {
+	    allowBroken = true;
+	    allowUnfree = true;
+	    allowUnsupportedSystem = true;
+	};
+ };
 		  modules = [
 			  ./nixos/configuration.nix
 		  ];
