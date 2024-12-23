@@ -28,6 +28,7 @@
 	".local/share/TelegramDesktop"
 	".config/solaar"
 	".config/kdeconnect"
+	".config/blender"
     ];
     files = [
       ".screenrc"
