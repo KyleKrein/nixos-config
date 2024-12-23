@@ -1,4 +1,7 @@
-{ lib, inputs, ... }:
+{ config, lib, inputs, ... }:
+let 
+    isBtrfs = config.fileSystems."/".fsType == "btrfs";
+in
 {
     imports = [
 	inputs.impermanence.nixosModules.impermanence
@@ -27,7 +30,7 @@
     ];
 
     programs.fuse.userAllowOther = true;
-    boot.initrd.postDeviceCommands = lib.mkAfter ''
+    boot.initrd.postDeviceCommands = lib.mkAfter (if isBtrfs then ''
     mkdir /btrfs_tmp
     mount /dev/root_vg/root /btrfs_tmp
     if [[ -e /btrfs_tmp/root ]]; then
@@ -50,5 +53,5 @@
 
     btrfs subvolume create /btrfs_tmp/root
     umount /btrfs_tmp
-  '';
+  '' else '''');
 }
