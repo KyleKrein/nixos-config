@@ -14,6 +14,8 @@
     ];
     
     environment.systemPackages = [
+	blender
+
 	#inputs.nix-gaming.packages.${pkgs.system}.star-citizen
     ];
 

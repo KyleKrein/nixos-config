@@ -16,7 +16,7 @@
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "defaults" "size=3G" "mode=755" ];
+    options = [ "defaults" "size=8G" "mode=755" ];
   };
   fileSystems."/persist" =
     { device = "/dev/disk/by-label/nixos";
@@ -26,6 +26,11 @@
     };
   fileSystems."/nix" = {
     device = "/persist/nix";
+    options = [ "bind" ];
+    depends = [ "/persist" ];
+  };
+  fileSystems."/tmp" = {
+    device = "/persist/tmp";
     options = [ "bind" ];
     depends = [ "/persist" ];
   };

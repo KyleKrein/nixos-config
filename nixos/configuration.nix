@@ -154,7 +154,6 @@
      kitty-themes
      btop
      solaar
-     blender
 
      #kde
      kdePackages.kate
@@ -351,7 +350,7 @@
 	enable = true;
 	theme = "catppuccin-mocha";
 	package = pkgs.kdePackages.sddm;
-	wayland.enable = true;
+	wayland.enable = false;
   };
   nix = {
      settings = {
