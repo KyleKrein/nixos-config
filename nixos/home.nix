@@ -25,16 +25,16 @@
   #xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
 #	General.theme = "Catppuccin-Mocha";
  # };
- xdg.configFile = {
-    "Kvantum/kvantum.kvconfig".text = ''
-      [General]
-      theme=catppuccin-mocha
-    '';
+ #xdg.configFile = {
+ #   "Kvantum/kvantum.kvconfig".text = ''
+ #     [General]
+ #     theme=catppuccin-mocha
+ #   '';
 
     # The important bit is here, links the theme directory from the package to a directory under `~/.config`
     # where Kvantum should find it.
-    "Kvantum/catppuccin-mocha".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/catppuccin-mocha";
-  };
+   # "Kvantum/catppuccin-mocha".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/catppuccin-mocha";
+  #};
 
   programs.fzf = {
 	enable = true;
@@ -44,12 +44,6 @@
   programs.eza = {
     enable = true;
     icons = "always";
-  };
-
-  programs.zoxide = {
-    enable = true;
-    options = [ "--cmd cd" ];
-    enableBashIntegration = true;
   };
 
   #xdg.configFile."qt5ct/qt5ct.conf".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {

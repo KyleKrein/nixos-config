@@ -124,7 +124,6 @@
      killall
      nix-output-monitor
      eza
-     zoxide
      fd
      (pkgs.writeShellScriptBin "root-files" ''
      ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
@@ -352,8 +351,8 @@
 	enable = true;
 	theme = "catppuccin-mocha";
 	package = pkgs.kdePackages.sddm;
+	wayland.enable = true;
   };
- # services.displayManager.sddm.wayland.enable = true;
   nix = {
      settings = {
 	experimental-features = ["nix-command" "flakes"];
