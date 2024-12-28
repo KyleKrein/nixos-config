@@ -66,6 +66,7 @@
 pkgs = import nixpkgs {
 	system = x86;
 	overlays = [
+	inputs.hyprland.overlays.default
         ];
 	config = {
 	    allowBroken = true;
@@ -93,6 +94,7 @@ pkgs = import nixpkgs {
 pkgs = import nixpkgs {
 	system = arm;
 	overlays = [
+	    inputs.hyprland.overlays.default
 	    #(import ./nixos/macos/widevine.nix)
 	];
 	config = {

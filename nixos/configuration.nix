@@ -7,7 +7,6 @@
   imports =
     [
 	inputs.sops-nix.nixosModules.sops
-	inputs.home-manager.nixosModules.default
 	inputs.stylix.nixosModules.stylix
 	inputs.nixos-facter-modules.nixosModules.facter
 	inputs.home-manager.nixosModules.default
@@ -277,6 +276,8 @@
   };
 
   home-manager = {
+	useGlobalPkgs = true;
+	useUserPackages = true;
 	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit first-nixos-install; inherit inputs;};
   };
   stylix = {

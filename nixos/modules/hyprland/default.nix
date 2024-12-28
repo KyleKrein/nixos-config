@@ -85,7 +85,7 @@
 	    };
 	};
 	configPackages = with pkgs; [
-	    inputs.hyprland.packages.${hwconfig.system}.xdg-desktop-portal-hyprland
+	    xdg-desktop-portal-hyprland
 	    kdePackages.xdg-desktop-portal-kde
 	];
     };
@@ -100,8 +100,6 @@
 
     programs.hyprland = {
 	enable = true;
-  	package = inputs.hyprland.packages."${hwconfig.system}".hyprland;
-	portalPackage = inputs.hyprland.packages.${hwconfig.system}.xdg-desktop-portal-hyprland;
   	xwayland.enable = true;
 	systemd.setPath.enable = true;
     };

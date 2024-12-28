@@ -21,9 +21,12 @@ in
 	#    powertop.enable = true;
 	#};
 	#hardware.graphics.enable32Bit = lib.mkForce false;
-	environment.systemPackages = with pkgs; [mesa mesa.drivers 
-	#widevine-cdm 
-	#widevinecdm-aarch64
+	environment.systemPackages = with pkgs; [
+	    #mesa
+	    #mesa.drivers
+	    mesa-asahi-edge
+	    #widevine-cdm 
+	    #widevinecdm-aarch64
 	];
 
 }
