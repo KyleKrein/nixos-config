@@ -39,7 +39,7 @@ in
 				"${pkgs.clipse}/bin/clipse -listen &"
 				"${pkgs.swww}/bin/swww-daemon &"
 				"${pkgs.swww}/bin/swww img ${wallpaper-image} &"
-				"${pkgs.kando}/bin/kando"
+				#"${pkgs.kando}/bin/kando"
 			];
 			exec = [
 
@@ -65,7 +65,7 @@ in
 				"$mod, F, fullscreen,"
 				"$mod, R, exec, $menu"
 				"$mod, V, exec, $clipboardManager"
-				"CTRL, SPACE, global, kando:nix-hyprland"
+				#"CTRL, SPACE, global, kando:nix-hyprland"
 				"$mod SHIFT, I, exec, source ${toggle_monitors}"
 				"$mod SHIFT, O, exec, hyprctl dispatch dpms on"
 				# Move focus with mainMod + arrow keys

@@ -2,6 +2,6 @@
 {
     imports = [
 	./hyprland.nix
-	../kando
+	#../kando
     ];
 }
