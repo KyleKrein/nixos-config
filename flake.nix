@@ -74,7 +74,7 @@ pkgs = import nixpkgs {
 	};
   };
 		  modules = [
-			  (import ./nixos/modules/disko/impermanence-disko.nix { device = "/dev/nvme0n1"; } )
+			  (import ./nixos/modules/disko/impermanence-btrfs.nix { device = "/dev/nvme0n1"; } )
 			  ./nixos/configuration.nix
 #nix-flatpak.nixosModules.default
 		  ];

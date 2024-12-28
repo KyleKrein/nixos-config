@@ -13,7 +13,7 @@
 	../../users/tania
     ];
     
-    environment.systemPackages = [
+    environment.systemPackages = with pkgs;[
 	blender
 
 	#inputs.nix-gaming.packages.${pkgs.system}.star-citizen
