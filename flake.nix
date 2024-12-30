@@ -31,6 +31,11 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     impermanence.url = "github:nix-community/impermanence";
+
+    nix-darwin = {
+    	url = "github:LnL7/nix-darwin";
+    	inputs.nixpkgs.follows = "nixpkgs";
+	};
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -49,6 +54,12 @@
     first-nixos-install = "1729112485"; #stat -c %W /
       in
       {
+      	darwinConfigurations = {
+		"kylekrein-air" = inputs.nix-darwin.lib.darwinSystem {
+			specialArgs = { inherit self; };
+			modules = [ ./nixos/hosts/kylekrein-air ];
+		};
+	};
 	  nixosConfigurations = {
 	      "kylekrein-homepc" = nixpkgs.lib.nixosSystem {
 		  specialArgs = { 
