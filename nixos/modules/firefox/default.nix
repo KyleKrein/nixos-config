@@ -37,6 +37,10 @@
         DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
         DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
         SearchBar = "unified"; # alternative: "separate"
+	OfferToSaveLogins = false;
+	OffertosaveloginsDefault = false;
+	PasswordManagerEnabled = false;
+	NoDefaultBookmarks = true;
 
         /* ---- EXTENSIONS ---- */
         # Check about:support for extension/add-on ID strings.

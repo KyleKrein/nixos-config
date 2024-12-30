@@ -120,6 +120,7 @@
 	#background;
 	loginBackground = false;
      })
+     helvum
      killall
      nix-output-monitor
      eza
