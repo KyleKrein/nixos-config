@@ -8,6 +8,9 @@
 	enable = true;
 	colorschemes.catppuccin.enable = true;
 	plugins = {
+	    tmux-navigator = {
+		enable = true;
+	    };
 	    cmp = {
 		enable = true;
 		autoEnableSources = true;

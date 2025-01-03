@@ -7,6 +7,7 @@
     [
 	./modules/nixvim
 	./modules/fastfetch
+	./modules/tmux/home.nix
     ] ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } )
     ++ lib.optional (config.programs.hyprland.enable) ./modules/hyprland/home.nix
     ++ lib.optional (builtins.pathExists ./homes/${username}) ./homes/${username};
