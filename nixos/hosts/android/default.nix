@@ -1,22 +1,7 @@
 { pkgs, inputs, ... }:
 {
     imports = [
-	inputs.nixvim.nixosModules.nixvim
     ];
-    programs.nixvim = {
-	enable = true;
-	defaultEditor = true;
-
-	colorschemes.catppuccin.enable = true;
-	plugins = {
-		lualine.enable = true;
-	};
-
-	opts = {
-		number = true;
-		shiftwidth = 4;
-	};
-    };
     environment.packages = with pkgs;[
 	neovim
 	git
