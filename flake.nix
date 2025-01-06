@@ -36,7 +36,12 @@
     	url = "github:LnL7/nix-darwin";
     	inputs.nixpkgs.follows = "nixpkgs";
 	};
-  };
+    nix-on-droid = {
+	url = "github:nix-community/nix-on-droid";
+	inputs.nixpkgs.follows = "nixpkgs";
+	inputs.home-manager.follows = "home-manager";
+    };
+    };
 
   outputs = { self, nixpkgs, ... }@inputs:
       let
@@ -54,6 +59,14 @@
     first-nixos-install = "1729112485"; #stat -c %W /
       in
       {
+	nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+	    pkgs = import nixpkgs { system = "aarch64-linux"; overlays = [ inputs.nix-on-droid.overlays.default ]; };
+	    modules = [ ./nixos/hosts/android ];
+	    home-manager-path = inputs.home-manager.outPath;
+	    extraSpecialArgs = {
+		inherit first-nixos-install;
+	    };
+	};
       	darwinConfigurations = {
 		"kylekrein-air" = inputs.nix-darwin.lib.darwinSystem {
 			specialArgs = { inherit self; };

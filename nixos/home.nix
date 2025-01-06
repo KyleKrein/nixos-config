@@ -10,7 +10,7 @@
 	./modules/tmux/home.nix
     ] ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } )
     ++ lib.optional (config.programs.hyprland.enable) ./modules/hyprland/home.nix
-    ++ lib.optional (builtins.pathExists ./homes/${username}) ./homes/${username};
+    ++ lib.optional (builtins.pathExists ./homes/${username}) (import ./homes/${username} { inherit username; });
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;

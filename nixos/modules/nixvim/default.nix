@@ -8,6 +8,7 @@
 	enable = true;
 	colorschemes.catppuccin.enable = true;
 	plugins = {
+	    markview.enable = true;
 	    tmux-navigator = {
 		enable = true;
 	    };

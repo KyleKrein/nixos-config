@@ -120,6 +120,9 @@
 	#background;
 	loginBackground = false;
      })
+     joplin-desktop
+     kdenlive
+     super-productivity
      helvum
      killall
      nix-output-monitor
