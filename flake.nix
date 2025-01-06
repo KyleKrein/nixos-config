@@ -64,6 +64,7 @@
 	    modules = [ ./nixos/hosts/android ];
 	    home-manager-path = inputs.home-manager.outPath;
 	    extraSpecialArgs = {
+		inherit (self.nixOnDroidConfigurations.default.pkgs) lib;
 		inherit inputs;
 		inherit first-nixos-install;
 	    };
