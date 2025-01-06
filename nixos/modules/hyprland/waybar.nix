@@ -26,10 +26,13 @@
       		#"hyprland/window" 
 		"clock"
 	];
-      modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+      modules-left = [ 
+	"hyprland/workspaces"
+#	"hyprland/window"
+    ];
       modules-right = [
         "pulseaudio"
-        "network"
+        #"network"
         #"cpu"
         #"memory"
         #"temperature"
@@ -75,9 +78,9 @@
         tooltip-format = "{essid} ({signalStrength}%) ";
       };
       pulseaudio = {
-        format = "{volume}% {icon} {format_source}";
-        format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
+        format = "{volume}% {icon}  {format_source}";
+        format-bluetooth = "{volume}% {icon}   {format_source}";
+        format-bluetooth-muted = "  {icon}   {format_source}";
         format-icons = {
           car = "";
           default = [ "" "" "" ];
@@ -87,7 +90,7 @@
           phone = "";
           portable = "";
         };
-        format-muted = " {format_source}";
+        format-muted = "  {format_source}";
         format-source = "{volume}% ";
         format-source-muted = "";
         on-click = "pavucontrol";
