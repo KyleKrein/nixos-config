@@ -64,6 +64,7 @@
 	    modules = [ ./nixos/hosts/android ];
 	    home-manager-path = inputs.home-manager.outPath;
 	    extraSpecialArgs = {
+		inherit inputs;
 		inherit first-nixos-install;
 	    };
 	};
