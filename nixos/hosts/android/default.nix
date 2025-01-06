@@ -7,7 +7,10 @@
 	fastfetch
     ];
     
-    home-manager.config = ./home.nix;
+    home-manager = {
+	config = ./home.nix;
+	useGlobalPkgs = true;
+    };
 
     system.stateVersion = "24.05";
 }
