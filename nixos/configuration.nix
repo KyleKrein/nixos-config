@@ -122,6 +122,8 @@
      joplin-desktop
      kdenlive
      super-productivity
+     system-config-printer
+     libreoffice
      helvum
      killall
      nix-output-monitor
@@ -300,6 +302,15 @@
 	ls = "${pkgs.eza}/bin/eza --icons=always";
     };
   };
+
+  #printing
+  services.printing.enable = true;
+  services.avahi = {
+  enable = true;
+  nssmdns4 = true;
+  openFirewall = true;
+};
+
 
   #services.flatpak.enable = true;
   #services.flatpak.packages = [
