@@ -639,11 +639,11 @@
       },
       "locked": {
         "dir": "nixos/modules/neovim",
-        "lastModified": 1736202585,
-        "narHash": "sha256-1GCCwcb7Zf/dUCRBw8OLKGcvN5qypAHqkJdcBf5ANpA=",
+        "lastModified": 1736204012,
+        "narHash": "sha256-vfhrQ5M887eQ5pb2/6azQE+NzlphHAIZPEBqBF7ozAc=",
         "owner": "kylekrein",
         "repo": "nixos-config",
-        "rev": "b66cb9f49d20914e0ca1aea0e0ee109790c47e17",
+        "rev": "cbbe4aea64911e2eb34b603106137e3969695e50",
         "type": "github"
       },
       "original": {
