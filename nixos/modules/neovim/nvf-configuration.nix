@@ -7,8 +7,8 @@
     spellcheck.enable = true;
     viAlias = true;
     vimAlias = true;
-    shiftwidth = 4;
-    tabstop = 4;
+    shiftwidth = 16;
+    tabstop = 16;
     useSystemClipboard = true;
     lineNumberMode = "number";
 

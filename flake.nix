@@ -6,7 +6,7 @@
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
     neovim = {
-      url = "path:nixos/modules/neovim";
+      url = "github:kylekrein/nixos-config?dir=nixos/modules/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
@@ -75,7 +75,10 @@
     };
     darwinConfigurations = {
       "kylekrein-air" = inputs.nix-darwin.lib.darwinSystem {
-        specialArgs = {inherit self;};
+        specialArgs = {
+          inherit self;
+          inherit inputs;
+        };
         modules = [./nixos/hosts/kylekrein-air];
       };
     };
