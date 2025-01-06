@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
     imports = [
-	../../modules/nixvim
+	#../../modules/nixvim
     ];
 }
