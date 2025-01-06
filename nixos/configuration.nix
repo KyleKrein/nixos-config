@@ -10,7 +10,6 @@
 	inputs.stylix.nixosModules.stylix
 	inputs.nixos-facter-modules.nixosModules.facter
 	inputs.home-manager.nixosModules.default
-	inputs.nixvim.nixosModules.nixvim
 	inputs.disko.nixosModules.default
 
 	./modules/firefox
@@ -196,25 +195,10 @@
      obs-studio
      vesktop
      vscode-fhs
+     inputs.neovim.packages.${hwconfig.system}.default
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
-
-
-  programs.nixvim = {
-	enable = true;
-	defaultEditor = true;
-
-	colorschemes.catppuccin.enable = true;
-	plugins = {
-		lualine.enable = true;
-	};
-
-	opts = {
-		number = true;
-		shiftwidth = 4;
-	};
-  };
 
   programs.nh = {
     enable = true;

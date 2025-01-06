@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
     imports = [
-	../../modules/nixvim
+	#../../modules/nixvim
     ];
 
     home.stateVersion = "24.05";

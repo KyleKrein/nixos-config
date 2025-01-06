@@ -5,7 +5,6 @@
 {
   imports =
     [
-	./modules/nixvim
 	./modules/fastfetch
 	./modules/tmux/home.nix
     ] ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } )
