@@ -1,40 +1,52 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, hwconfig, first-nixos-install, inputs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  hwconfig,
+  first-nixos-install,
+  inputs,
+  ...
+}: {
   imports =
     [
-	inputs.sops-nix.nixosModules.sops
-	inputs.stylix.nixosModules.stylix
-	inputs.nixos-facter-modules.nixosModules.facter
-	inputs.home-manager.nixosModules.default
-	inputs.disko.nixosModules.default
+      inputs.sops-nix.nixosModules.sops
+      inputs.stylix.nixosModules.stylix
+      inputs.nixos-facter-modules.nixosModules.facter
+      inputs.home-manager.nixosModules.default
+      inputs.disko.nixosModules.default
 
-	./modules/firefox
-	./modules/services/autoupgrade
-	./modules/sops
-	./hosts/${hwconfig.hostname}
+      ./modules/firefox
+      ./modules/services/autoupgrade
+      ./modules/sops
+      ./hosts/${hwconfig.hostname}
     ]
     ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
-    facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
-    kylekrein.services.autoUpgrade = {
-	enable = true;
-	pushUpdates = if hwconfig.hostname == "kylekrein-homepc" then true else false;
-	configDir = "/etc/nixos-config";
-	user = "root";
-    };
-  
-  boot = { 
+  facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
+  kylekrein.services.autoUpgrade = {
+    enable = true;
+    pushUpdates =
+      if hwconfig.hostname == "kylekrein-homepc"
+      then true
+      else false;
+    configDir = "/etc/nixos-config";
+    user = "root";
+  };
+
+  boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     plymouth = {
-	enable = true;
+      enable = true;
     };
     loader = {
-	systemd-boot.enable = true;
-	efi.canTouchEfiVariables = if hwconfig.hostname != "kylekrein-mac" then true else false;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables =
+        if hwconfig.hostname != "kylekrein-mac"
+        then true
+        else false;
     };
     # Enable "Silent Boot"
     consoleLogLevel = 0;
@@ -89,115 +101,113 @@
     options = "grp:caps_toggle";
   };
   console.keyMap = "us";
-  
+
   services.udisks2.enable = true;
 
   users = {
     mutableUsers = false;
     users = {
-	root = {
-	    # disable root login here, and also when installing nix by running nixos-install --no-root-passwd
-	    # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/3
-	    hashedPassword = "!";  # disable root logins, nothing hashes to !
-	};
+      root = {
+        # disable root login here, and also when installing nix by running nixos-install --no-root-passwd
+        # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/3
+        hashedPassword = "!"; # disable root logins, nothing hashes to !
+      };
     };
   };
 
   qt = {
-	enable = true;
-	platformTheme = "qt5ct";
-	style = "kvantum";
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     (catppuccin-sddm.override {
-	flavor = "mocha";
-#	font = "";
-	fontSize = "16";
-	#background;
-	loginBackground = false;
-     })
-     joplin-desktop
-     kdenlive
-     super-productivity
-     system-config-printer
-     libreoffice
-     helvum
-     killall
-     nix-output-monitor
-     eza
-     fd
-     (pkgs.writeShellScriptBin "root-files" ''
-     ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
-     '') #https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-     gparted
-     exfatprogs
-     kitty
-     yazi
-     tealdeer
-     fzf
-     lazygit
-     kdePackages.qtwayland
-     #libsForQt5.qt5.qtwayland
-     #libsForQt5.qt5.qtsvg
-     kdePackages.qtsvg
-     #kio-fuse #to mount remote filesystems via FUSE
-     #libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
-     kdePackages.kio-fuse #to mount remote filesystems via FUSE
-     kdePackages.kio-extras #extra protocols support (sftp, fish and more)
-     fastfetch
-     firefox
-     telegram-desktop
-     vlc
-     wl-clipboard
-     git
-     git-credential-manager
-     egl-wayland
-     kitty-themes
-     btop
-     solaar
+    (catppuccin-sddm.override {
+      flavor = "mocha";
+      #	font = "";
+      fontSize = "16";
+      #background;
+      loginBackground = false;
+    })
+    kdenlive
+    system-config-printer
+    libreoffice
+    helvum
+    killall
+    nix-output-monitor
+    eza
+    fd
+    (pkgs.writeShellScriptBin "root-files" ''
+      ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
+    '') #https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+    gparted
+    exfatprogs
+    kitty
+    yazi
+    tealdeer
+    fzf
+    lazygit
+    kdePackages.qtwayland
+    #libsForQt5.qt5.qtwayland
+    #libsForQt5.qt5.qtsvg
+    kdePackages.qtsvg
+    #kio-fuse #to mount remote filesystems via FUSE
+    #libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
+    kdePackages.kio-fuse #to mount remote filesystems via FUSE
+    kdePackages.kio-extras #extra protocols support (sftp, fish and more)
+    fastfetch
+    firefox
+    telegram-desktop
+    vlc
+    wl-clipboard
+    git
+    git-credential-manager
+    egl-wayland
+    kitty-themes
+    btop
+    solaar
 
-     #kde
-     kdePackages.kate
-     kdePackages.gwenview
-     kdePackages.breeze-icons
-     kdePackages.breeze
-     kdePackages.ark
-     kdePackages.qtstyleplugin-kvantum
-     kdePackages.okular
-     kdePackages.kcalc
-     polkit-kde-agent
-     kdePackages.kdeconnect-kde
-     kdePackages.kdesdk-thumbnailers
-     kdePackages.kdegraphics-thumbnailers
-     catppuccin-kvantum
-     kdePackages.kservice
-     kdePackages.kdbusaddons
-     kdePackages.kfilemetadata
-     kdePackages.kconfig
-     kdePackages.kcoreaddons
-     kdePackages.kcrash
-     kdePackages.kguiaddons
-     kdePackages.ki18n
-     kdePackages.kitemviews
-     kdePackages.kwidgetsaddons
-     kdePackages.kwindowsystem
-     shared-mime-info
-     #kdePackages.plasma-workspace
+    #kde
+    kdePackages.kate
+    kdePackages.gwenview
+    kdePackages.breeze-icons
+    kdePackages.breeze
+    kdePackages.ark
+    kdePackages.qtstyleplugin-kvantum
+    kdePackages.okular
+    kdePackages.kcalc
+    polkit-kde-agent
+    kdePackages.kdeconnect-kde
+    kdePackages.kdesdk-thumbnailers
+    kdePackages.kdegraphics-thumbnailers
+    catppuccin-kvantum
+    kdePackages.kservice
+    kdePackages.kdbusaddons
+    kdePackages.kfilemetadata
+    kdePackages.kconfig
+    kdePackages.kcoreaddons
+    kdePackages.kcrash
+    kdePackages.kguiaddons
+    kdePackages.ki18n
+    kdePackages.kitemviews
+    kdePackages.kwidgetsaddons
+    kdePackages.kwindowsystem
+    shared-mime-info
+    #kdePackages.plasma-workspace
 
-     #kde support tools
-     libsForQt5.qt5ct
-     qt6ct
-     kdePackages.kimageformats
-     kdePackages.dolphin
-     kdePackages.dolphin-plugins
-     # user packages
-     obs-studio
-     vesktop
-     vscode-fhs
-     inputs.neovim.packages.${hwconfig.system}.default
+    #kde support tools
+    libsForQt5.qt5ct
+    qt6ct
+    kdePackages.kimageformats
+    kdePackages.dolphin
+    kdePackages.dolphin-plugins
+    # user packages
+    obs-studio
+    vesktop
+    vscode-fhs
+    inputs.neovim.packages.${hwconfig.system}.default
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
@@ -208,115 +218,117 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/etc/nixos-config";
   };
-  fonts.packages = with pkgs; [ 
-     	nerd-fonts.jetbrains-mono
-	font-awesome
-	hack-font
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    font-awesome
+    hack-font
   ];
   environment.sessionVariables = {
-  	NIXOS_OZONE_WL = "1"; 
-	MANPAGER = "nvim +Man!";
-	EDITOR = "nvim";
+    NIXOS_OZONE_WL = "1";
+    MANPAGER = "nvim +Man!";
+    EDITOR = "nvim";
   };
   hardware = {
-	graphics = {
-		enable = true;
-	};
-	logitech.wireless.enable = true;
-	bluetooth = {
-	    enable = true;
-	    powerOnBoot = true;
-	    settings = {
-		General = {
-		    Experimental = true;
-		};
-	    };
-	};
+    graphics = {
+      enable = true;
+    };
+    logitech.wireless.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+        };
+      };
+    };
   };
   services.blueman.enable = true;
 
   security.polkit.enable = true;
 
-
   programs.steam = {
- 	enable = (hwconfig.system == "x86_64-linux");
- 	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
- 	dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  	localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    enable = hwconfig.system == "x86_64-linux";
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   #programs.thunar = {
-#	enable = true;
-#	plugins = with pkgs.xfce; [
-#		thunar-archive-plugin
-#		thunar-volman
-#	];
- # };
+  #	enable = true;
+  #	plugins = with pkgs.xfce; [
+  #		thunar-archive-plugin
+  #		thunar-volman
+  #	];
+  # };
   #programs.xfconf.enable = true; # so thunar can save config
   #services.gvfs.enable = true; # Mount, trash, and other functionalities
   #services.tumbler.enable = true; # Thumbnail support for images
 
   security.rtkit.enable = true;
   services.pipewire = {
-	enable = true;
-	alsa.enable = true;
-	alsa.support32Bit = true;
-	pulse.enable = true;
-	jack.enable = true;
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
   };
 
   home-manager = {
-	useGlobalPkgs = true;
-	useUserPackages = true;
-	extraSpecialArgs = {inherit pkgs; inherit hwconfig; inherit first-nixos-install; inherit inputs;};
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = {
+      inherit pkgs;
+      inherit hwconfig;
+      inherit first-nixos-install;
+      inherit inputs;
+    };
   };
   stylix = {
-  	enable = true;
-  	image = "${./modules/hyprland/wallpaper.jpg}";
-	autoEnable = true;
-	opacity = {
-		desktop = 0.5;
-	};
-	targets = {
-		gtk.enable = true;
-		plymouth = {
-		    enable = true;
-		    #logo = ./fastfetch/nixos.png;
-		    logoAnimated = false;
-		};
-	};
-	fonts = {
-		sizes = {
-			applications = 14;
-			desktop = 12;
-			popups = 12;
-			terminal = 16;
-		};
-	};
-	polarity = "dark";
-	base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    enable = true;
+    image = "${./modules/hyprland/wallpaper.jpg}";
+    autoEnable = true;
+    opacity = {
+      desktop = 0.5;
+    };
+    targets = {
+      gtk.enable = true;
+      plymouth = {
+        enable = true;
+        #logo = ./fastfetch/nixos.png;
+        logoAnimated = false;
+      };
+    };
+    fonts = {
+      sizes = {
+        applications = 14;
+        desktop = 12;
+        popups = 12;
+        terminal = 16;
+      };
+    };
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   };
 
   programs.bash = {
     shellAliases = {
-	ls = "${pkgs.eza}/bin/eza --icons=always";
+      ls = "${pkgs.eza}/bin/eza --icons=always";
     };
   };
 
   #printing
   services.printing.enable = true;
   services.avahi = {
-  enable = true;
-  nssmdns4 = true;
-  openFirewall = true;
-};
-
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   #services.flatpak.enable = true;
   #services.flatpak.packages = [
-#	"flathub:app/org.kde.dolphin//stable"
- # ];
-
+  #	"flathub:app/org.kde.dolphin//stable"
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -332,8 +344,8 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.allowedUDPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [22];
+  networking.firewall.allowedUDPPorts = [22];
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
 
@@ -344,20 +356,20 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  
+
   services.xserver.enable = true;
   services.displayManager.sddm = {
-	enable = true;
-	theme = "catppuccin-mocha";
-	package = pkgs.kdePackages.sddm;
-	wayland.enable = false;
+    enable = true;
+    theme = "catppuccin-mocha";
+    package = pkgs.kdePackages.sddm;
+    wayland.enable = false;
   };
   nix = {
-     settings = {
-	experimental-features = ["nix-command" "flakes"];
-	auto-optimise-store = true;
-	substituters = ["https://hyprland.cachix.org" "https://nix-gaming.cachix.org" ];
-	trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      auto-optimise-store = true;
+      substituters = ["https://hyprland.cachix.org" "https://nix-gaming.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
     };
   };
 }

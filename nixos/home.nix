@@ -1,44 +1,54 @@
-{ config, lib, pkgs, hwconfig, first-nixos-install, username, inputs, ... }:
-
-  let
-  in
 {
+  config,
+  lib,
+  pkgs,
+  hwconfig,
+  first-nixos-install,
+  username,
+  inputs,
+  ...
+}: let
+in {
   imports =
     [
-	./modules/fastfetch
-	./modules/tmux/home.nix
-    ] ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix { inherit username; inherit inputs; } )
+      ./modules/fastfetch
+      ./modules/tmux/home.nix
+    ]
+    ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix {
+      inherit username;
+      inherit inputs;
+    })
     ++ lib.optional (config.programs.hyprland.enable) ./modules/hyprland/home.nix
-    ++ lib.optional (builtins.pathExists ./homes/${username}) (import ./homes/${username} { inherit username; });
+    ++ lib.optional (builtins.pathExists ./homes/${username}) (import ./homes/${username} {inherit username;});
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
   home.homeDirectory = "/home/${username}";
   stylix = {
-	enable = true;
+    enable = true;
   };
   qt = {
-	enable = true;
-	platformTheme.name = "qtct";
-	style.name = "kvantum";
+    enable = true;
+    platformTheme.name = "qtct";
+    style.name = "kvantum";
   };
   #xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-#	General.theme = "Catppuccin-Mocha";
- # };
- #xdg.configFile = {
- #   "Kvantum/kvantum.kvconfig".text = ''
- #     [General]
- #     theme=catppuccin-mocha
- #   '';
+  #	General.theme = "Catppuccin-Mocha";
+  # };
+  #xdg.configFile = {
+  #   "Kvantum/kvantum.kvconfig".text = ''
+  #     [General]
+  #     theme=catppuccin-mocha
+  #   '';
 
-    # The important bit is here, links the theme directory from the package to a directory under `~/.config`
-    # where Kvantum should find it.
-   # "Kvantum/catppuccin-mocha".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/catppuccin-mocha";
+  # The important bit is here, links the theme directory from the package to a directory under `~/.config`
+  # where Kvantum should find it.
+  # "Kvantum/catppuccin-mocha".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/catppuccin-mocha";
   #};
 
   programs.fzf = {
-	enable = true;
-	enableBashIntegration = true;
+    enable = true;
+    enableBashIntegration = true;
   };
 
   programs.eza = {
@@ -47,8 +57,8 @@
   };
 
   #xdg.configFile."qt5ct/qt5ct.conf".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-#	Appearance.icon_theme = "Breeze Dark";
-#  };
+  #	Appearance.icon_theme = "Breeze Dark";
+  #  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -61,7 +71,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -83,23 +93,21 @@
     #vscode-fhs
   ];
 
-
   programs.kitty = {
-      enable = true;
-      font = {
-        #name = "JetBrainsMono Nerd Font";
-        #size = 16;
-      };
-      settings = {
-      	confirm_os_window_close = 0;
-      };
-      #shellIntegration.enableFishIntegration = true;
-      themeFile = "Catppuccin-Macchiato";
-      #Also available: Catppuccin-Frappe Catppuccin-Latte Catppuccin-Macchiato Catppuccin-Mocha
-      # See all available kitty themes at: https://github.com/kovidgoyal/kitty-themes/blob/46d9dfe230f315a6a0c62f4687f6b3da20fd05e4/themes.json
+    enable = true;
+    font = {
+      #name = "JetBrainsMono Nerd Font";
+      #size = 16;
     };
-  
-  
+    settings = {
+      confirm_os_window_close = 0;
+    };
+    #shellIntegration.enableFishIntegration = true;
+    themeFile = "Catppuccin-Macchiato";
+    #Also available: Catppuccin-Frappe Catppuccin-Latte Catppuccin-Macchiato Catppuccin-Mocha
+    # See all available kitty themes at: https://github.com/kovidgoyal/kitty-themes/blob/46d9dfe230f315a6a0c62f4687f6b3da20fd05e4/themes.json
+  };
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {

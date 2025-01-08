@@ -6,7 +6,7 @@
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
     neovim = {
-      url = "github:kylekrein/nixos-config?dir=nixos/modules/neovim";
+      url = "github:kylekrein/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";

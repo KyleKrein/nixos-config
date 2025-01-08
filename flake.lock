@@ -638,18 +638,16 @@
         "nvf": "nvf"
       },
       "locked": {
-        "dir": "nixos/modules/neovim",
-        "lastModified": 1736204012,
-        "narHash": "sha256-vfhrQ5M887eQ5pb2/6azQE+NzlphHAIZPEBqBF7ozAc=",
+        "lastModified": 1736335130,
+        "narHash": "sha256-9EZtqVX0QrR3sjKYSU7Q+zczwTRq6TWei7NedCM6v5A=",
         "owner": "kylekrein",
-        "repo": "nixos-config",
-        "rev": "cbbe4aea64911e2eb34b603106137e3969695e50",
+        "repo": "neovim",
+        "rev": "05a67cf92bf0fe80a8ff857f5c9e8ccd0750f63a",
         "type": "github"
       },
       "original": {
-        "dir": "nixos/modules/neovim",
         "owner": "kylekrein",
-        "repo": "nixos-config",
+        "repo": "neovim",
         "type": "github"
       }
     },
