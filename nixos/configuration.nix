@@ -76,9 +76,9 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   #flatpak
-  kk.services.flatpak.enable = true;
+  kk.services.flatpak.enable = hwconfig.system != "aarch64-linux";
   services.flatpak.packages = [
-    "com.super_productivity.SuperProductivity"
+    "com.super_productivity.SuperProductivity" # only x86_64-linux
     "net.cozic.joplin_desktop"
   ];
 
