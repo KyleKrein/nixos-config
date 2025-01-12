@@ -1,23 +1,29 @@
-{ pkgs, lib, hwconfig, inputs, ... }:
 {
-    imports = [
-	../../hardware/nvidia
+  pkgs,
+  lib,
+  hwconfig,
+  inputs,
+  ...
+}: {
+  imports = [
+    ../../hardware/nvidia
 
-	../../modules/hyprland
-	
-	../../modules/libvirt
+    ../../modules/hyprland
 
-	../../users/kylekrein
-	(import ../../modules/libvirt/user.nix { username = "kylekrein"; })
-	
-	../../users/tania
-    ];
-    
-    environment.systemPackages = with pkgs;[
-	blender
+    ../../modules/libvirt
 
-	#inputs.nix-gaming.packages.${pkgs.system}.star-citizen
-    ];
+    ../../users/kylekrein
+    (import ../../modules/libvirt/user.nix {username = "kylekrein";})
 
-    systemd.network.wait-online.enable = lib.mkForce false;
+    ../../users/tania
+  ];
+
+  sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
+  environment.systemPackages = with pkgs; [
+    blender
+
+    #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
+  ];
+
+  systemd.network.wait-online.enable = lib.mkForce false;
 }
