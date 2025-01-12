@@ -21,6 +21,8 @@
       ./modules/firefox
       ./modules/flatpak
       ./modules/steam
+      ./modules/ly
+      ./modules/sddm
       ./modules/services/autoupgrade
       ./modules/sops
       ./hosts/${hwconfig.hostname}
@@ -133,13 +135,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    (catppuccin-sddm.override {
-      flavor = "mocha";
-      #	font = "";
-      fontSize = "16";
-      #background;
-      loginBackground = false;
-    })
     kdenlive
     system-config-printer
     libreoffice
@@ -237,6 +232,8 @@
     MANPAGER = "nvim +Man!";
     EDITOR = "nvim";
   };
+  kk.loginManagers.sddm.enable = true;
+
   hardware = {
     graphics = {
       enable = true;
@@ -368,13 +365,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  services.xserver.enable = true;
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "catppuccin-mocha";
-    package = pkgs.kdePackages.sddm;
-    wayland.enable = false;
-  };
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
