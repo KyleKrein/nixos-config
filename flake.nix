@@ -11,7 +11,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
-    #nix-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
 
     #nur.url = "github:nix-community/NUR";

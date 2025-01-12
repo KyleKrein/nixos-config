@@ -19,6 +19,8 @@
       inputs.disko.nixosModules.default
 
       ./modules/firefox
+      ./modules/flatpak
+      ./modules/steam
       ./modules/services/autoupgrade
       ./modules/sops
       ./hosts/${hwconfig.hostname}
@@ -72,6 +74,13 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  #flatpak
+  kk.services.flatpak.enable = true;
+  services.flatpak.packages = [
+    "com.super_productivity.SuperProductivity"
+    "net.cozic.joplin_desktop"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -247,13 +256,6 @@
 
   security.polkit.enable = true;
 
-  programs.steam = {
-    enable = hwconfig.system == "x86_64-linux";
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
   #programs.thunar = {
   #	enable = true;
   #	plugins = with pkgs.xfce; [
@@ -337,6 +339,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  kk.steam.enable = hwconfig.system == "x86_64-linux";
 
   # List services that you want to enable:
 
