@@ -22,6 +22,10 @@
       ".nixops"
       ".local/share/keyrings"
       ".local/share/direnv"
+      {
+        directory = ".var/app";
+        method = "symlink";
+      }
       #{
       #  directory = ".local/share/Steam";
       #  method = "symlink";
