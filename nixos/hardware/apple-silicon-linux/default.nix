@@ -14,7 +14,7 @@ in {
   hardware.asahi = {
     peripheralFirmwareDirectory = ./firmware;
     useExperimentalGPUDriver = true;
-    experimentalGPUInstallMode = "overlay";
+    #experimentalGPUInstallMode = "overlay";
     setupAsahiSound = true;
   };
 
