@@ -107,7 +107,7 @@
           };
         };
         modules = [
-          (import ./nixos/modules/disko/impermanence-btrfs.nix {device = "/dev/nvme0n1";})
+          (import ./disko/impermanence-btrfs.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
           #nix-flatpak.nixosModules.default
         ];
