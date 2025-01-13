@@ -707,11 +707,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1736776631,
-        "narHash": "sha256-y2k4C4WmaizGgraidvAWu/3iP9690wzIewPZeb2k05c=",
+        "lastModified": 1736778182,
+        "narHash": "sha256-b/1s8o6zbi1+MPQL2Ask/5CGnFJDdAPPhPNS9Nlm2ro=",
         "owner": "kylekrein",
         "repo": "neovim",
-        "rev": "e0a464bdbd2556079107510d90c8aa43328d5a28",
+        "rev": "8128ab3365673c217a7e7be5562d6beefb67906d",
         "type": "github"
       },
       "original": {

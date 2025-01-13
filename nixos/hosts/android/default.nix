@@ -15,8 +15,6 @@
       nix-on-droid switch --flake /data/data/com.termux.nix/files/home/nixos-config
     '')
   ];
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   home-manager = {
     config = ./home.nix;
     useGlobalPkgs = true;
