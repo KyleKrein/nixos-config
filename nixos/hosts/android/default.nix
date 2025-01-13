@@ -16,6 +16,7 @@
     '')
   ];
 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   home-manager = {
     config = ./home.nix;
     useGlobalPkgs = true;
