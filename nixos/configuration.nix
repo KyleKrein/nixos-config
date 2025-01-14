@@ -226,6 +226,8 @@
     nerd-fonts.jetbrains-mono
     font-awesome
     hack-font
+    corefonts
+    vistafonts
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
