@@ -25,6 +25,7 @@
       ./modules/sddm
       ./modules/services/autoupgrade
       ./modules/sops
+      ./modules/emacs
       ./hosts/${hwconfig.hostname}
     ]
     ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;

@@ -20,6 +20,8 @@
       ".gnupg"
       ".ssh"
       ".nixops"
+      ".doom.d"
+      ".emacs.d"
       ".local/share/keyrings"
       ".local/share/direnv"
       {

@@ -49,6 +49,7 @@ in {
         "${pkgs.clipse}/bin/clipse -listen &"
         "${pkgs.swww}/bin/swww-daemon &"
         "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
+        "emacs --daemon &"
         #"${pkgs.kando}/bin/kando"
       ];
       exec = [
