@@ -122,6 +122,8 @@ in {
 
         "$mainMod, P, exec, $makeRegionScreenshot"
         "$mainMod ALT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
+
+        ''$mainMod, E, exec, emacsclient -c -a "send-notify 'Unable to launch Emacs. Daemon is not running'"''
       ];
 
       bindm = [
