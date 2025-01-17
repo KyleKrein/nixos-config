@@ -31,6 +31,7 @@ in {
     pipenv
     python313Packages.nose2
     python313Packages.pytest
+    graphviz
     shellcheck
     nodejs_23
 
@@ -42,7 +43,7 @@ in {
       pidof emacs || ${emacs}/bin/emacs --daemon &
     '')
     (pkgs.writeShellScriptBin "doom-sync" ''
-      ~/.emacs.d/bin/doom sync
+      ~/.emacs.d/bin/doom sync --aot --force
     '')
     (pkgs.writeShellScriptBin "doom-upgrade" ''
       ~/.emacs.d/bin/doom upgrade

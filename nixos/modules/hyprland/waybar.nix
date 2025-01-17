@@ -56,8 +56,8 @@
         };
       };
       clock = {
-        format-alt = "{:%Y-%m-%d}";
-        tooltip-format = "{:%Y-%m-%d | %H:%M}";
+        format-alt = "{:%d-%m-%Y}";
+        tooltip-format = "{:%d-%m-%Y | %H:%M}";
       };
       cpu = {
         format = "{usage}% ";
