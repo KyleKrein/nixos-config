@@ -4,11 +4,14 @@
   ...
 }: {
   imports = [
+    ../../modules/emacs
   ];
   environment.packages = with pkgs; [
     neovim
     git
     fastfetch
+    asciiquarium
+    cmatrix
     inputs.neovim.packages.aarch64-linux.default
 
     (pkgs.writeShellScriptBin "droid-switch" ''
