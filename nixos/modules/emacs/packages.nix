@@ -4,6 +4,10 @@
 }: {
   packages = with pkgs; [
     git
+    gzip
+    zip
+    unzip
+    gnutar
     libvterm
     libtool
     emacs
