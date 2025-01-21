@@ -1,10 +1,12 @@
 {
   pkgs,
   emacs,
-}: {
+}:
+{
   packages = with pkgs; [
     git
     gzip
+    wkhtmltopdf
     zip
     unzip
     gnutar
@@ -19,6 +21,7 @@
     nixfmt-rfc-style
     markdownlint-cli
     pandoc
+    groff
     gnumake
     python3
     isort

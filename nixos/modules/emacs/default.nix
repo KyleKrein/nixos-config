@@ -7,9 +7,9 @@
 }: let
   emacs = pkgs.emacs; #pkgs.emacs-pgtk;
 in {
-  services.emacs.enable = true;
+  #services.emacs.enable = true;
   services.emacs.startWithGraphical = true;
-  services.emacs.install = true;
+  #services.emacs.install = true;
   services.emacs.package = emacs; #pkgs.emacs-unstable
 
   environment.systemPackages =
