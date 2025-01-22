@@ -2,10 +2,8 @@
   pkgs,
   lib,
   ...
-}:
-let
-in
-{
+}: let
+in {
   #nixpkgs.overlays = [
   #    (import ./widevine-overlay.nix)
   #];
@@ -15,7 +13,7 @@ in
   ];
   hardware.asahi = {
     peripheralFirmwareDirectory = ./firmware;
-    #useExperimentalGPUDriver = true; #deprecated
+    useExperimentalGPUDriver = true; #deprecated
     #experimentalGPUInstallMode = "overlay";
     setupAsahiSound = true;
   };
