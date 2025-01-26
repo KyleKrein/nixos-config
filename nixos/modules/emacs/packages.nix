@@ -15,6 +15,7 @@
     emacs
     ripgrep
     fd
+    ghostscript
     coreutils
     clang
     cmake
