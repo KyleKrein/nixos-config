@@ -9,33 +9,29 @@
   first-nixos-install,
   inputs,
   ...
-}: {
-  imports =
-    [
-      inputs.sops-nix.nixosModules.sops
-      inputs.stylix.nixosModules.stylix
-      inputs.nixos-facter-modules.nixosModules.facter
-      inputs.home-manager.nixosModules.default
-      inputs.disko.nixosModules.default
+}:
+{
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+    inputs.stylix.nixosModules.stylix
+    inputs.nixos-facter-modules.nixosModules.facter
+    inputs.home-manager.nixosModules.default
+    inputs.disko.nixosModules.default
 
-      ./modules/firefox
-      ./modules/flatpak
-      ./modules/steam
-      ./modules/ly
-      ./modules/sddm
-      ./modules/services/autoupgrade
-      ./modules/sops
-      ./modules/emacs
-      ./hosts/${hwconfig.hostname}
-    ]
-    ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
+    ./modules/firefox
+    ./modules/flatpak
+    ./modules/steam
+    ./modules/ly
+    ./modules/sddm
+    ./modules/services/autoupgrade
+    ./modules/sops
+    ./modules/emacs
+    ./hosts/${hwconfig.hostname}
+  ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
   kylekrein.services.autoUpgrade = {
     enable = true;
-    pushUpdates =
-      if hwconfig.hostname == "kylekrein-homepc"
-      then true
-      else false;
+    pushUpdates = if hwconfig.hostname == "kylekrein-homepc" then true else false;
     configDir = "/etc/nixos-config";
     user = "root";
   };
@@ -48,10 +44,7 @@
     };
     loader = {
       systemd-boot.enable = true;
-      efi.canTouchEfiVariables =
-        if hwconfig.hostname != "kylekrein-mac"
-        then true
-        else false;
+      efi.canTouchEfiVariables = if hwconfig.hostname != "kylekrein-mac" then true else false;
     };
     # Enable "Silent Boot"
     consoleLogLevel = 0;
@@ -146,7 +139,7 @@
     fd
     (pkgs.writeShellScriptBin "root-files" ''
       ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
-    '') #https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+    '') # https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     gparted
     exfatprogs
     kitty
@@ -160,8 +153,8 @@
     kdePackages.qtsvg
     #kio-fuse #to mount remote filesystems via FUSE
     #libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
-    kdePackages.kio-fuse #to mount remote filesystems via FUSE
-    kdePackages.kio-extras #extra protocols support (sftp, fish and more)
+    kdePackages.kio-fuse # to mount remote filesystems via FUSE
+    kdePackages.kio-extras # extra protocols support (sftp, fish and more)
     fastfetch
     firefox
     telegram-desktop
@@ -226,10 +219,11 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     font-awesome
-    hack-font
-    corefonts
     nerd-fonts.symbols-only
-    vistafonts
+    hack-font
+    # microsoft fonts:
+    #corefonts
+    #vistafonts
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -362,8 +356,8 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [22];
-  networking.firewall.allowedUDPPorts = [22];
+  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedUDPPorts = [ 22 ];
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
 
@@ -377,7 +371,10 @@
 
   nix = {
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
       substituters = [
         "https://hyprland.cachix.org"
