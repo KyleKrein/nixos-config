@@ -7,19 +7,33 @@
   username,
   inputs,
   ...
-}: let
-in {
+}:
+let
+in
+{
   imports =
     [
       ./modules/fastfetch
       ./modules/tmux/home.nix
     ]
-    ++ lib.optional (hwconfig.useImpermanence) (import ./modules/impermanence/home.nix {
-      inherit username;
-      inherit inputs;
-    })
-    ++ lib.optional (config.programs.hyprland.enable) ./modules/hyprland/home.nix
-    ++ lib.optional (builtins.pathExists ./homes/${username}) (import ./homes/${username} {inherit username;});
+    ++ lib.optional (hwconfig.useImpermanence) (
+      import ./modules/impermanence/home.nix {
+        inherit username;
+        inherit inputs;
+      }
+    )
+    ++ lib.optional (config.programs.hyprland.enable) (
+      import ./modules/hyprland/home.nix {
+        inherit pkgs;
+        inherit username;
+        inherit inputs;
+        inherit hwconfig;
+        inherit lib;
+      }
+    )
+    ++ lib.optional (builtins.pathExists ./homes/${username}) (
+      import ./homes/${username} { inherit username; }
+    );
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;

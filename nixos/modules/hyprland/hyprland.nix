@@ -4,10 +4,12 @@
   hwconfig,
   username,
   ...
-}: let
+}:
+let
   toggle_monitors = ./toggle_monitors.sh;
   wallpaper-image = ./wallpaper.jpg;
-in {
+in
+{
   imports = [
     ./waybar.nix
     ./hyprlock.nix
@@ -18,15 +20,15 @@ in {
     xwayland.enable = true;
     settings = {
       monitor =
-        if hwconfig.hostname == "kylekrein-homepc"
-        then [
-          "DP-1,2560x1440@75,1600x0,1.6"
-          "DP-3,2560x1440@75,0x0,1.6"
-        ]
+        if hwconfig.hostname == "kylekrein-homepc" then
+          [
+            "DP-1,2560x1440@75,1600x0,1.6"
+            "DP-3,2560x1440@75,0x0,1.6"
+          ]
         else
-          [",highres,auto,1.6"]
+          [ ",highres,auto,1.6" ]
           ++ [
-            "FALLBACK,1920x1080@60,auto,1" #to fix crash on hyprlock https://github.com/hyprwm/hyprlock/issues/434#issuecomment-2341710088
+            "FALLBACK,1920x1080@60,auto,1" # to fix crash on hyprlock https://github.com/hyprwm/hyprlock/issues/434#issuecomment-2341710088
           ];
 
       xwayland = {
@@ -34,18 +36,14 @@ in {
       };
 
       exec-once = [
-        "${
-          if hwconfig.isLaptop
-          then "brightnessctl set 25%"
-          else ""
-        }"
+        "${if hwconfig.isLaptop then "brightnessctl set 25%" else ""}"
         "dbus-update-activation-environment --systemd --all"
         "${pkgs.waybar}/bin/waybar &"
         "${pkgs.networkmanagerapplet}/bin/nm-applet &"
         "${pkgs.swaynotificationcenter}/bin/swaync &"
         "${pkgs.solaar}/bin/solaar -w hide &"
         #"${pkgs.hypridle}/bin/hypridle &"
-        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" #https://nixos.wiki/wiki/Polkit
+        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" # https://nixos.wiki/wiki/Polkit
         "${pkgs.clipse}/bin/clipse -listen &"
         "${pkgs.swww}/bin/swww-daemon &"
         "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
@@ -58,12 +56,14 @@ in {
       "$mod" = "SUPER";
       "$mainMod" = "$mod";
       "$terminal" = "${pkgs.kitty}/bin/kitty";
-      "$fileManager" = "$terminal ${pkgs.yazi}/bin/yazi";
+      "$emacs" = "emacsclient -c -a 'emacs'";
+      "$fileManager" = "$emacs --eval '(dired \"/home/${username}\")'"; # "$terminal ${pkgs.yazi}/bin/yazi";
       "$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       "$browser" = "${pkgs.firefox}/bin/firefox";
       "$menu" = "${pkgs.wofi}/bin/wofi --show drun";
       "$clipboardManager" = "$terminal --class clipse -e 'clipse'";
-      "$makeRegionScreenshot" = "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
+      "$makeRegionScreenshot" =
+        "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
       bind = [
         "$mod, T, exec, $terminal"
         "$mod, Q, killactive,"
@@ -123,7 +123,7 @@ in {
         "$mainMod, P, exec, $makeRegionScreenshot"
         "$mainMod ALT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
-        ''$mainMod, E, exec, emacsclient -c -a "send-notify 'Unable to launch Emacs. Daemon is not running'"''
+        ''$mainMod, E, exec, $emacs''
       ];
 
       bindm = [
@@ -153,7 +153,7 @@ in {
         #"GDK_SCALE,1.6"
         #"QT_SCALE_FACTOR,1.6"
 
-        "GSK_RENDERER,ngl" #for satty until https://github.com/NixOS/nixpkgs/issues/359069 is fixed
+        "GSK_RENDERER,ngl" # for satty until https://github.com/NixOS/nixpkgs/issues/359069 is fixed
       ];
 
       cursor = {
