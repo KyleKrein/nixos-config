@@ -17,12 +17,8 @@
       (pkgs.writeShellScriptBin "droid-switch" ''
         nix-on-droid switch --flake /data/data/com.termux.nix/files/home/nixos-config
       '')
-    ]
-    ++ (import ../../modules/emacs/packages.nix {
-      inherit pkgs;
-      emacs = pkgs.emacs;
-    })
-    .packages;
+      inputs.emacs-kylekrein.packages.aarch64-linux.default
+    ];
   home-manager = {
     config = ./home.nix;
     useGlobalPkgs = true;
