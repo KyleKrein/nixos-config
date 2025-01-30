@@ -62,19 +62,20 @@ in {
       "$fileManager" = "$emacs --eval '(dired \"/home/${username}\")'"; # "$terminal ${pkgs.yazi}/bin/yazi";
       "$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       "$browser" = "${pkgs.firefox}/bin/firefox";
-      "$menu" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-launcher)'"; #"${pkgs.wofi}/bin/wofi --show drun";
+      "$menu" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-app-launcher)'"; #"${pkgs.wofi}/bin/wofi --show drun";
+      "$emojiPicker" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-emoji-picker)'";
       "$clipboardManager" = "$terminal --class clipse -e 'clipse'";
       "$makeRegionScreenshot" = "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
       bind = [
         "$mod, T, exec, $terminal"
         "$mod, Q, killactive,"
-        "$mod, M, exit,"
         "$mod, B, exec, $browser"
         "$mod SHIFT, V, togglefloating,"
         "$mod, C, exec, $fileManager"
         "$mod SHIFT, C, exec, $fileManager2"
         "$mod, F, fullscreen,"
         "$mod, R, exec, $menu"
+        "$mod, M, exec, $emojiPicker"
         "$mod, V, exec, $clipboardManager"
         #"CTRL, SPACE, global, kando:nix-hyprland"
         "$mod SHIFT, I, exec, source ${toggle_monitors}"

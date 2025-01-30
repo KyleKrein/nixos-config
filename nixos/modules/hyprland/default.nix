@@ -16,7 +16,7 @@
 	swaynotificationcenter
 	libnotify
 	swww
-	wofi
+	#wofi
 	hyprpicker
 	networkmanagerapplet
 	hyprlock
