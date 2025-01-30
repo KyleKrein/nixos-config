@@ -4,12 +4,10 @@
   hwconfig,
   username,
   ...
-}:
-let
+}: let
   toggle_monitors = ./toggle_monitors.sh;
   wallpaper-image = ./wallpaper.jpg;
-in
-{
+in {
   imports = [
     ./waybar.nix
     ./hyprlock.nix
@@ -20,13 +18,13 @@ in
     xwayland.enable = true;
     settings = {
       monitor =
-        if hwconfig.hostname == "kylekrein-homepc" then
-          [
-            "DP-1,2560x1440@75,1600x0,1.6"
-            "DP-3,2560x1440@75,0x0,1.6"
-          ]
+        if hwconfig.hostname == "kylekrein-homepc"
+        then [
+          "DP-1,2560x1440@75,1600x0,1.6"
+          "DP-3,2560x1440@75,0x0,1.6"
+        ]
         else
-          [ ",highres,auto,1.6" ]
+          [",highres,auto,1.6"]
           ++ [
             "FALLBACK,1920x1080@60,auto,1" # to fix crash on hyprlock https://github.com/hyprwm/hyprlock/issues/434#issuecomment-2341710088
           ];
@@ -36,7 +34,11 @@ in
       };
 
       exec-once = [
-        "${if hwconfig.isLaptop then "brightnessctl set 25%" else ""}"
+        "${
+          if hwconfig.isLaptop
+          then "brightnessctl set 25%"
+          else ""
+        }"
         "dbus-update-activation-environment --systemd --all"
         "${pkgs.waybar}/bin/waybar &"
         "${pkgs.networkmanagerapplet}/bin/nm-applet &"
@@ -47,7 +49,7 @@ in
         "${pkgs.clipse}/bin/clipse -listen &"
         "${pkgs.swww}/bin/swww-daemon &"
         "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
-        "emacs --daemon &"
+        #"emacs --daemon &"
         #"${pkgs.kando}/bin/kando"
       ];
       exec = [
@@ -60,10 +62,9 @@ in
       "$fileManager" = "$emacs --eval '(dired \"/home/${username}\")'"; # "$terminal ${pkgs.yazi}/bin/yazi";
       "$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       "$browser" = "${pkgs.firefox}/bin/firefox";
-      "$menu" = "${pkgs.wofi}/bin/wofi --show drun";
+      "$menu" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-launcher)'"; #"${pkgs.wofi}/bin/wofi --show drun";
       "$clipboardManager" = "$terminal --class clipse -e 'clipse'";
-      "$makeRegionScreenshot" =
-        "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
+      "$makeRegionScreenshot" = "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
       bind = [
         "$mod, T, exec, $terminal"
         "$mod, Q, killactive,"
@@ -204,6 +205,12 @@ in
         #for clipboard manager
         "float,class:(clipse)"
         "size 622 652,class:(clipse)" # set the size of the window as necessary
+        #emacs run launcher
+        "float, title:emacs-run-launcher"
+        "pin, title:emacs-run-launcher"
+	
+	#emacs
+	"opaque, class:emacs"
       ];
 
       decoration = {
