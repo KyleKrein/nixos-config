@@ -1,6 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, hwconfig, ... }:
 let
     profile-image = ./profile-image.png;
+    battery-level = (import ./battery-status.nix {inherit pkgs; inherit hwconfig;}).labelPercent;
 in
 {
   programs.hyprlock = {
@@ -75,7 +76,15 @@ in
           halign = "right";
           valign = "bottom";
         }
-      ];
+      ] ++ lib.optional (hwconfig.isLaptop) (
+        {
+          text = ''cmd[update:10000] ${battery-level}'';
+          font_family = "JetBrains Mono";
+          font_size = 28;
+          position = "20, 20";
+          halign = "left";
+          valign = "bottom";
+        });
     };
   };
 }

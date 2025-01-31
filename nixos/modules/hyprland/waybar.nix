@@ -1,5 +1,7 @@
 { pkgs, lib, hwconfig, ... }:
-
+let 
+  battery = (import ./battery-status.nix {inherit pkgs; inherit hwconfig;});
+in
 {
   programs.waybar = {
     enable = true;
@@ -37,7 +39,7 @@
         #"memory"
         #"temperature"
 	"hyprland/language"
-      ] ++ (if hwconfig.isLaptop then [ "battery" ] else [ ])
+      ] ++ lib.optional battery.available "custom/battery"
       ++ [
         "tray"
 	"custom/notification"
@@ -54,6 +56,14 @@
           critical = 10;
           warning = 20;
         };
+      };
+      "custom/battery" = {
+        exec ="${pkgs.writeShellScriptBin "battery-widget" ''
+        ${battery.labelAdaptive}
+        ${battery.labelPercent}
+        ''}/bin/battery-widget";
+        interval = 20;
+        tooltip = true;
       };
       clock = {
         format-alt = "{:%d-%m-%Y}";
