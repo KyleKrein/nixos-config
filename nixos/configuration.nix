@@ -132,7 +132,6 @@
     kdenlive
     system-config-printer
     libreoffice
-    helvum
     killall
     nix-output-monitor
     eza
@@ -258,134 +257,134 @@
   security.polkit.enable = true;
 
   #programs.thunar = {
-  #	enable = true;
-  #	plugins = with pkgs.xfce; [
-  #		thunar-archive-plugin
-  #		thunar-volman
-  #	];
-  # };
-  #programs.xfconf.enable = true; # so thunar can save config
-  #services.gvfs.enable = true; # Mount, trash, and other functionalities
-  #services.tumbler.enable = true; # Thumbnail support for images
+    #	enable = true;
+    #	plugins = with pkgs.xfce; [
+      #		thunar-archive-plugin
+      #		thunar-volman
+      #	];
+      # };
+      #programs.xfconf.enable = true; # so thunar can save config
+      #services.gvfs.enable = true; # Mount, trash, and other functionalities
+      #services.tumbler.enable = true; # Thumbnail support for images
 
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = {
-      inherit pkgs;
-      inherit hwconfig;
-      inherit first-nixos-install;
-      inherit inputs;
-    };
-  };
-  stylix = {
-    enable = true;
-    image = "${./modules/hyprland/wallpaper.jpg}";
-    autoEnable = true;
-    opacity = {
-      desktop = 0.5;
-    };
-    targets = {
-      gtk.enable = true;
-      plymouth = {
+      security.rtkit.enable = true;
+      services.pipewire = {
         enable = true;
-        #logo = ./fastfetch/nixos.png;
-        logoAnimated = false;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
       };
-    };
-    fonts = {
-      sizes = {
-        applications = 14;
-        desktop = 12;
-        popups = 12;
-        terminal = 16;
+
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = {
+          inherit pkgs;
+          inherit hwconfig;
+          inherit first-nixos-install;
+          inherit inputs;
+        };
       };
-    };
-    polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-  };
+      stylix = {
+        enable = true;
+        image = "${./modules/hyprland/wallpaper.jpg}";
+        autoEnable = true;
+        opacity = {
+          desktop = 0.5;
+        };
+        targets = {
+          gtk.enable = true;
+          plymouth = {
+            enable = true;
+            #logo = ./fastfetch/nixos.png;
+            logoAnimated = false;
+          };
+        };
+        fonts = {
+          sizes = {
+            applications = 14;
+            desktop = 12;
+            popups = 12;
+            terminal = 16;
+          };
+        };
+        polarity = "dark";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
 
-  programs.bash = {
-    shellAliases = {
-      ls = "${pkgs.eza}/bin/eza --icons=always";
-    };
-  };
+      programs.bash = {
+        shellAliases = {
+          ls = "${pkgs.eza}/bin/eza --icons=always";
+        };
+      };
 
-  #printing
-  services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+      #printing
+      services.printing.enable = true;
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
 
-  #services.flatpak.enable = true;
-  #services.flatpak.packages = [
-  #	"flathub:app/org.kde.dolphin//stable"
-  # ];
+      #services.flatpak.enable = true;
+      #services.flatpak.packages = [
+        #	"flathub:app/org.kde.dolphin//stable"
+        # ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+        # Some programs need SUID wrappers, can be configured further or are
+        # started in user sessions.
+        # programs.mtr.enable = true;
+        # programs.gnupg.agent = {
+          #   enable = true;
+          #   enableSSHSupport = true;
+          # };
 
-  kk.steam.enable = hwconfig.system == "x86_64-linux";
+          kk.steam.enable = hwconfig.system == "x86_64-linux";
 
-  # List services that you want to enable:
+          # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    settings.PermitRootLogin = "no";
-    extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
-  };
+          # Enable the OpenSSH daemon.
+          services.openssh = {
+            enable = true;
+            # require public key authentication for better security
+            settings.PasswordAuthentication = false;
+            settings.KbdInteractiveAuthentication = false;
+            settings.PermitRootLogin = "no";
+            extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
+          };
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.allowedUDPPorts = [ 22 ];
-  # Or disable the firewall altogether.
-  #networking.firewall.enable = false;
+          # Open ports in the firewall.
+          networking.firewall.allowedTCPPorts = [ 22 ];
+          networking.firewall.allowedUDPPorts = [ 22 ];
+          # Or disable the firewall altogether.
+          #networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+          # This value determines the NixOS release from which the default
+          # settings for stateful data, like file locations and database versions
+          # on your system were taken. It‘s perfectly fine and recommended to leave
+          # this value at the release version of the first install of this system.
+          # Before changing this value read the documentation for this option
+          # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+          system.stateVersion = "24.05"; # Did you read the comment?
 
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      auto-optimise-store = true;
-      substituters = [
-        "https://hyprland.cachix.org"
-        "https://nix-gaming.cachix.org"
-        "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-    };
-  };
+          nix = {
+            settings = {
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+              auto-optimise-store = true;
+              substituters = [
+                "https://hyprland.cachix.org"
+                "https://nix-gaming.cachix.org"
+                "https://nix-community.cachix.org"
+              ];
+              trusted-public-keys = [
+                "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              ];
+            };
+          };
 }

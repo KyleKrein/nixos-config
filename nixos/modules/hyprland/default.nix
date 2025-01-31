@@ -16,13 +16,13 @@
 	swaynotificationcenter
 	libnotify
 	swww
-	#wofi
 	hyprpicker
 	networkmanagerapplet
 	hyprlock
 	wlogout
 	hypridle
-	pavucontrol
+  qpwgraph
+  pwvucontrol
 	brightnessctl
 	satty
 	grim
