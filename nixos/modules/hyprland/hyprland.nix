@@ -134,7 +134,7 @@ in {
       ];
       input = {
         kb_layout = "us, ru";
-        kb_options = "grp:caps_toggle";
+        kb_options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else ""); # "ctrl:nocaps, grp:toggle"
 
         touchpad = {
           natural_scroll = true;

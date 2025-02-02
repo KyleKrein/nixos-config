@@ -32,7 +32,7 @@ elif [[ "$STATUS" == "Charging" ]]; then
     elif [[ $BATTERY_LEVEL -ge 10 ]]; then
         ICON="󰢜 "
     else
-        ICON="󱊦 "
+        ICON="󰢜 "
     fi
 else
     if [[ $BATTERY_LEVEL -ge 90 ]]; then
@@ -46,7 +46,7 @@ else
     elif [[ $BATTERY_LEVEL -ge 10 ]]; then
         ICON="󰁺 "
     else
-        ICON="󱊣 "
+        ICON="󰁺 "
     fi
 fi
 
