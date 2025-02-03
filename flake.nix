@@ -72,6 +72,9 @@
     #};
     arm = "aarch64-linux";
     x86 = "x86_64-linux";
+    nativePackagesOverlay = self: super: {
+              stdenv = super.impureUseNativeOptimizations super.stdenv;
+            };
 
     first-nixos-install = "1729112485"; #stat -c %W /
   in {
