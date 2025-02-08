@@ -37,6 +37,8 @@ in {
   };
   systemd.tmpfiles.rules = [
     "d /persist/home/ 0777 root root -" # /persist/home created, owned by root
+    "d /persist/ollama/ 0755 ollama ollama"
+    "d /persist/open-webui/ 0755 ollama ollama"
     #"d /persist/home/${username} 0700 ${username} users -" # /persist/home/<user> created, owned by that user
     #"d /persist/nixos-config 0700 ${username} users -"
   ];

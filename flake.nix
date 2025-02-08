@@ -121,6 +121,7 @@
           config = {
             allowBroken = true;
             allowUnfree = true;
+            cudaSupport = true;
           };
         };
         modules = [
@@ -152,6 +153,7 @@
             allowBroken = true;
             allowUnfree = true;
             allowUnsupportedSystem = true;
+           # rocmSupport = true;
           };
         };
         modules = [

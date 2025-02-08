@@ -119,11 +119,11 @@
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
-    style = "kvantum";
-  };
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "qt5ct";
+  #  style = "kvantum";
+  #};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
