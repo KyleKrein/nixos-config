@@ -171,14 +171,12 @@
     kdePackages.breeze-icons
     kdePackages.breeze
     kdePackages.ark
-    kdePackages.qtstyleplugin-kvantum
     kdePackages.okular
     kdePackages.kcalc
     polkit-kde-agent
     kdePackages.kdeconnect-kde
     kdePackages.kdesdk-thumbnailers
     kdePackages.kdegraphics-thumbnailers
-    catppuccin-kvantum
     kdePackages.kservice
     kdePackages.kdbusaddons
     kdePackages.kfilemetadata
@@ -201,9 +199,7 @@
     kdePackages.dolphin-plugins
     # user packages
     obs-studio
-    vesktop
-    vscode-fhs
-    inputs.neovim.packages.${hwconfig.system}.default
+    neovim
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
