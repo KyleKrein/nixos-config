@@ -26,15 +26,25 @@
   ];
   #LLMs
   services.ollama = {
-    enable = true;
+    enable = false;
     loadModels = [ "deepseek-r1:32b" ];
     acceleration = "cuda";
     home = "/persist/ollama";
     user = "ollama";
     group = "ollama";
   };
-  services.open-webui.enable = true;
-  services.open-webui.openFirewall = true;
+  services.llama-cpp = {
+    enable = false;
+    model = "/home/kylekrein/Downloads/ds/DeepSeek-R1-GGUF/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf";
+    port = 10005;
+    extraFlags = [
+      "--ctx-size 1024" #context size
+      "--n-gpu-layers 0"
+    ];
+  };
+
+  services.open-webui.enable = false;
+  services.open-webui.openFirewall = false;
   services.open-webui.host = "0.0.0.0";
   services.open-webui.stateDir = "/persist/open-webui";
   systemd.services.open-webui.serviceConfig.User = "ollama";
@@ -47,7 +57,7 @@
     acceptTerms = true;
     defaults.email = "alex.lebedev2003@icloud.com";
   };
-  services.nginx.enable = true;
+  services.nginx.enable = false;
   services.nginx = {
     # Use recommended settings
     recommendedGzipSettings = true;

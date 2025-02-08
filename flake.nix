@@ -116,6 +116,7 @@
         pkgs = import nixpkgs {
           system = x86;
           overlays = [
+            #nativePackagesOverlay
             inputs.hyprland.overlays.default
           ];
           config = {
