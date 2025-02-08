@@ -32,19 +32,11 @@
 	libheif.out
 	
 	#kde
-	kdePackages.kate
-	kdePackages.gwenview
 	kdePackages.breeze-icons
 	kdePackages.breeze
-	kdePackages.ark
-	kdePackages.qtstyleplugin-kvantum
-	kdePackages.okular
-	kdePackages.kcalc
 	polkit-kde-agent
-	kdePackages.kdeconnect-kde
 	kdePackages.kdesdk-thumbnailers
 	kdePackages.kdegraphics-thumbnailers
-	catppuccin-kvantum
 	kdePackages.kservice
 	kdePackages.kdbusaddons
 	kdePackages.kfilemetadata

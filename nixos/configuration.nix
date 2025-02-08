@@ -145,14 +145,6 @@
     tealdeer
     fzf
     lazygit
-    kdePackages.qtwayland
-    #libsForQt5.qt5.qtwayland
-    #libsForQt5.qt5.qtsvg
-    kdePackages.qtsvg
-    #kio-fuse #to mount remote filesystems via FUSE
-    #libsForQt5.kio-extras #extra protocols support (sftp, fish and more)
-    kdePackages.kio-fuse # to mount remote filesystems via FUSE
-    kdePackages.kio-extras # extra protocols support (sftp, fish and more)
     fastfetch
     firefox
     telegram-desktop
@@ -166,37 +158,9 @@
     solaar
 
     #kde
-    kdePackages.kate
     kdePackages.gwenview
-    kdePackages.breeze-icons
-    kdePackages.breeze
     kdePackages.ark
-    kdePackages.okular
-    kdePackages.kcalc
-    polkit-kde-agent
-    kdePackages.kdeconnect-kde
-    kdePackages.kdesdk-thumbnailers
-    kdePackages.kdegraphics-thumbnailers
-    kdePackages.kservice
-    kdePackages.kdbusaddons
-    kdePackages.kfilemetadata
-    kdePackages.kconfig
-    kdePackages.kcoreaddons
-    kdePackages.kcrash
-    kdePackages.kguiaddons
-    kdePackages.ki18n
-    kdePackages.kitemviews
-    kdePackages.kwidgetsaddons
-    kdePackages.kwindowsystem
-    shared-mime-info
-    #kdePackages.plasma-workspace
 
-    #kde support tools
-    libsForQt5.qt5ct
-    qt6ct
-    kdePackages.kimageformats
-    kdePackages.dolphin
-    kdePackages.dolphin-plugins
     # user packages
     obs-studio
     neovim
