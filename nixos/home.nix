@@ -14,7 +14,7 @@ in
   imports =
     [
       ./modules/fastfetch
-      ./modules/tmux/home.nix
+      #./modules/tmux/home.nix
     ]
     ++ lib.optional (hwconfig.useImpermanence) (
       import ./modules/impermanence/home.nix {
