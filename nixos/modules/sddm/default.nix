@@ -24,7 +24,7 @@ in {
       enable = true;
       theme = "catppuccin-mocha";
       package = pkgs.kdePackages.sddm;
-      wayland.enable = false;
+      wayland.enable = true;
     };
   };
 }

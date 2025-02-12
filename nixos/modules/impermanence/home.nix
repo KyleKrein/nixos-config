@@ -19,8 +19,6 @@
       "blender"
       ".gnupg"
       ".ssh"
-      ".nixops"
-      ".doom.d"
       ".emacs.d"
       ".local/share/keyrings"
       ".local/share/direnv"
@@ -28,19 +26,26 @@
         directory = ".var/app";
         method = "symlink";
       }
+      {
+        directory = ".local/share/Steam";
+        method = "symlink";
+      }
       #{
-      #  directory = ".local/share/Steam";
+      #  directory = ".steam";
       #  method = "symlink";
       #}
-      #".steam"
       ".mozilla"
       ".local/share/TelegramDesktop"
       ".config/solaar"
       ".config/kdeconnect"
       ".config/blender"
+      ".config/unity3d"
+      ".themes"
     ];
     files = [
       ".screenrc"
+      #".steampid"
+      #".steampath"
     ];
     allowOther = true;
   };

@@ -16,4 +16,8 @@
   ];
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
   facter.reportPath = lib.mkForce null; #fails to generate
+  
+  services.displayManager.sddm = {
+      wayland.enable = lib.mkForce false; # black screen
+    };
 }
