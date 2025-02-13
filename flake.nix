@@ -20,7 +20,6 @@
       url = "github:kylekrein/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
@@ -117,7 +116,6 @@
           system = x86;
           overlays = [
             #nativePackagesOverlay
-            inputs.hyprland.overlays.default
           ];
           config = {
             allowBroken = true;
@@ -128,7 +126,6 @@
         modules = [
           (import ./disko/impermanence-btrfs.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
-          #nix-flatpak.nixosModules.default
         ];
       };
       "kylekrein-mac" = nixpkgs.lib.nixosSystem {
@@ -147,7 +144,6 @@
         pkgs = import nixpkgs {
           system = arm;
           overlays = [
-            inputs.hyprland.overlays.default
             #(import ./nixos/macos/widevine.nix)
           ];
           config = {
