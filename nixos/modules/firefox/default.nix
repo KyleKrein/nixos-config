@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, hwconfig, ... }:
 
   let
     lock-false = {
@@ -11,6 +11,7 @@
     };
   in
 {
+  imports = [] ++ lib.optional (hwconfig.system == "aarch64-linux") ./aarch64-linux.nix;
   programs = {
     firefox = {
       enable = true;

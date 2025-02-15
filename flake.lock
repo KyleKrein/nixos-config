@@ -679,6 +679,22 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/072a6db25e947df2f31aab9eccd0ab75d5b2da11.tar.gz"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1739621138,
+        "narHash": "sha256-KtayqdyDOiGmgLy44FRsGewgjxC4S6CYePM5SKO3BaY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1e2268e58c8e74134dde16a45f40e4c32a934cb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1738843498,
@@ -2975,6 +2991,7 @@
         "nix-on-droid": "nix-on-droid",
         "nixos-facter-modules": "nixos-facter-modules",
         "nixpkgs": "nixpkgs_6",
+        "nixpkgs-master": "nixpkgs-master",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
       }

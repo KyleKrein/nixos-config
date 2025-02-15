@@ -16,6 +16,9 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
+    nixpkgs-master = {
+      url = "github:nixos/nixpkgs?ref=master";
+    };
     neovim = {
       url = "github:kylekrein/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
