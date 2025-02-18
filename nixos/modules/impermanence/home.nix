@@ -40,6 +40,7 @@
       ".config/kdeconnect"
       ".config/blender"
       ".config/unity3d"
+      ".local/share/aspyr-media"
       ".themes"
     ];
     files = [
