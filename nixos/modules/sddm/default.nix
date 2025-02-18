@@ -23,7 +23,7 @@ in {
     services.displayManager.sddm = {
       enable = true;
       theme = "catppuccin-mocha";
-      package = pkgs.kdePackages.sddm;
+      package = lib.mkDefault pkgs.kdePackages.sddm;
       wayland.enable = true;
     };
   };
