@@ -1,3 +1,4 @@
+#nixversion = "24.11";
 {
   description = "NixOS config";
   nixConfig = {
@@ -14,6 +15,9 @@
   };
   inputs = {
     nixpkgs = {
+      url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    };
+    nixpkgs-unstable = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
     nixpkgs-master = {
@@ -23,7 +27,7 @@
       url = "github:kylekrein/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix?ref=release-24.11";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
 
@@ -31,7 +35,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,6 +66,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     ...
   } @ inputs: let
     #systems = ["aarch64-linux" "x86_64-linux" ];
@@ -74,6 +79,29 @@
     #};
     arm = "aarch64-linux";
     x86 = "x86_64-linux";
+    kylekrein-homepc-pkgs = nixpkgs: import nixpkgs {
+          system = x86;
+          overlays = [
+            #nativePackagesOverlay
+          ];
+          config = {
+            allowBroken = true;
+            allowUnfree = true;
+            cudaSupport = true;
+          };
+        };
+    kylekrein-mac-pkgs = nixpkgs: import nixpkgs {
+          system = arm;
+          overlays = [
+            #(import ./nixos/macos/widevine.nix)
+          ];
+          config = {
+            allowBroken = true;
+            allowUnfree = true;
+            allowUnsupportedSystem = true;
+           # rocmSupport = true;
+          };
+        };
     nativePackagesOverlay = self: super: {
               stdenv = super.impureUseNativeOptimizations super.stdenv;
             };
@@ -112,20 +140,11 @@
           };
           inherit first-nixos-install;
           inherit inputs;
+	  unstable-pkgs = kylekrein-homepc-pkgs nixpkgs-unstable;
         };
 
         system = x86;
-        pkgs = import nixpkgs {
-          system = x86;
-          overlays = [
-            #nativePackagesOverlay
-          ];
-          config = {
-            allowBroken = true;
-            allowUnfree = true;
-            cudaSupport = true;
-          };
-        };
+        pkgs = kylekrein-homepc-pkgs nixpkgs;
         modules = [
           (import ./disko/impermanence-btrfs.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
@@ -141,21 +160,11 @@
           };
           inherit first-nixos-install;
           inherit inputs;
+	  unstable-pkgs = kylekrein-mac-pkgs nixpkgs-unstable;
         };
 
         system = arm;
-        pkgs = import nixpkgs {
-          system = arm;
-          overlays = [
-            #(import ./nixos/macos/widevine.nix)
-          ];
-          config = {
-            allowBroken = true;
-            allowUnfree = true;
-            allowUnsupportedSystem = true;
-           # rocmSupport = true;
-          };
-        };
+        pkgs = kylekrein-mac-pkgs nixpkgs;
         modules = [
           ./nixos/configuration.nix
         ];

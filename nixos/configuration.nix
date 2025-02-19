@@ -8,6 +8,7 @@
   hwconfig,
   first-nixos-install,
   inputs,
+  unstable-pkgs,
   ...
 }:
 {
@@ -175,7 +176,7 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/etc/nixos-config";
   };
-  fonts.packages = with pkgs; [
+  fonts.packages = with unstable-pkgs; [ #TODO change to pkgs when 25.05 comes out
     nerd-fonts.jetbrains-mono
     font-awesome
     nerd-fonts.symbols-only
