@@ -29,7 +29,7 @@
     };
     stylix.url = "github:danth/stylix?ref=release-24.11";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon?ref=releasep2-2024-12-25";
 
     #nur.url = "github:nix-community/NUR";
     sops-nix.url = "github:Mic92/sops-nix";
