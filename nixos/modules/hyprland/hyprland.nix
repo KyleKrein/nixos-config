@@ -44,13 +44,10 @@ in {
         "${pkgs.networkmanagerapplet}/bin/nm-applet &"
         "${pkgs.swaynotificationcenter}/bin/swaync &"
         "${pkgs.solaar}/bin/solaar -w hide &"
-        #"${pkgs.hypridle}/bin/hypridle &"
         "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" # https://nixos.wiki/wiki/Polkit
         "${pkgs.clipse}/bin/clipse -listen &"
         "${pkgs.swww}/bin/swww-daemon &"
         "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
-        #"emacs --daemon &"
-        #"${pkgs.kando}/bin/kando"
       ];
       exec = [
         "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
@@ -58,7 +55,7 @@ in {
       "$mod" = "SUPER";
       "$mainMod" = "$mod";
       "$terminal" = "${pkgs.kitty}/bin/kitty";
-      "$emacs" = "emacsclient -c -a 'emacs'";
+      "$emacs" = "emacsclient -c";
       "$fileManager" = "$emacs --eval '(dired \"/home/${username}\")'"; # "$terminal ${pkgs.yazi}/bin/yazi";
       "$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       "$browser" = "${pkgs.firefox}/bin/firefox";
@@ -132,6 +129,9 @@ in {
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
+      misc = {
+	vfr = true; #lowers the amount of frames when nothing happens
+      };
       input = {
         kb_layout = "us, ru";
         kb_options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else ""); # "ctrl:nocaps, grp:toggle"

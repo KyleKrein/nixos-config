@@ -252,7 +252,7 @@
         image = "${./modules/hyprland/wallpaper.jpg}";
         autoEnable = true;
         opacity = {
-          desktop = 0.5;
+          desktop = 0.0;#0.5;
         };
         targets = {
           gtk.enable = true;
