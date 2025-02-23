@@ -11,7 +11,6 @@ in
 	    #initialPassword = "1234";
 	    hashedPasswordFile = config.sops.secrets."users/${username}".path;
 	    packages = with pkgs; [
-		anydesk
 	    ];
     };
     sops.secrets = {

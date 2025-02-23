@@ -32,11 +32,12 @@ in
 	      "hyprland/workspaces"
         #	"hyprland/window"
         ];
-        modules-right = [
+        modules-right = lib.optional hwconfig.isLaptop "backlight"
+	  ++ [
           "pulseaudio"
           #"network"
           #"cpu"
-          #"memory"
+          "memory"
           #"temperature"
 	        "hyprland/language"
         ] ++ lib.optional battery.available "custom/battery"
@@ -57,6 +58,11 @@ in
             warning = 20;
           };
         };
+	 backlight = {
+	   format = "{percent}% 󰛩";
+	   on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s 5%+";
+	   on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
+	 };
         "custom/battery" = {
           exec ="${pkgs.writeShellScriptBin "battery-widget" ''
             ${battery.labelAdaptive}
@@ -76,7 +82,10 @@ in
         "hyprland/language" = {
     		  format = " {}";
         };
-        memory = { format = "{}% "; };
+        memory = { 
+	  interval = 1;
+	  format = "{used}/{total}Gb "; 
+	};
         network = {
           interval = 1;
           format-alt = "{ifname}: {ipaddr}/{cidr}";
