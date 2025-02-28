@@ -65,6 +65,8 @@ done
 remainingArgs=${POSITIONAL_ARGS[@]}
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
+if [ $update = true ]; then
+
 if [ -z "${flakeDir}" ]; then
 	echo "Flake directory not specified. Use '--flake <path>' or set \$FLAKE_DIR."
 	exit 1
@@ -75,16 +77,15 @@ cd $flakeDir
 echo "Pulling the latest version of the repository..."
 /run/wrappers/bin/sudo -u $user /run/current-system/sw/bin/git pull
 
-if [ $update = true ]; then
 	echo "Updating flake.lock..."
 	/run/wrappers/bin/sudo -u $user /run/current-system/sw/bin/nix flake update --commit-lock-file && /run/wrappers/bin/sudo -u $user /run/current-system/sw/bin/git push
-else
-	echo "Skipping 'nix flake update'..."
-fi
-
 options="--flake $flakeDir $remainingArgs --use-remote-sudo --log-format multiline-with-logs"
 
 echo "Running this operation: nixos-rebuild $operation $options"
 /run/wrappers/bin/sudo -u root /run/current-system/sw/bin/nixos-rebuild $operation $options
+else
+	echo "Skipping 'nix flake update'..."
+/run/wrappers/bin/sudo -u root /run/current-system/sw/bin/nixos-rebuild $operation --flake github:kylekrein/nixos-config
+fi
 
 exit 0

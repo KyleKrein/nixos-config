@@ -31,7 +31,7 @@
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./facter.json;
   kylekrein.services.autoUpgrade = {
-    enable = false;
+    enable = true;
     pushUpdates = false;
     configDir = "/etc/nixos-config";
     user = "root";
@@ -163,8 +163,17 @@
     graphics = {
       enable = true;
     };
+      bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+        };
+      };
+    };
   };
-
+  services.blueman.enable = true;
   security.polkit.enable = true;
 
       security.rtkit.enable = true;
