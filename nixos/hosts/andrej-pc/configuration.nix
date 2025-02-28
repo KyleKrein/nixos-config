@@ -36,6 +36,7 @@
     configDir = "/etc/nixos-config";
     user = "root";
   };
+networking.wireless.iwd.enable = true;
 
   boot = {
     #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
@@ -114,6 +115,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     libreoffice
+    fzf
     killall
     eza
     fd
