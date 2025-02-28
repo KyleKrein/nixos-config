@@ -104,7 +104,7 @@ in
   ];
 
   programs.kitty = {
-    enable = true;
+    enable =  lib.strings.hasInfix "kylekrein" hwconfig.hostname;
     font = {
       #name = "JetBrainsMono Nerd Font";
       #size = 16;
