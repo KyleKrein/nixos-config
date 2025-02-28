@@ -235,7 +235,7 @@
           #   enableSSHSupport = true;
           # };
 
-          kk.steam.enable = false;
+          kk.steam.enable = true;
 
           # List services that you want to enable:
 
