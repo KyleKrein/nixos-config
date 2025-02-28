@@ -155,14 +155,13 @@
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    MANPAGER = "emacsclient -c -a 'emacs' +Man!";
-    EDITOR = "emacsclient -c -a 'emacs'";
+    #MANPAGER = "emacsclient -c -a 'emacs' +Man!";
+    #EDITOR = "emacsclient -c -a 'emacs'";
   };
   hardware = {
     graphics = {
       enable = true;
     };
-    logitech.wireless.enable = true;
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -221,14 +220,6 @@
         shellAliases = {
           ls = "${pkgs.eza}/bin/eza --icons=always";
         };
-      };
-
-      #printing
-      services.printing.enable = true;
-      services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
       };
 
       #services.flatpak.enable = true;
