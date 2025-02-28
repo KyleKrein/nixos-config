@@ -36,7 +36,8 @@
     configDir = "/etc/nixos-config";
     user = "root";
   };
-networking.wireless.iwd.enable = true;
+  networking.wireless.iwd.enable = true;
+
 
   boot = {
     #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
