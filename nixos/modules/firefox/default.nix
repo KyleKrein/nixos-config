@@ -14,6 +14,7 @@
   imports = [] ++ lib.optional (hwconfig.system == "aarch64-linux") ./aarch64-linux.nix;
   programs = {
     firefox = {
+      package = pkgs.librewolf;
       enable = true;
       languagePacks = [ "de" "en-US" "ru"];
 

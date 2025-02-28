@@ -102,6 +102,17 @@
            # rocmSupport = true;
           };
         };
+    andrej-pc-pkgs = nixpkgs: import nixpkgs {
+          system = x86;
+          overlays = [
+            #nativePackagesOverlay
+          ];
+          config = {
+            #allowBroken = true;
+            allowUnfree = true;
+            #cudaSupport = true;
+          };
+        };
     nativePackagesOverlay = self: super: {
               stdenv = super.impureUseNativeOptimizations super.stdenv;
             };
@@ -167,6 +178,27 @@
         pkgs = kylekrein-mac-pkgs nixpkgs;
         modules = [
           ./nixos/configuration.nix
+        ];
+      };
+      "andrej-pc" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          hwconfig = {
+            hostname = "andrej-pc";
+            isLaptop = false;
+            system = x86;
+            useImpermanence = false;
+          };
+          inherit first-nixos-install;
+          inherit inputs;
+	  unstable-pkgs = andrej-pc-pkgs nixpkgs-unstable;
+        };
+
+        system = x86;
+        pkgs = andrej-pc-pkgs nixpkgs;
+        modules = [
+          (import ./disko/ext4-swap.nix {device = "/dev/sda"; swapSize = 16;})
+	  (import ./disko/ext4.nix {device = "/dev/sdb";})
+          ./nixos/hosts/andrej-pc/configuration.nix
         ];
       };
     };

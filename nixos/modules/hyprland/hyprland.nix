@@ -58,7 +58,7 @@ in {
       "$emacs" = "emacsclient -c";
       "$fileManager" = "$emacs --eval '(dired \"/home/${username}\")'"; # "$terminal ${pkgs.yazi}/bin/yazi";
       "$fileManager2" = "${pkgs.kdePackages.dolphin}/bin/dolphin";
-      "$browser" = "${pkgs.firefox}/bin/firefox";
+      "$browser" = "${pkgs.librewolf}/bin/librewolf";
       "$menu" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-app-launcher)'"; #"${pkgs.wofi}/bin/wofi --show drun";
       "$emojiPicker" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-emoji-picker)'";
       "$clipboardManager" = "$terminal --class clipse -e 'clipse'";

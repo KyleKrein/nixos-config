@@ -5,5 +5,5 @@
 
     programs.dconf.enable = true;
 
-    stylix.targets.qt.platform = "qtct";
+    #stylix.targets.qt.platform = "qtct";
 }

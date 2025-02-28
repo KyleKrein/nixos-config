@@ -13,9 +13,10 @@ in
 {
   imports =
     [
-      ./modules/fastfetch
+      #./modules/fastfetch
       #./modules/tmux/home.nix
     ]
+++ lib.optional (lib.strings.hasInfix "kylekrein" hwconfig.hostname) ./modules/fastfetch
     ++ lib.optional (hwconfig.useImpermanence) (
       import ./modules/impermanence/home.nix {
         inherit username;
