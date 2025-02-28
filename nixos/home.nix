@@ -40,7 +40,7 @@ in
   home.username = username;
   home.homeDirectory = "/home/${username}";
   stylix = {
-    enable = lib.strings.hasInfix "kylekrein";
+    enable = lib.strings.hasInfix "kylekrein" hwconfig.hostname;
   };
   #xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
   #	General.theme = "Catppuccin-Mocha";
