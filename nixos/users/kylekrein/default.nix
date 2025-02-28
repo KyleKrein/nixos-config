@@ -40,8 +40,8 @@ in {
     inherit pkgs;
   };
   kylekrein.services.autoUpgrade = {
-    configDir = lib.mkForce "/home/${username}/nixos-config";
-    user = lib.mkForce username;
+    #configDir = lib.mkForce "/home/${username}/nixos-config";
+    #user = lib.mkForce username;
   };
   programs.nh.flake = lib.mkForce "/home/${username}/nixos-config";
   systemd.tmpfiles.rules =
