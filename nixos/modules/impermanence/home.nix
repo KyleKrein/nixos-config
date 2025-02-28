@@ -35,6 +35,7 @@
       #  method = "symlink";
       #}
       ".mozilla"
+      ".librewolf"
       ".local/share/TelegramDesktop"
       ".config/solaar"
       ".config/kdeconnect"
