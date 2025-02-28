@@ -38,7 +38,7 @@
   };
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -161,17 +161,7 @@
     graphics = {
       enable = true;
     };
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings = {
-        General = {
-          Experimental = true;
-        };
-      };
-    };
   };
-  services.blueman.enable = true;
 
   security.polkit.enable = true;
 
