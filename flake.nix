@@ -196,7 +196,7 @@
         system = x86;
         pkgs = andrej-pc-pkgs nixpkgs;
         modules = [
-          (import ./disko/ext4-swap.nix {device = "/dev/sda"; swapSize = 16;})
+          (import ./disko/ext4-swap.nix {device = "/dev/sda"; swapSize = "16G";})
 	  (import ./disko/ext4.nix {device = "/dev/sdb";})
           ./nixos/hosts/andrej-pc/configuration.nix
         ];

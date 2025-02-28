@@ -1,4 +1,4 @@
-{ device, swapSize ? 16 }:
+{ device, swapSize ? "16G" }:
 {
   disko.devices = {
     disk.${device} = {
@@ -31,7 +31,7 @@
         type = "lvm_vg";
         lvs = { # lvcreate
           swap = { # Logical Volume = "swap", /dev/vg1/swap
-            size = "${swapSize}G";
+            size = swapSize;
             content = {
               type = "swap";
             };
