@@ -137,7 +137,6 @@
     whatsapp-for-linux
 
     prismlauncher
-    minecraft
     unstable-pkgs.mcpelauncher-ui-qt
   ];
   programs.kdeconnect.enable = true;
