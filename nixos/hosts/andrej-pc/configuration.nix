@@ -135,6 +135,10 @@
     vscodium-fhs
     discord
     whatsapp-for-linux
+
+    prismlauncher
+    minecraft
+    unstable.mcpelauncher-ui-qt
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
