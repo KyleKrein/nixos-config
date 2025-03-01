@@ -137,6 +137,7 @@
     vscodium-fhs
     discord
     whatsapp-for-linux
+    solaar
 
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
@@ -169,6 +170,7 @@
     graphics = {
       enable = true;
     };
+    logitech.wireless.enable = true;
       bluetooth = {
       enable = true;
       powerOnBoot = true;
