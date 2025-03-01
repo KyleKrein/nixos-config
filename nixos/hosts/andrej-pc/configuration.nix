@@ -138,6 +138,7 @@
 
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
+    jdk
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
@@ -246,9 +247,9 @@
           services.openssh = {
             enable = true;
             # require public key authentication for better security
-            #settings.PasswordAuthentication = false;
-            #settings.KbdInteractiveAuthentication = false;
-            #settings.PermitRootLogin = "no";
+            settings.PasswordAuthentication = false;
+            settings.KbdInteractiveAuthentication = false;
+            settings.PermitRootLogin = "no";
             #extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
           };
 
