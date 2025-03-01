@@ -12,6 +12,8 @@
   ...
 }:
 {
+  programs.firefox.policies.Preferences."browser.startup.page" = lib.mkForce 1;
+
   imports = [
     inputs.sops-nix.nixosModules.sops
     inputs.stylix.nixosModules.stylix
