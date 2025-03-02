@@ -4,6 +4,7 @@
   hwconfig,
   inputs,
   config,
+  unstable-pkgs,
   ...
 }: {
   imports = [
@@ -23,4 +24,8 @@
   services.displayManager.sddm = {
       wayland.enable = lib.mkForce false; # black screen
     };
+  environment.systemPackages = with pkgs;[
+    prismlauncher
+    unstable-pkgs.mcpelauncher-ui-qt
+  ];
 }
