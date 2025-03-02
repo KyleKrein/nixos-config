@@ -32,7 +32,7 @@
   facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
   kylekrein.services.autoUpgrade = {
     enable = true;
-    pushUpdates = if hwconfig.hostname == "kylekrein-homepc" then true else false;
+    pushUpdates = false;#if hwconfig.hostname == "kylekrein-homepc" then true else false;
     configDir = "/etc/nixos-config";
     user = "root";
   };
