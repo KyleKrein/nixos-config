@@ -36,6 +36,8 @@
       #}
       ".mozilla"
       ".librewolf"
+      ".local/share/mcpelauncher"
+      ".local/share/PrismLauncher"
       ".local/share/TelegramDesktop"
       ".config/solaar"
       ".config/kdeconnect"
@@ -46,6 +48,7 @@
     ];
     files = [
       ".screenrc"
+      ".config/Minecraft Linux Launcher/Minecraft Linux Launcher UI.conf"
       #".steampid"
       #".steampath"
     ];
