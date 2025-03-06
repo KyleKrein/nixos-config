@@ -27,6 +27,7 @@
       url = "github:kylekrein/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     stylix.url = "github:danth/stylix?ref=release-24.11";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon?ref=releasep2-2024-12-25";
@@ -100,6 +101,15 @@
             allowUnfree = true;
             allowUnsupportedSystem = true;
            # rocmSupport = true;
+          };
+        };
+        kylekrein-wsl-pkgs = nixpkgs: import nixpkgs {
+          system = x86;
+          overlays = [
+            #nativePackagesOverlay
+          ];
+          config = {
+            allowUnfree = true;
           };
         };
     andrej-pc-pkgs = nixpkgs: import nixpkgs {
@@ -178,6 +188,26 @@
         pkgs = kylekrein-mac-pkgs nixpkgs;
         modules = [
           ./nixos/configuration.nix
+        ];
+      };
+      "kylekrein-wsl" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          hwconfig = {
+            hostname = "kylekrein-wsl";
+            isLaptop = true;
+            system = x86;
+            useImpermanence = false;
+          };
+          inherit first-nixos-install;
+          inherit inputs;
+	  unstable-pkgs = kylekrein-wsl-pkgs nixpkgs-unstable;
+        };
+
+        system = x86;
+        pkgs = kylekrein-wsl-pkgs nixpkgs;
+        modules = [
+          inputs.nixos-wsl.nixosModules.default
+          ./nixos/wsl.nix
         ];
       };
       "andrej-pc" = nixpkgs.lib.nixosSystem {
