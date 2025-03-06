@@ -13,6 +13,7 @@
     ./modules/firefox
     ./modules/flatpak
     ./modules/emacs
+    ./modules/gnupg
     ./hosts/${hwconfig.hostname}
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
 
