@@ -18,6 +18,7 @@
       "nixos-config"
       "blender"
       ".gnupg"
+      ".password-store"
       ".ssh"
       ".emacs.d"
       ".local/share/keyrings"

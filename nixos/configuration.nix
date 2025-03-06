@@ -11,6 +11,16 @@
   unstable-pkgs,
   ...
 }:
+let ladybird = unstable-pkgs.ladybird.overrideAttrs(old: {
+      src = fetchFromGitHub {
+	owner = "LadybirdWebBrowser";
+	repo = "ladybird";
+	rev = "f148af0a9399139b85308ae1eacc8f0f738ed26c";
+	hash = "sha256-pmUpVa1l47m6mLilaMuxuIGNRkcOGscr5h6T0sNBXOM=";
+      };
+      version = "0-unstable-2025-03-04";
+    });
+in
 {
   imports = [
     inputs.sops-nix.nixosModules.sops
@@ -27,6 +37,7 @@
     ./modules/services/autoupgrade
     ./modules/sops
     ./modules/emacs
+    ./modules/gnupg
     ./hosts/${hwconfig.hostname}
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;
@@ -167,6 +178,7 @@
     obs-studio
     neovim
   ];
+
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
 
