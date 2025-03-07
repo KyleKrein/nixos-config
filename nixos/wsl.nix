@@ -18,6 +18,7 @@
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
 
   networking.hostName = hwconfig.hostname;
+  time.timeZone = "Europe/Berlin";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -46,6 +47,7 @@
     git
     git-credential-manager
     egl-wayland
+    xclip
     btop
   ];
   wsl = {
