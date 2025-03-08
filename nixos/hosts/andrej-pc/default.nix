@@ -16,6 +16,13 @@
     ../../users/andrej
   ];
 
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [
+      "a09acf0233dccb4a"
+    ];
+  };
+
   hardware.nvidia.open = lib.mkForce false;
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;
   #sops.secrets."ssh_keys/${hwconfig.hostname}" = {};

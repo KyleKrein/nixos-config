@@ -7,6 +7,9 @@
     };
   };
   environment.systemPackages = with pkgs;[
-     (pass.withExtensions (exts: with exts;[pass-otp]))
+     (pass.withExtensions (exts: with exts;[
+       pass-otp
+       pass-import
+     ]))
   ];
 }

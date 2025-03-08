@@ -11,8 +11,8 @@
   unstable-pkgs,
   ...
 }:
-let ladybird = unstable-pkgs.ladybird.overrideAttrs(old: {
-      src = fetchFromGitHub {
+let ladybird = pkgs.ladybird.overrideAttrs(old: {
+      src = pkgs.fetchFromGitHub {
 	owner = "LadybirdWebBrowser";
 	repo = "ladybird";
 	rev = "f148af0a9399139b85308ae1eacc8f0f738ed26c";
