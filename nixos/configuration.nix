@@ -171,6 +171,7 @@ in
     neovim
 
     llvmPackages_19.clang-tools
+    gdb
   ];
 
   programs.kdeconnect.enable = true;
