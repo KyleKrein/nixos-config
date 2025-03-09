@@ -80,10 +80,23 @@
     #};
     arm = "aarch64-linux";
     x86 = "x86_64-linux";
+    ladybirdMaster = self: super: { ladybird = super.ladybird.overrideAttrs(old: {
+      src = super.fetchFromGitHub {
+	owner = "LadybirdWebBrowser";
+	repo = "ladybird";
+	rev = "bf15b7ac12e2e796c35c5714c3a3a47be7308d20";
+	hash = "sha256-hJkK7nag3Z9E8etPFCo0atUEJJnPjjkl7sle/UwkzbE=";
+      };
+      version = "0-unstable-2025-03-09";
+    });};
+     nativePackagesOverlay = self: super: {
+              stdenv = super.impureUseNativeOptimizations super.stdenv;
+            };
     kylekrein-homepc-pkgs = nixpkgs: import nixpkgs {
           system = x86;
           overlays = [
             #nativePackagesOverlay
+	    #ladybirdMaster
           ];
           config = {
             allowBroken = true;
@@ -123,9 +136,6 @@
             #cudaSupport = true;
           };
         };
-    nativePackagesOverlay = self: super: {
-              stdenv = super.impureUseNativeOptimizations super.stdenv;
-            };
 
     first-nixos-install = "1729112485"; #stat -c %W /
   in {

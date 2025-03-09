@@ -21,7 +21,7 @@
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
   environment.systemPackages = with pkgs; [
     blender
-
+    ladybird
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
   #LLMs
