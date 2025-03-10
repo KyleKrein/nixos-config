@@ -172,6 +172,7 @@ in
 
     llvmPackages_19.clang-tools
     gdb
+    csharp-ls
   ];
 
   programs.kdeconnect.enable = true;

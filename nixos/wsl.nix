@@ -49,6 +49,8 @@
     egl-wayland
     xclip
     btop
+
+    csharp-ls
   ];
   wsl = {
     enable = true;
