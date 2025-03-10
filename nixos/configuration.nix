@@ -309,7 +309,7 @@ in
           #   enableSSHSupport = true;
           # };
 
-          kk.steam.enable = hwconfig.system == "x86_64-linux";
+          kk.steam.enable = true;
 
           # List services that you want to enable:
 
