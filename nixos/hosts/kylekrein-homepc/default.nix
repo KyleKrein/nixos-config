@@ -26,7 +26,7 @@
   ];
   #LLMs
   services.ollama = {
-    enable = false;
+    enable = true;
     loadModels = [ "deepseek-r1:32b" ];
     acceleration = "cuda";
     home = "/persist/ollama";
@@ -43,7 +43,7 @@
     ];
   };
 
-  services.open-webui.enable = false;
+  services.open-webui.enable = true;
   services.open-webui.openFirewall = false;
   services.open-webui.host = "0.0.0.0";
   services.open-webui.stateDir = "/persist/open-webui";
