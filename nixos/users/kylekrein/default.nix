@@ -29,6 +29,9 @@ in {
       neededForUsers = true;
     };
   };
+  nix.settings.trusted-users = [
+    "kylekrein"
+  ];
 
   home-manager.users."${username}" = import ../../home.nix {
     inherit lib;
