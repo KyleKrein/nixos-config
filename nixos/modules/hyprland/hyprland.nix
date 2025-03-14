@@ -174,7 +174,7 @@ in {
         allow_tearing = false;
         layout = "dwindle";
       };
-      render = lib.mkIf hwconfig.system == "aarch64-linux"{
+      render = lib.mkIf (hwconfig.system == "aarch64-linux") { # Explicit sync breaks asahi driver https://github.com/hyprwm/Hyprland/issues/8158
 	explicit_sync = 0;
       };
 
