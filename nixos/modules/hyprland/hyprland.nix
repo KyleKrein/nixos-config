@@ -174,6 +174,9 @@ in {
         allow_tearing = false;
         layout = "dwindle";
       };
+      render = lib.mkIf hwconfig.system == "aarch64-linux"{
+	explicit_sync = 0;
+      };
 
       windowrule = [
         #kando
