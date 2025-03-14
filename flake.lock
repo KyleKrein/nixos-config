@@ -115,11 +115,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1741700046,
-        "narHash": "sha256-UTfZxVrbhWsNPxn2qFW1XX2/ol/XWZUgc2ZrmsygmXQ=",
+        "lastModified": 1741944006,
+        "narHash": "sha256-87jOlzEWYp6Arm87ooI/5MkAtGWYOQ2kiBWJDIbsd0U=",
         "owner": "kylekrein",
         "repo": "emacs-config",
-        "rev": "5ef41dd4c7ad39d025dd524768150d2ab1eb88d7",
+        "rev": "06071584e8394493eb119ab4a1ffd7d0938cb972",
         "type": "github"
       },
       "original": {
