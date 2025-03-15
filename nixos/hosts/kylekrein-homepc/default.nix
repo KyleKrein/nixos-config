@@ -27,7 +27,7 @@
   #LLMs
   services.ollama = {
     enable = true;
-    loadModels = [ "deepseek-r1:32b" "deepseek-r1:8b"];
+    loadModels = [ "deepseek-r1:32b" "deepseek-r1:8b" "qwq" "gemma3:27b"];
     acceleration = "cuda";
     home = "/persist/ollama";
     user = "ollama";
