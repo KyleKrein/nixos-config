@@ -131,6 +131,8 @@ in {
       ];
       misc = {
 	vfr = true; #lowers the amount of frames when nothing happens
+	allow_session_lock_restore = true; # hope that it fixes the crash of hyprlock
+	disable_hyprland_logo = true;# disables the random Hyprland logo / anime girl background. :(
       };
       input = {
         kb_layout = "us, ru";
@@ -161,6 +163,7 @@ in {
 
       cursor = {
         no_hardware_cursors = true;
+	inactive_timeout = 10;
       };
 
       general = {
