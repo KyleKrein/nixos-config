@@ -46,11 +46,6 @@ in {
         "${pkgs.solaar}/bin/solaar -w hide &"
         "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" # https://nixos.wiki/wiki/Polkit
         "${pkgs.clipse}/bin/clipse -listen &"
-        "${pkgs.swww}/bin/swww-daemon &"
-        "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
-      ];
-      exec = [
-        "${pkgs.swww}/bin/swww img ${wallpaper-image} &"
       ];
       "$mod" = "SUPER";
       "$mainMod" = "$mod";
