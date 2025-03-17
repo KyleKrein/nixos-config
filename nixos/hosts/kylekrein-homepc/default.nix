@@ -24,6 +24,12 @@
     ladybird
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [
+      "A84AC5C10AD269CA"
+    ];
+  };
   #LLMs
   services.ollama = {
     enable = true;

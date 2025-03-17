@@ -18,6 +18,7 @@ in {
       "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/flatpak"
+      "/var/lib/zerotier-one"
       "/var/lib/systemd/coredump"
       "/etc/NetworkManager/system-connections"
       {
