@@ -28,4 +28,11 @@
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
   ];
+
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [
+      "db64858fed285e0f"
+    ];
+  };
 }

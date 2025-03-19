@@ -15,6 +15,10 @@
     ../../users/kylekrein
     (import ../../modules/libvirt/user.nix {username = "kylekrein";})
 
+    ../../users/dima
+    (import ../../modules/libvirt/user.nix {username = "dima";})
+
+
     ../../users/tania
   ];
 
@@ -28,6 +32,7 @@
     enable = true;
     joinNetworks = [
       "A84AC5C10AD269CA"
+      "db64858fed285e0f"
     ];
   };
   #LLMs
