@@ -29,6 +29,15 @@
     unstable-pkgs.mcpelauncher-ui-qt
   ];
 
+    boot = {
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.compressor=lzo"
+      "zswap.zpool=zsmalloc"
+      "zswap.max_pool_percent=50"
+    ];
+  };
+
   services.zerotierone = {
     enable = true;
     joinNetworks = [

@@ -16,6 +16,10 @@
     ../../users/andrej
   ];
 
+  zramSwap = {
+    enable = true; # Hopefully? helps with freezing when using swap
+  };
+
   services.zerotierone = {
     enable = true;
     joinNetworks = [

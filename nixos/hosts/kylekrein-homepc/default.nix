@@ -28,6 +28,10 @@
     ladybird
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
+
+  zramSwap = {
+    enable = true; # Hopefully? helps with freezing when using swap
+  };
   services.zerotierone = {
     enable = true;
     joinNetworks = [
