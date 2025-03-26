@@ -68,8 +68,8 @@
     nerd-fonts.symbols-only
     hack-font
     # microsoft fonts:
-    #corefonts
-    #vistafonts
+    corefonts
+    vistafonts
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
