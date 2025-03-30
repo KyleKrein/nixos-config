@@ -115,11 +115,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1743003324,
-        "narHash": "sha256-+UQIqu8PBm+BtkR9mgJDr1JqAi7BbPatsh5a/EOz2Cg=",
+        "lastModified": 1743350531,
+        "narHash": "sha256-bhA5UCs8FDTUBJFkV5ucX9DZB7O9ik9PzXiT6N8yjIo=",
         "owner": "kylekrein",
         "repo": "emacs-config",
-        "rev": "8eec32c32a418de3ecc7862052fb809f1ef9c0c0",
+        "rev": "a2ebd01819942925d63435fb4b157cd5ccf03527",
         "type": "github"
       },
       "original": {
@@ -498,11 +498,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743221873,
-        "narHash": "sha256-i8VPNm4UBsC3Ni6VwjojVJvCpS9GZ4vPrpFRtCGJzBs=",
+        "lastModified": 1743350051,
+        "narHash": "sha256-QtVfBQe5VBnRPP5ustegPlsTdV/SZzt8akOIN5Hlwjk=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "53d0f0ed11487a4476741fde757d0feabef4cc4e",
+        "rev": "eaff8219d629bb86e71e3274e1b7915014e7fb22",
         "type": "github"
       },
       "original": {
@@ -726,11 +726,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1743347629,
-        "narHash": "sha256-9mHSyFdUxCv/arCjy0GwE4YiycSyYawk6peq5MDAvAs=",
+        "lastModified": 1743350625,
+        "narHash": "sha256-mn2XquNptOecd/arFCdxBXD1bk4ozuxVvDM2mCqmhaU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8d7565580175ea9c01f97aedc4d4453074da61ab",
+        "rev": "03caaae9b0170310e19876df05c60d5f3ccf979b",
         "type": "github"
       },
       "original": {
