@@ -173,6 +173,7 @@ in
     llvmPackages_19.clang-tools
     gdb
     csharp-ls
+    element-desktop
   ];
 
   programs.kdeconnect.enable = true;
