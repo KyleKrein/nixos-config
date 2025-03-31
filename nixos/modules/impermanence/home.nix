@@ -44,6 +44,7 @@
       ".config/kdeconnect"
       ".config/blender"
       ".config/unity3d"
+      ".config/Element"
       ".local/share/aspyr-media"
       ".themes"
     ];
