@@ -8,72 +8,54 @@
   ...
 }: {
   imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/matrix/conduwuit.nix"
-    ../../hardware/nvidia
-
-    ../../modules/hyprland
-
-    ../../modules/libvirt
+   inputs.sops-nix.nixosModules.sops
+    inputs.stylix.nixosModules.stylix
+    inputs.nixos-facter-modules.nixosModules.facter
+    inputs.home-manager.nixosModules.default
+    inputs.disko.nixosModules.default
+    ../../modules/sops
+    ../../modules/services/autoupgrade
+ "${inputs.nixpkgs-unstable}/nixos/modules/services/matrix/conduwuit.nix"
 
     ../../users/kylekrein
-    (import ../../modules/libvirt/user.nix {username = "kylekrein";})
-
-    ../../users/dima
-    (import ../../modules/libvirt/user.nix {username = "dima";})
-
-
-    ../../users/tania
+    ./hardware.nix
+    ./networking.nix
   ];
 options.services.conduwuit.settings.global.database_path = lib.mkOption { apply = old: "/persist/conduwuit/";};
 config = {
-  sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
+  home-manager.users = lib.mkForce {};
+  stylix.image = ../../modules/hyprland/wallpaper.jpg;
+  #sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
+  boot.tmp.cleanOnBoot = true;
+  boot.loader.systemd-boot.enable = true;
+   networking.hostName = hwconfig.hostname;
+users = {
+    mutableUsers = false;
+    users = {
+      root = {
+        # disable root login here, and also when installing nix by running nixos-install --no-root-passwd
+        # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/3
+        hashedPassword = "!"; # disable root logins, nothing hashes to !
+      };
+    };
+  };
   environment.systemPackages = with pkgs; [
-    blender
-    ladybird
-    #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
+    neovim
   ];
+   services.openssh = {
+            enable = true;
+            # require public key authentication for better security
+            settings.PasswordAuthentication = false;
+            settings.KbdInteractiveAuthentication = false;
+            settings.PermitRootLogin = "no";
+            #extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
+          };
 
   zramSwap = {
     enable = true; # Hopefully? helps with freezing when using swap
   };
-  services.zerotierone = {
-    enable = true;
-    port = 9994;
-    joinNetworks = [
-      "A84AC5C10AD269CA"
-      "db64858fed285e0f"
-    ];
-  };
-  #LLMs
-  services.ollama = {
-    enable = true;
-    loadModels = [ "deepseek-r1:32b" "qwq" "gemma3:27b"];
-    acceleration = "cuda";
-    home = "/persist/ollama";
-    user = "ollama";
-    group = "ollama";
-  };
-  services.llama-cpp = {
-    enable = false;
-    model = "/home/kylekrein/Downloads/ds/DeepSeek-R1-GGUF/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf";
-    port = 10005;
-    extraFlags = [
-      "--ctx-size 1024" #context size
-      "--n-gpu-layers 0"
-    ];
-  };
-
-  services.open-webui.enable = true;
-  services.open-webui.openFirewall = false;
-  services.open-webui.host = "0.0.0.0";
-  services.open-webui.stateDir = "/persist/open-webui";
-  systemd.services.open-webui.serviceConfig.User = "ollama";
-  systemd.services.open-webui.serviceConfig.Group = "ollama";
-  systemd.services.open-webui.serviceConfig.DynamicUser = lib.mkForce false;
-
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 9993 ] ++ [ config.services.zerotierone.port ];
-  networking.firewall.allowedUDPPorts = [config.services.zerotierone.port];
+  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 ];
   security.acme = {
     acceptTerms = true;
     defaults.email = "alex.lebedev2003@icloud.com";
@@ -84,24 +66,22 @@ config = {
             group = "nginx";
 	  extraDomainNames = [
 	    "matrix.kylekrein.com"
-	    "chat.kylekrein.com"
+	    #"chat.kylekrein.com"
 	  ];
         };
     };
   };
   users.users.nginx.extraGroups = [ "acme" ];
-  services.hypridle.enable = lib.mkForce false;
-  programs.hyprlock.enable = lib.mkForce false;
   sops.secrets."services/conduwuit" = {neededForUsers = true;};
   
   services.conduwuit = {
-    enable = false;
+    enable = true;
     settings = {
       global = {
 	server_name = "kylekrein.com";
 	port = [ 6167 ];
 	trusted_servers = [ "matrix.org" ];
-	allow_registration = true;
+	#allow_registration = true;
 	allow_federation = true;
 	allow_encryption = true;
       };
@@ -143,12 +123,12 @@ config = {
           proxyWebsockets = true;
         };
       });
-      "chat.kylekrein.com" = (SSL // {
-        locations."/" = {
-          proxyPass = "http://localhost:8080/";
-          proxyWebsockets = true;
-        };
-      });
+      #"chat.kylekrein.com" = (SSL // {
+      #  locations."/" = {
+      #    proxyPass = "http://localhost:8080/";
+      #    proxyWebsockets = true;
+      #  };
+      #});
       "matrix.kylekrein.com" = (SSL // {
 	listen = [{port = 443;  addr="0.0.0.0"; ssl=true;} {port = 8448;  addr="0.0.0.0"; ssl=true;}];
         locations."/" = {
@@ -157,7 +137,25 @@ config = {
         };
       });
     };
-
-  systemd.network.wait-online.enable = lib.mkForce false;
+  system.stateVersion = "24.11";
+   nix = {
+            settings = {
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+              auto-optimise-store = true;
+              substituters = [
+                "https://hyprland.cachix.org"
+                "https://nix-gaming.cachix.org"
+                "https://nix-community.cachix.org"
+              ];
+              trusted-public-keys = [
+                "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              ];
+            };
+          };
 };
 }

@@ -104,6 +104,17 @@
             cudaSupport = true;
           };
         };
+    kylekrein-server-pkgs = nixpkgs: import nixpkgs {
+          system = x86;
+          overlays = [
+            #nativePackagesOverlay
+	    #ladybirdMaster
+          ];
+          config = {
+            allowBroken = true;
+            allowUnfree = true;
+          };
+        };
     kylekrein-mac-pkgs = nixpkgs: import nixpkgs {
           system = arm;
           overlays = [
@@ -198,6 +209,25 @@
         pkgs = kylekrein-mac-pkgs nixpkgs;
         modules = [
           ./nixos/configuration.nix
+        ];
+      };
+      "kylekrein-server" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          hwconfig = {
+            hostname = "kylekrein-server";
+            isLaptop = false;
+            system = x86;
+            useImpermanence = false;
+          };
+          inherit first-nixos-install;
+          inherit inputs;
+	  unstable-pkgs = kylekrein-server-pkgs nixpkgs-unstable;
+        };
+
+        system = x86;
+        pkgs = kylekrein-server-pkgs nixpkgs;
+        modules = [
+          ./nixos/hosts/kylekrein-server
         ];
       };
       "kylekrein-wsl" = nixpkgs.lib.nixosSystem {
