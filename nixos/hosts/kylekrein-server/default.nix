@@ -42,7 +42,14 @@ users = {
   };
   environment.systemPackages = with pkgs; [
     neovim
+    git
   ];
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/etc/nixos-config";
+  };
    services.openssh = {
             enable = true;
             # require public key authentication for better security
@@ -82,13 +89,13 @@ users = {
 	server_name = "kylekrein.com";
 	port = [ 6167 ];
 	trusted_servers = [ "matrix.org" ];
-	#allow_registration = true;
+	allow_registration = true;
 	allow_federation = true;
 	allow_encryption = true;
       };
     };
     extraEnvironment = {
-      CONDUWUIT_REGISTRATION_TOKEN = "";
+      CONDUWUIT_REGISTRATION_TOKEN = "IActuallyLoveNixOSItIsFarBetterThanArch";
       #CONDUWUIT_REGISTRATION_TOKEN_FILE = ''"${config.sops.secrets."services/conduwuit".path}"'';
       CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
       CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
