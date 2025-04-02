@@ -95,7 +95,7 @@ users = {
       };
     };
     extraEnvironment = {
-      CONDUWUIT_REGISTRATION_TOKEN = "IActuallyLoveNixOSItIsFarBetterThanArch";
+      CONDUWUIT_REGISTRATION_TOKEN = "IActuallyLoveNixOSItIs1488TimesBetterThanArch!";
       #CONDUWUIT_REGISTRATION_TOKEN_FILE = ''"${config.sops.secrets."services/conduwuit".path}"'';
       CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
       CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
