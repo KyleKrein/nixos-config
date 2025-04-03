@@ -21,7 +21,7 @@
     ./hardware.nix
     ./networking.nix
   ];
-options.services.conduwuit.settings.global.database_path = lib.mkOption { apply = old: "/persist/conduwuit/";};
+#options.services.conduwuit.settings.global.database_path = lib.mkOption { apply = old: "/persist/conduwuit/";};
 config = {
   home-manager.users = lib.mkForce {};
   stylix.image = ../../modules/hyprland/wallpaper.jpg;
@@ -95,17 +95,12 @@ users = {
       };
     };
     extraEnvironment = {
-      CONDUWUIT_REGISTRATION_TOKEN = "IActuallyLoveNixOSItIs1488TimesBetterThanArch!";
+      CONDUWUIT_REGISTRATION_TOKEN = "TIebWOivZIx7oCxiX9FgMlxF8s6sTI1ppStDy3U3Ypm0fEmiJgOD8ppO1X6"; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
       #CONDUWUIT_REGISTRATION_TOKEN_FILE = ''"${config.sops.secrets."services/conduwuit".path}"'';
       CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
       CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
       CONDUWUIT_ALLOW_LOCAL_PRESENCE = "true";
     };
-  };
-  systemd.services.conduwuit.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    StateDirectory = lib.mkForce "/persist/conduwuit";
-    RuntimeDirectory = lib.mkForce "/persist/conduwuit/runtime";
   };
 
   services.nginx.enable = true;
@@ -129,7 +124,7 @@ users = {
         locations."/" = {
           proxyPass = "http://localhost:6167";
           proxyWebsockets = true;
-        };
+	};
       });
       #"chat.kylekrein.com" = (SSL // {
       #  locations."/" = {
