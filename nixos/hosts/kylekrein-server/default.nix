@@ -63,27 +63,19 @@ users = {
     enable = true; # Hopefully? helps with freezing when using swap
   };
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 ];
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "alex.lebedev2003@icloud.com";
-    certs = {
-        "kylekrein.com" = {
-            webroot = "/var/lib/acme/challenges-kylekrein";
-            email = "alex.lebedev2003@icloud.com";
-            group = "nginx";
-	  extraDomainNames = [
-	    "matrix.kylekrein.com"
-	    #"chat.kylekrein.com"
-	  ];
-        };
-    };
-  };
-  users.users.nginx.extraGroups = [ "acme" ];
-  sops.secrets."services/conduwuit" = {neededForUsers = true;};
+  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 
+#3478 5349
+];
+ # networking.firewall.allowedUDPPortRanges = with config.services.coturn; [ {
+  #    from = min-port;
+   #   to = max-port;
+    #} ];
+  #networking.firewall.allowedUDPPorts = [ 3478 5349 ];
+  sops.secrets."services/conduwuit" = {mode = "0755";};
   
   services.conduwuit = {
     enable = true;
+    #user = "turnserver";
     settings = {
       global = {
 	server_name = "kylekrein.com";
@@ -100,46 +92,37 @@ users = {
       CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
       CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
       CONDUWUIT_ALLOW_LOCAL_PRESENCE = "true";
+      CONDUWUIT_WELL_KNOWN__SERVER = "matrix.kylekrein.com:443";  
+      CONDUWUIT_WELL_KNOWN__CLIENT = "https://matrix.kylekrein.com";
+      #CONDUWUIT_TURN_URIS = "turn:turn.kylekrein.com:3478?transport=udp";
+      #CONDUWUIT_TURN_SECRET = "true";
+      #CONDUWUIT_TURN_SECRET_FILE = "\"${config.sops.secrets."services/conduwuit".path}\"";
     };
   };
-
-  services.nginx.enable = true;
-  services.nginx = {
-    # Use recommended settings
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    clientMaxBodySize = "20000000";
+  services.coturn = rec {
+    enable = false;
+    no-cli = true;
+    no-tcp-relay = true;
+    min-port = 49000;
+    max-port = 50000;
+    use-auth-secret = true;
+    static-auth-secret-file = config.sops.secrets."services/conduwuit".path;
+    realm = "turn.kylekrein.com";
+    #cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
+    #pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
   };
-  services.nginx.virtualHosts = let
-    SSL = {
-      #enableACME = true;
-      forceSSL = true;
-      useACMEHost = "kylekrein.com";
-      acmeRoot = "/var/lib/acme/challenges-kylekrein";
-    }; in {
-      "kylekrein.com" = (SSL // {
-	listen = [{port = 443;  addr="0.0.0.0"; ssl=true;} {port = 8448;  addr="0.0.0.0"; ssl=true;}];
-        locations."/" = {
-          proxyPass = "http://localhost:6167";
-          proxyWebsockets = true;
-	};
-      });
-      #"chat.kylekrein.com" = (SSL // {
-      #  locations."/" = {
-      #    proxyPass = "http://localhost:8080/";
-      #    proxyWebsockets = true;
-      #  };
-      #});
-      "matrix.kylekrein.com" = (SSL // {
-	listen = [{port = 443;  addr="0.0.0.0"; ssl=true;} {port = 8448;  addr="0.0.0.0"; ssl=true;}];
-        locations."/" = {
-          proxyPass = "http://localhost:6167";
-          proxyWebsockets = true;
-        };
-      });
-    };
+  services.caddy = {
+  enable = true;
+  virtualHosts."kylekrein.com:8448".extraConfig = ''
+    reverse_proxy http://localhost:6167
+  '';
+  virtualHosts."matrix.kylekrein.com, matrix.kylekrein.com:8448".extraConfig = ''
+    reverse_proxy http://localhost:6167
+  '';
+  #virtualHosts."turn.kylekrein.com:3478".extraConfig = ''
+  #reverse_proxy http://localhost:3478
+  #'';
+};
   system.stateVersion = "24.11";
    nix = {
             settings = {
