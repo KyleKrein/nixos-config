@@ -173,8 +173,9 @@
     blender
     vscodium-fhs
     discord
-    whatsapp-for-linux
     solaar
+    element-desktop
+    wasistlos
 
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
