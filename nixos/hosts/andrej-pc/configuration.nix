@@ -175,7 +175,7 @@
     discord
     solaar
     element-desktop
-    wasistlos
+    unstable-pkgs.wasistlos
 
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
