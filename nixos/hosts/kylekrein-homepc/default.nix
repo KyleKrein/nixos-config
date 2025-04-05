@@ -89,7 +89,7 @@ config = {
         };
     };
   };
-  users.users.nginx.extraGroups = [ "acme" ];
+#  users.users.nginx.extraGroups = [ "acme" ];
   services.hypridle.enable = lib.mkForce false;
   programs.hyprlock.enable = lib.mkForce false;
   sops.secrets."services/conduwuit" = {neededForUsers = true;};
@@ -120,7 +120,7 @@ config = {
     RuntimeDirectory = lib.mkForce "/persist/conduwuit/runtime";
   };
 
-  services.nginx.enable = true;
+  #services.nginx.enable = true;
   services.nginx = {
     # Use recommended settings
     recommendedGzipSettings = true;
