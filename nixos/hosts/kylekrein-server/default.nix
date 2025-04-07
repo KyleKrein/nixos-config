@@ -15,7 +15,7 @@
     inputs.disko.nixosModules.default
     ../../modules/sops
     ../../modules/services/autoupgrade
- "${inputs.nixpkgs-unstable}/nixos/modules/services/matrix/conduwuit.nix"
+    ./conduwuit.nix
 
     ../../users/kylekrein
     ./hardware.nix
@@ -64,50 +64,52 @@ users = {
   };
   #Chat host
   networking.firewall.allowedTCPPorts = [ 80 443 22 8448 
-#3478 5349
+3478 5349
 ];
- # networking.firewall.allowedUDPPortRanges = with config.services.coturn; [ {
-  #    from = min-port;
-   #   to = max-port;
-    #} ];
-  #networking.firewall.allowedUDPPorts = [ 3478 5349 ];
+  networking.firewall.allowedUDPPortRanges = with config.services.coturn; [ {
+      from = min-port;
+      to = max-port;
+    } ];
+  networking.firewall.allowedUDPPorts = [ 3478 5349 ];
   sops.secrets."services/conduwuit" = {mode = "0755";};
   
-  services.conduwuit = {
+  kk.services.conduwuit = {
     enable = true;
     #user = "turnserver";
     settings = {
       global = {
 	server_name = "kylekrein.com";
+	well_known = {
+	  server = "matrix.kylekrein.com:443";
+	  client = "https://matrix.kylekrein.com";
+	};
 	port = [ 6167 ];
 	trusted_servers = [ "matrix.org" ];
 	allow_registration = true;
+	registration_token = "8ptB9GHlPwglvllBksplhA9sBHfVFXpJC6uQawIvNiyfkt0owZywhyIWRTx"; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
 	allow_federation = true;
 	allow_encryption = true;
+
+	allow_local_presence = true;
+	require_auth_for_profile_requests = true;
+
+	turn_secret = "GvCOQnutdoEi3DXH5ueFBPVGftwQmCLRWgrmuvjRpqcbwmjffwXe8iu7XMQ23z6m";#_file = config.sops.secrets."services/conduwuit".path;
+	turn_uris = [ "turn:91.99.0.169?transport=udp" "turn:91.99.0.169?transport=tcp" ];
       };
     };
     extraEnvironment = {
-      CONDUWUIT_REGISTRATION_TOKEN = "TIebWOivZIx7oCxiX9FgMlxF8s6sTI1ppStDy3U3Ypm0fEmiJgOD8ppO1X6"; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
-      #CONDUWUIT_REGISTRATION_TOKEN_FILE = ''"${config.sops.secrets."services/conduwuit".path}"'';
-      CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
-      CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
-      CONDUWUIT_ALLOW_LOCAL_PRESENCE = "true";
-      CONDUWUIT_WELL_KNOWN__SERVER = "matrix.kylekrein.com:443";  
-      CONDUWUIT_WELL_KNOWN__CLIENT = "https://matrix.kylekrein.com";
-      #CONDUWUIT_TURN_URIS = "turn:turn.kylekrein.com:3478?transport=udp";
-      #CONDUWUIT_TURN_SECRET = "true";
-      #CONDUWUIT_TURN_SECRET_FILE = "\"${config.sops.secrets."services/conduwuit".path}\"";
     };
   };
   services.coturn = rec {
-    enable = false;
+    enable = true;
     no-cli = true;
     no-tcp-relay = true;
     min-port = 49000;
     max-port = 50000;
     use-auth-secret = true;
-    static-auth-secret-file = config.sops.secrets."services/conduwuit".path;
-    realm = "turn.kylekrein.com";
+    static-auth-secret = "GvCOQnutdoEi3DXH5ueFBPVGftwQmCLRWgrmuvjRpqcbwmjffwXe8iu7XMQ23z6m";#-file = config.sops.secrets."services/conduwuit".path;
+    realm = "91.99.0.169";
+    listening-ips = [ "91.99.0.169" ];
     #cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
     #pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
   };
@@ -119,9 +121,9 @@ users = {
   virtualHosts."matrix.kylekrein.com, matrix.kylekrein.com:8448".extraConfig = ''
     reverse_proxy http://localhost:6167
   '';
-  #virtualHosts."turn.kylekrein.com:3478".extraConfig = ''
-  #reverse_proxy http://localhost:3478
-  #'';
+  virtualHosts."turn.kylekrein.com".extraConfig = ''
+  reverse_proxy http://91.99.0.169:3478
+  '';
 };
   system.stateVersion = "24.11";
    nix = {

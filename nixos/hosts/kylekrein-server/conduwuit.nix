@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.services.conduwuit;
+  cfg = config.kk.services.conduwuit;
   defaultUser = "conduwuit";
   defaultGroup = "conduwuit";
 
@@ -14,7 +14,7 @@ let
 in
 {
   meta.maintainers = with lib.maintainers; [ niklaskorz ];
-  options.services.conduwuit = {
+  options.kk.services.conduwuit = {
     enable = lib.mkEnableOption "conduwuit";
 
     user = lib.mkOption {
@@ -147,6 +147,18 @@ in
               Note that database_path cannot be edited because of the service's reliance on systemd StateDir.
             '';
           };
+	  global.database_backup_path = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = ''
+              Path to the conduwuit database, the directory where conduwuit will backup its data.
+            '';
+          };
+	  global.database_backups_to_keep = lib.mkOption {
+            type = lib.types.ints.positive;
+            default = 1;
+            description = "";
+          };
           global.allow_check_for_updates = lib.mkOption {
             type = lib.types.bool;
             default = false;
@@ -160,6 +172,18 @@ in
           };
 	  global.allow_local_presence = lib.mkOption {
             type = lib.types.bool;
+            default = true;
+            description = ''
+            '';
+          };
+	  global.allow_incoming_presence = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = ''
+            '';
+          };
+	  global.allow_outgoing_presence = lib.mkOption {
+            type = lib.types.bool;
             default = false;
             description = ''
             '';
@@ -171,13 +195,79 @@ in
             '';
           };
 	  global.new_user_displayname_suffix = lib.mkOption {
-            type = lib.types.string;
-            default = "";
+            type = lib.types.str;
+            default = "🏳️‍⚧️";
             description = ''
             '';
           };
 	  global.registration_token = lib.mkOption {
-            type = lib.types.string;
+            type = lib.types.str;
+            default = "";
+            description = ''
+            '';
+          };
+	  global.registration_token_file = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = ''
+            '';
+          };
+	  global.allow_public_room_directory_over_federation = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = ''
+            '';
+          };
+	  global.allow_public_room_directory_without_auth = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = ''
+            '';
+          };
+	  global.allow_device_name_federation = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = ''
+            '';
+          };
+	  global.allow_inbound_profile_lookup_federation_requests = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = ''
+            '';
+          };
+	  global.turn_secret = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+            description = ''
+            '';
+          };
+	  global.turn_uris = lib.mkOption {
+            type = lib.types.listOf lib.types.nonEmptyStr;
+            default = [];
+            description = ''
+            '';
+          };
+	  global.turn_secret_file = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = ''
+            '';
+          };
+	  global.prevent_media_downloads_from = lib.mkOption {
+            type = lib.types.listOf lib.types.nonEmptyStr;
+            default = [];
+            description = ''
+            '';
+          };
+	  global.well_known.client = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = ''
+            '';
+          };
+	  global.well_known.server = lib.mkOption {
+            type = lib.types.str;
             default = "";
             description = ''
             '';
