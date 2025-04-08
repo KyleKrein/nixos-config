@@ -63,15 +63,9 @@ users = {
     enable = true; # Hopefully? helps with freezing when using swap
   };
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 
-3478 5349
-];
-  networking.firewall.allowedUDPPortRanges = with config.services.coturn; [ {
-      from = min-port;
-      to = max-port;
-    } ];
+  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 ];
   networking.firewall.allowedUDPPorts = [ 3478 5349 ];
-  sops.secrets."services/conduwuit" = {mode = "0755";};
+  #sops.secrets."services/conduwuit" = {mode = "0755";};
   
   kk.services.conduwuit = {
     enable = true;
@@ -86,43 +80,63 @@ users = {
 	port = [ 6167 ];
 	trusted_servers = [ "matrix.org" ];
 	allow_registration = true;
-	registration_token = "8ptB9GHlPwglvllBksplhA9sBHfVFXpJC6uQawIvNiyfkt0owZywhyIWRTx"; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
+	registration_token = ""; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
 	allow_federation = true;
 	allow_encryption = true;
 
 	allow_local_presence = true;
 	require_auth_for_profile_requests = true;
-
-	turn_secret = "GvCOQnutdoEi3DXH5ueFBPVGftwQmCLRWgrmuvjRpqcbwmjffwXe8iu7XMQ23z6m";#_file = config.sops.secrets."services/conduwuit".path;
-	turn_uris = [ "turn:91.99.0.169?transport=udp" "turn:91.99.0.169?transport=tcp" ];
       };
     };
     extraEnvironment = {
     };
   };
-  services.coturn = rec {
-    enable = true;
-    no-cli = true;
-    no-tcp-relay = true;
-    min-port = 49000;
-    max-port = 50000;
-    use-auth-secret = true;
-    static-auth-secret = "GvCOQnutdoEi3DXH5ueFBPVGftwQmCLRWgrmuvjRpqcbwmjffwXe8iu7XMQ23z6m";#-file = config.sops.secrets."services/conduwuit".path;
-    realm = "91.99.0.169";
-    listening-ips = [ "91.99.0.169" ];
-    #cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
-    #pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
-  };
   services.caddy = {
   enable = true;
-  virtualHosts."kylekrein.com:8448".extraConfig = ''
-    reverse_proxy http://localhost:6167
+  #virtualHosts."kylekrein.com:8448".extraConfig = ''
+  #  reverse_proxy http://localhost:6167
+  #'';
+  virtualHosts."kylekrein.com".extraConfig = ''
+handle_path /.well-known/matrix/* {
+
+    header Access-Control-Allow-Origin *
+
+    ## `Content-Type: application/json` isn't required by the matrix spec
+    ## but some browsers (firefox) and some other tooling might preview json 
+    ## content prettier when they are made aware via Content-Type
+    header Content-Type application/json
+
+    respond /client `{ "m.homeserver": { "base_url": "https://matrix.kylekrein.com/" }, "org.matrix.msc3575.proxy": { "url": "https://matrix.kylekrein.com/"}, "org.matrix.msc4143.rtc_foci": [ { "type": "livekit", "livekit_service_url": "https://livekit-jwt.call.matrix.org" } ] }`
+
+    respond /server `{ "m.server": "https://matrix.kylekrein.com" }`
+
+    ## return http/404 if nothing matches 
+    respond 404
+}
+respond /.well-known/element/element.json `{"call":{"widget_url":"https://call.element.io"}}`
+    reverse_proxy * http://localhost:6167
   '';
-  virtualHosts."matrix.kylekrein.com, matrix.kylekrein.com:8448".extraConfig = ''
-    reverse_proxy http://localhost:6167
-  '';
-  virtualHosts."turn.kylekrein.com".extraConfig = ''
-  reverse_proxy http://91.99.0.169:3478
+  #  reverse_proxy /.well-known/* http://localhost:6167
+  #'';
+  virtualHosts."matrix.kylekrein.com".extraConfig = ''
+handle_path /.well-known/matrix/* {
+
+    header Access-Control-Allow-Origin *
+
+    ## `Content-Type: application/json` isn't required by the matrix spec
+    ## but some browsers (firefox) and some other tooling might preview json 
+    ## content prettier when they are made aware via Content-Type
+    header Content-Type application/json
+
+    respond /client `{ "m.homeserver": { "base_url": "https://matrix.kylekrein.com/" }, "org.matrix.msc3575.proxy": { "url": "https://matrix.kylekrein.com/"}, "org.matrix.msc4143.rtc_foci": [ { "type": "livekit", "livekit_service_url": "https://livekit-jwt.call.matrix.org" } ] }`
+
+    respond /server `{ "m.server": "https://matrix.kylekrein.com" }`
+
+    ## return http/404 if nothing matches 
+    respond 404
+}
+respond /.well-known/element/element.json `{"call":{"widget_url":"https://call.element.io"}}`
+    reverse_proxy * http://localhost:6167
   '';
 };
   system.stateVersion = "24.11";
@@ -137,11 +151,13 @@ users = {
                 "https://hyprland.cachix.org"
                 "https://nix-gaming.cachix.org"
                 "https://nix-community.cachix.org"
+		"https://attic.kennel.juneis.dog/conduwuit"
               ];
               trusted-public-keys = [
                 "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                 "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+		"conduwuit:BbycGUgTISsltcmH0qNjFR9dbrQNYgdIAcmViSGoVTE="
               ];
             };
           };
