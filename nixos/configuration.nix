@@ -151,7 +151,6 @@ in
     fzf
     lazygit
     fastfetch
-    firefox
     telegram-desktop
     vlc
     wl-clipboard
@@ -174,6 +173,9 @@ in
     gdb
     csharp-ls
     element-desktop
+    
+    beeengineeditor
+    beelocalization
   ];
 
   programs.kdeconnect.enable = true;

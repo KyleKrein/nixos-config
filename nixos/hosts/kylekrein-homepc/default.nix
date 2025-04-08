@@ -74,51 +74,9 @@ config = {
   #Chat host
   networking.firewall.allowedTCPPorts = [ 80 443 22 8448 9993 ] ++ [ config.services.zerotierone.port ];
   networking.firewall.allowedUDPPorts = [config.services.zerotierone.port];
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "alex.lebedev2003@icloud.com";
-    certs = {
-        "kylekrein.com" = {
-            webroot = "/var/lib/acme/challenges-kylekrein";
-            email = "alex.lebedev2003@icloud.com";
-            group = "nginx";
-	  extraDomainNames = [
-	    "matrix.kylekrein.com"
-	    "chat.kylekrein.com"
-	  ];
-        };
-    };
-  };
 #  users.users.nginx.extraGroups = [ "acme" ];
   services.hypridle.enable = lib.mkForce false;
   programs.hyprlock.enable = lib.mkForce false;
-  sops.secrets."services/conduwuit" = {neededForUsers = true;};
-  
-  services.conduwuit = {
-    enable = false;
-    settings = {
-      global = {
-	server_name = "kylekrein.com";
-	port = [ 6167 ];
-	trusted_servers = [ "matrix.org" ];
-	allow_registration = true;
-	allow_federation = true;
-	allow_encryption = true;
-      };
-    };
-    extraEnvironment = {
-      CONDUWUIT_REGISTRATION_TOKEN = "";
-      #CONDUWUIT_REGISTRATION_TOKEN_FILE = ''"${config.sops.secrets."services/conduwuit".path}"'';
-      CONDUWUIT_NEW_USER_DISPLAYNAME_SUFFIX = "🐝";
-      CONDUWUIT_REQUIRE_AUTH_FOR_PROFILE_REQUESTS = "true";
-      CONDUWUIT_ALLOW_LOCAL_PRESENCE = "true";
-    };
-  };
-  systemd.services.conduwuit.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    StateDirectory = lib.mkForce "/persist/conduwuit";
-    RuntimeDirectory = lib.mkForce "/persist/conduwuit/runtime";
-  };
 
   #services.nginx.enable = true;
   services.nginx = {
@@ -132,27 +90,13 @@ config = {
   services.nginx.virtualHosts = let
     SSL = {
       #enableACME = true;
-      forceSSL = true;
-      useACMEHost = "kylekrein.com";
-      acmeRoot = "/var/lib/acme/challenges-kylekrein";
+      #forceSSL = true;
+      #useACMEHost = "kylekrein.com";
+      #acmeRoot = "/var/lib/acme/challenges-kylekrein";
     }; in {
-      "kylekrein.com" = (SSL // {
-	listen = [{port = 443;  addr="0.0.0.0"; ssl=true;} {port = 8448;  addr="0.0.0.0"; ssl=true;}];
-        locations."/" = {
-          proxyPass = "http://localhost:6167";
-          proxyWebsockets = true;
-        };
-      });
       "chat.kylekrein.com" = (SSL // {
         locations."/" = {
           proxyPass = "http://localhost:8080/";
-          proxyWebsockets = true;
-        };
-      });
-      "matrix.kylekrein.com" = (SSL // {
-	listen = [{port = 443;  addr="0.0.0.0"; ssl=true;} {port = 8448;  addr="0.0.0.0"; ssl=true;}];
-        locations."/" = {
-          proxyPass = "http://localhost:6167";
           proxyWebsockets = true;
         };
       });

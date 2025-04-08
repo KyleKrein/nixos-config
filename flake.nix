@@ -62,6 +62,9 @@
     emacs-kylekrein = {
       url = "github:kylekrein/emacs-config";
     };
+    beeengine = {
+      url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1";
+    };
   };
 
   outputs = {
@@ -95,6 +98,7 @@
     kylekrein-homepc-pkgs = nixpkgs: import nixpkgs {
           system = x86;
           overlays = [
+	    inputs.beeengine.overlays.${x86}
             #nativePackagesOverlay
 	    #ladybirdMaster
           ];
@@ -118,6 +122,7 @@
     kylekrein-mac-pkgs = nixpkgs: import nixpkgs {
           system = arm;
           overlays = [
+	    inputs.beeengine.overlays.${arm}
             #(import ./nixos/macos/widevine.nix)
           ];
           config = {
@@ -139,6 +144,7 @@
     andrej-pc-pkgs = nixpkgs: import nixpkgs {
           system = x86;
           overlays = [
+	    inputs.beeengine.overlays.${x86}
             #nativePackagesOverlay
           ];
           config = {
