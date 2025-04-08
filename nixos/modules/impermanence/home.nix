@@ -40,6 +40,7 @@
       ".local/share/mcpelauncher"
       ".local/share/PrismLauncher"
       ".local/share/TelegramDesktop"
+      ".local/share/Paradox Interactive"
       ".config/solaar"
       ".config/kdeconnect"
       ".config/blender"
