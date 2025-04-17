@@ -220,16 +220,16 @@
         "rocksdb": "rocksdb"
       },
       "locked": {
-        "lastModified": 1744169934,
-        "narHash": "sha256-5YyHmPUUrXXrczWayji9327knihVTKnmjX+vX6+p6d0=",
-        "owner": "girlbossceo",
-        "repo": "conduwuit",
-        "rev": "d8311a5ff672fdc4729d956af5e3af8646b0670d",
+        "lastModified": 1744862328,
+        "narHash": "sha256-AoQff9D0ahy9K7Wyr6YOe+zNLli5pSc31xi6Mqv7XSM=",
+        "owner": "matrix-construct",
+        "repo": "tuwunel",
+        "rev": "eb2949d6d77349bc96932b1db3abf54e4fb07cc9",
         "type": "github"
       },
       "original": {
-        "owner": "girlbossceo",
-        "repo": "conduwuit",
+        "owner": "matrix-construct",
+        "repo": "tuwunel",
         "type": "github"
       }
     },
@@ -1244,11 +1244,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1744882984,
-        "narHash": "sha256-uuU8W6i6kPTNMJlpNpswPFq7EKYv05OLzRGITYYyKAE=",
+        "lastModified": 1744883212,
+        "narHash": "sha256-o95CZHXYLtoq3CSXMj07ReiMQN7o8yQPsHvweXV8Z3c=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8a61921ea9974e7fd547d854393d14fbd13b4b22",
+        "rev": "244a35234d561972c0fc806f18d1140c6f9eb5c5",
         "type": "github"
       },
       "original": {
