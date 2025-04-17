@@ -67,7 +67,7 @@
     beeengine = {
       url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1";
     };
-    conduwuit.url = "github:girlbossceo/conduwuit";
+    conduwuit.url = "github:matrix-construct/tuwunel";
   };
 
   outputs = {
