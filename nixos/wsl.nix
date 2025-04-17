@@ -55,6 +55,7 @@
   wsl = {
     enable = true;
     defaultUser = "nixos";
+    useWindowsDriver = true;
   };
   programs.nh = {
     enable = true;
@@ -65,7 +66,7 @@
   services.ollama = {
     enable = true;
     loadModels = [ "llama3.1" ];
-    home = "/home/nixos/ollama";
+    acceleration = "cuda";
     user = "ollama";
     group = "ollama";
   };
