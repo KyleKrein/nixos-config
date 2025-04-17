@@ -28,6 +28,9 @@
   environment.systemPackages = with pkgs; [
     blender
     ladybird
+    
+    android-tools
+    android-studio
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
 

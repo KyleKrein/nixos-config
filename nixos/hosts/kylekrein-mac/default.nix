@@ -28,6 +28,13 @@
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
   ];
+  services.ollama = {
+    enable = true;
+    loadModels = [ "llama3.1" ];
+    home = "/persist/ollama";
+    user = "ollama";
+    group = "ollama";
+  };
 
     boot = {
     kernelParams = [
