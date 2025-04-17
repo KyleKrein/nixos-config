@@ -62,6 +62,13 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/nixos/nixos-config";
   };
+  services.ollama = {
+    enable = true;
+    loadModels = [ "llama3.1" ];
+    home = "/home/nixos/ollama";
+    user = "ollama";
+    group = "ollama";
+  };
   fonts.packages = with unstable-pkgs; [ #TODO change to pkgs when 25.05 comes out
     nerd-fonts.jetbrains-mono
     font-awesome
