@@ -9,7 +9,6 @@
   ...
 }: {
   imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/matrix/conduwuit.nix"
     ../../hardware/nvidia
 
     ../../modules/hyprland
@@ -25,8 +24,6 @@
 
     ../../users/tania
   ];
-options.services.conduwuit.settings.global.database_path = lib.mkOption { apply = old: "/persist/conduwuit/";};
-config = {
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
   environment.systemPackages = with pkgs; [
     blender
@@ -105,5 +102,4 @@ config = {
     };
 
   systemd.network.wait-online.enable = lib.mkForce false;
-};
 }
