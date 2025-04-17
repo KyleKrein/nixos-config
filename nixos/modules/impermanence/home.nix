@@ -23,6 +23,7 @@
       ".emacs.d"
       ".local/share/keyrings"
       ".local/share/direnv"
+      "Android"
       {
         directory = ".var/app";
         method = "symlink";

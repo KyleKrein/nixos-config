@@ -2,6 +2,7 @@
   options,
   config,
   pkgs,
+  unstable-pkgs,
   lib,
   hwconfig,
   inputs,
@@ -64,6 +65,7 @@ config = {
   };
 
   services.open-webui.enable = true;
+  services.open-webui.package = unstable-pkgs.open-webui;
   services.open-webui.openFirewall = false;
   services.open-webui.host = "0.0.0.0";
   services.open-webui.stateDir = "/persist/open-webui";
@@ -72,7 +74,7 @@ config = {
   systemd.services.open-webui.serviceConfig.DynamicUser = lib.mkForce false;
 
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 9993 ] ++ [ config.services.zerotierone.port ];
+  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 9993 8081] ++ [ config.services.zerotierone.port ];
   networking.firewall.allowedUDPPorts = [config.services.zerotierone.port];
 #  users.users.nginx.extraGroups = [ "acme" ];
   services.hypridle.enable = lib.mkForce false;

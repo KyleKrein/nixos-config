@@ -172,6 +172,8 @@ in
     llvmPackages_19.clang-tools
     gdb
     csharp-ls
+    android-tools
+    android-studio
     element-desktop
     
     beeengineeditor
