@@ -82,6 +82,7 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir"; #sometimes gui apps stop working in wsl. This option makes GUI apps load much slower but at least they work https://github.com/microsoft/wslg/issues/1303#issuecomment-2764300164
+    EDITOR = "emacsclient -c";
   };
 
   hardware = {
