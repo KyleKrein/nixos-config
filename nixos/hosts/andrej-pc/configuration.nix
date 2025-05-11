@@ -152,7 +152,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    skypeforlinux
     libreoffice
     fzf
     killall
@@ -180,6 +179,7 @@
     prismlauncher
     unstable-pkgs.mcpelauncher-ui-qt
     jdk
+    teams-for-linux
   ];
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
