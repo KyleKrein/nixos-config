@@ -160,6 +160,7 @@ in
     kitty-themes
     btop
     solaar
+    pdfarranger
 
     #kde
     kdePackages.gwenview
