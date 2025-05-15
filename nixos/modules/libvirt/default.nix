@@ -18,8 +18,8 @@
     spice-gtk
     spice-protocol
     virt-viewer
-    #virtio-win
-    #win-spice
+    virtio-win
+    win-spice
   ];
   programs.virt-manager.enable = true;
 }
