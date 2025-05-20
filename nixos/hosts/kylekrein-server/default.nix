@@ -80,13 +80,13 @@ users = {
     port = 4219;
     #statePath = "/persist/gitlab/state";
     backup.startAt = "3:00";
-    databasePasswordFile = sops.secrets."services/gitlab/dbPassword".path;
-    initialRootPasswordFile = sops.secrets."services/gitlab/rootPassword".path;
+    databasePasswordFile = config.sops.secrets."services/gitlab/dbPassword".path;
+    initialRootPasswordFile = config.sops.secrets."services/gitlab/rootPassword".path;
     secrets = {
-      secretFile = sops.secrets."services/gitlab/secret".path;
-      otpFile = sops.secrets."services/gitlab/otpsecret".path;
-      dbFile = sops.secrets."services/gitlab/dbsecret".path;
-      jwsFile = sops.secrets."services/gitlab/oidcKeyBase".path;#pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+      secretFile = config.sops.secrets."services/gitlab/secret".path;
+      otpFile = config.sops.secrets."services/gitlab/otpsecret".path;
+      dbFile = config.sops.secrets."services/gitlab/dbsecret".path;
+      jwsFile = config.sops.secrets."services/gitlab/oidcKeyBase".path;#pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
     };
   };
   
