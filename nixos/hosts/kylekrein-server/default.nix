@@ -63,7 +63,7 @@ users = {
     enable = true; # Hopefully? helps with freezing when using swap
   };
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 7007 ];
   networking.firewall.allowedUDPPorts = [ 3478 5349 ];
   #sops.secrets."services/conduwuit" = {mode = "0755";};
 
@@ -76,7 +76,8 @@ users = {
   sops.secrets."services/gitlab/oidcKeyBase" = { owner = "gitlab"; };
   services.gitlab = {
     enable = true;
-    host = "gitlab.kylekrein.com";
+    host = "https://gitlab.kylekrein.com";
+    port = 7007;
     #statePath = "/persist/gitlab/state";
     backup.startAt = "3:00";
     databasePasswordFile = config.sops.secrets."services/gitlab/dbPassword".path;
