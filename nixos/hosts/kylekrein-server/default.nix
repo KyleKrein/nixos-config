@@ -66,6 +66,31 @@ users = {
   networking.firewall.allowedTCPPorts = [ 80 443 22 8448 ];
   networking.firewall.allowedUDPPorts = [ 3478 5349 ];
   #sops.secrets."services/conduwuit" = {mode = "0755";};
+
+
+  sops.secrets."services/gitlab/dbPassword" = { owner = "gitlab"; };
+  sops.secrets."services/gitlab/rootPassword" = { owner = "gitlab"; };
+  sops.secrets."services/gitlab/secret" = { owner = "gitlab"; };
+  sops.secrets."services/gitlab/otpsecret" = { owner = "gitlab"; };
+  sops.secrets."services/gitlab/dbsecret" = { owner = "gitlab"; };
+  sops.secrets."services/gitlab/oidcKeyBase" = { owner = "gitlab"; };
+  services.gitlab = {
+    enable = true;
+    host = "0.0.0.0";
+    port = 4219;
+    statePath = "/persist/gitlab/state";
+    backup.startAt = "3:00";
+    databasePasswordFile = sops.secrets."services/gitlab/dbPassword".path;
+    initialRootPasswordFile = sops.secrets."services/gitlab/rootPassword".path;
+    secrets = {
+      secretFile = sops.secrets."services/gitlab/secret".path;
+      otpFile = sops.secrets."services/gitlab/otpsecret".path;
+      dbFile = sops.secrets."services/gitlab/dbsecret".path;
+      jwsFile = sops.secrets."services/gitlab/oidcKeyBase".path;#pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+    };
+  };
+  
+  systemd.services.gitlab-backup.environment.BACKUP = "dump";
   
   kk.services.conduwuit = {
     enable = true;
@@ -138,6 +163,9 @@ handle_path /.well-known/matrix/* {
 respond /.well-known/element/element.json `{"call":{"widget_url":"https://call.element.io"}}`
     reverse_proxy * http://localhost:6167
   '';
+    virtualHosts."gitlab.kylekrein.com".extraConfig = ''
+    reverse_proxy * unix//run/gitlab/gitlab-workhorse.socket
+  '';
 };
   system.stateVersion = "24.11";
    nix = {
@@ -151,13 +179,11 @@ respond /.well-known/element/element.json `{"call":{"widget_url":"https://call.e
                 "https://hyprland.cachix.org"
                 "https://nix-gaming.cachix.org"
                 "https://nix-community.cachix.org"
-		"https://attic.kennel.juneis.dog/conduwuit"
               ];
               trusted-public-keys = [
                 "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                 "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-		"conduwuit:BbycGUgTISsltcmH0qNjFR9dbrQNYgdIAcmViSGoVTE="
               ];
             };
           };
