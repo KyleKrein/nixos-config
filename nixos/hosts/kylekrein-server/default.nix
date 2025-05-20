@@ -76,8 +76,7 @@ users = {
   sops.secrets."services/gitlab/oidcKeyBase" = { owner = "gitlab"; };
   services.gitlab = {
     enable = true;
-    host = "0.0.0.0";
-    port = 4219;
+    host = "gitlab.kylekrein.com";
     #statePath = "/persist/gitlab/state";
     backup.startAt = "3:00";
     databasePasswordFile = config.sops.secrets."services/gitlab/dbPassword".path;
