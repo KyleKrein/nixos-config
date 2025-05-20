@@ -48,7 +48,7 @@
   #LLMs
   services.ollama = {
     enable = true;
-    loadModels = [ "qwq" ];
+    loadModels = [ "qwq" "llama3.1" ];
     acceleration = "cuda";
     home = "/persist/ollama";
     user = "ollama";

@@ -6,13 +6,11 @@
       "https://nix-community.cachix.org"
       "https://hyprland.cachix.org"
       "https://nix-gaming.cachix.org"
-      "https://attic.kennel.juneis.dog/conduwuit"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "conduwuit:BbycGUgTISsltcmH0qNjFR9dbrQNYgdIAcmViSGoVTE="
     ];
   };
   inputs = {
@@ -34,7 +32,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon?ref=releasep2-2024-12-25";
 
-    #nur.url = "github:nix-community/NUR";
     sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {
