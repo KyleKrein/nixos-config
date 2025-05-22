@@ -332,11 +332,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1747918483,
-        "narHash": "sha256-E1MRSLxgVFXLQTJ3quQfsoxn2537hK3yHbvabJvHGNI=",
+        "lastModified": 1747929766,
+        "narHash": "sha256-azut4YsnXCQRB8f7DhrLk8d5+vydRvkfx1PS8b6+ys4=",
         "owner": "kylekrein",
         "repo": "emacs-config",
-        "rev": "e3048d2586b1e183fb448990e5e7f1854bd0d930",
+        "rev": "834fa934fa0f80b4915977d1e3628c7758552b17",
         "type": "github"
       },
       "original": {
