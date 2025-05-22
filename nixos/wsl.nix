@@ -65,7 +65,7 @@
   };
   services.ollama = {
     enable = true;
-    loadModels = [ "llama3.1" ];
+    loadModels = [ "llama3.1" "qwen2.5-coder:7b" ];
     acceleration = "cuda";
     user = "ollama";
     group = "ollama";
