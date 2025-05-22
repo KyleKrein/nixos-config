@@ -162,6 +162,7 @@ in
     btop
     solaar
     pdfarranger
+    densify
 
     #kde
     kdePackages.gwenview
