@@ -118,6 +118,7 @@ in {
         "$mainMod ALT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
         ''$mainMod, E, exec, $emacs''
+	''$mainMod SHIFT, E, exec, emacsclient -e "(emacs-everywhere)"''
       ];
 
       bindm = [
