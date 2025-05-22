@@ -70,7 +70,7 @@
     user = "ollama";
     group = "ollama";
   };
-  fonts.packages = with unstable-pkgs; [ #TODO change to pkgs when 25.05 comes out
+  fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     font-awesome
     nerd-fonts.symbols-only

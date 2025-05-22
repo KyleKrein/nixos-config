@@ -41,7 +41,7 @@ in
   };
 
   boot = {
-    #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     plymouth = {
       enable = true;
@@ -132,7 +132,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kdenlive
+    kdePackages.kdenlive
     system-config-printer
     libreoffice
     killall
@@ -189,7 +189,7 @@ in
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/etc/nixos-config";
   };
-  fonts.packages = with unstable-pkgs; [ #TODO change to pkgs when 25.05 comes out
+  fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     font-awesome
     nerd-fonts.symbols-only
@@ -200,8 +200,8 @@ in
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    MANPAGER = "nvim +Man!";
-    EDITOR = "nvim";
+    MANPAGER = "emacsclient -c";
+    EDITOR = "emacsclient -c";
   };
   kk.loginManagers.sddm.enable = true;
 

@@ -15,7 +15,7 @@
   };
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-24.11";
+      url = "github:nixos/nixpkgs?ref=nixos-25.05";
     };
     nixpkgs-unstable = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -28,14 +28,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    stylix.url = "github:danth/stylix?ref=release-24.11";
+    stylix.url = "github:danth/stylix?ref=release-25.05";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon?ref=releasep2-2024-12-25";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
 
     sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.11";
+      url = "github:nix-community/home-manager?ref=release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -87,10 +87,10 @@
       src = super.fetchFromGitHub {
 	owner = "LadybirdWebBrowser";
 	repo = "ladybird";
-	rev = "bf15b7ac12e2e796c35c5714c3a3a47be7308d20";
+	rev = "71222df4c4103d306fd05b9b0bffb1c1b8e5485e";
 	hash = "sha256-hJkK7nag3Z9E8etPFCo0atUEJJnPjjkl7sle/UwkzbE=";
       };
-      version = "0-unstable-2025-03-09";
+      version = "0-unstable-2025-05-22";
     });};
      nativePackagesOverlay = self: super: {
               stdenv = super.impureUseNativeOptimizations super.stdenv;
@@ -99,6 +99,17 @@
           system = x86;
           overlays = [
 	    inputs.beeengine.overlays.${x86}
+	    (final: prev: { #https://github.com/NixOS/nixpkgs/issues/388681
+	      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [(
+		python-final: python-prev: {
+		  onnxruntime = python-prev.onnxruntime.overridePythonAttrs (
+		    oldAttrs: {
+		      buildInputs = prev.lib.lists.remove prev.onnxruntime oldAttrs.buildInputs;
+		    }
+		  );
+		}
+	      )];
+	    })
             #nativePackagesOverlay
 	    #ladybirdMaster
           ];

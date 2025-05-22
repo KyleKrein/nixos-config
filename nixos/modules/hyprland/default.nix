@@ -34,7 +34,7 @@
 	#kde
 	kdePackages.breeze-icons
 	kdePackages.breeze
-	polkit-kde-agent
+	kdePackages.polkit-kde-agent-1
 	kdePackages.kdesdk-thumbnailers
 	kdePackages.kdegraphics-thumbnailers
 	kdePackages.kservice

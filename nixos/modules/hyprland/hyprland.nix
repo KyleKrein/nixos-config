@@ -44,7 +44,7 @@ in {
         "${pkgs.networkmanagerapplet}/bin/nm-applet &"
         "${pkgs.swaynotificationcenter}/bin/swaync &"
         "${pkgs.solaar}/bin/solaar -w hide &"
-        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &" # https://nixos.wiki/wiki/Polkit
+        "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &" # https://nixos.wiki/wiki/Polkit
         "${pkgs.clipse}/bin/clipse -listen &"
       ];
       "$mod" = "SUPER";
