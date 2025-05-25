@@ -60,6 +60,7 @@
     };
     emacs-kylekrein = {
       url = "github:kylekrein/emacs-config";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     beeengine = {
       url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1";

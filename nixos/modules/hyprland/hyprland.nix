@@ -179,20 +179,20 @@ in {
 
       windowrule = [
         #kando
-        "noblur, kando"
-        "opaque, kando"
-        "size 100% 100%, kando"
-        "noborder, kando"
-        "noanim, kando"
-        "float, kando"
-        "pin, kando"
+        "noblur, class:kando"
+        "opaque, class:kando"
+        "size 100% 100%, class:kando"
+        "noborder, class:kando"
+        "noanim, class:kando"
+        "float, class:kando"
+        "pin, class:kando"
 
         #blender
-        "opaque, blender"
+        "opaque, class:blender"
 
         #screenshot editor
-        "noblur, com.gabm.satty"
-        "opaque, com.gabm.satty"
+        "noblur, class:com.gabm.satty"
+        "opaque, class:com.gabm.satty"
       ];
 
       windowrulev2 = [
