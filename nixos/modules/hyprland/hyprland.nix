@@ -57,7 +57,7 @@ in {
       "$menu" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-app-launcher)'"; #"${pkgs.wofi}/bin/wofi --show drun";
       "$emojiPicker" = "emacsclient -cF '((visibility . nil))' -e '(emacs-run-emoji-picker)'";
       "$clipboardManager" = "$terminal --class clipse -e 'clipse'";
-      "$makeRegionScreenshot" = "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -w 0)\" - | ${pkgs.satty}/bin/satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
+      "$makeRegionScreenshot" = "grim -g \"$(slurp -w 0)\" - | satty --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush";
       bind = [
         "$mod, T, exec, $terminal"
         "$mod, Q, killactive,"
@@ -154,7 +154,7 @@ in {
         #"GDK_SCALE,1.6"
         #"QT_SCALE_FACTOR,1.6"
 
-        "GSK_RENDERER,ngl" # for satty until https://github.com/NixOS/nixpkgs/issues/359069 is fixed
+        #"GSK_RENDERER,ngl" # for satty until https://github.com/NixOS/nixpkgs/issues/359069 is fixed
       ];
 
       cursor = {

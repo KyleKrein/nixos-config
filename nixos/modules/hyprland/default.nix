@@ -1,4 +1,4 @@
-{ pkgs, inputs, hwconfig, ... }:
+{ pkgs, inputs, hwconfig, unstable-pkgs, ... }:
 {
     environment.systemPackages = with pkgs; [
 	#kando
@@ -24,7 +24,7 @@
   qpwgraph
   pwvucontrol
 	brightnessctl
-	satty
+	unstable-pkgs.satty #fixes crash in 0.18.0
 	grim
 	slurp
 	clipse
