@@ -47,6 +47,7 @@
       ".config/blender"
       ".config/unity3d"
       ".config/Element"
+      ".config/GIMP"
       ".local/share/aspyr-media"
       ".themes"
     ];
