@@ -25,6 +25,7 @@
     joinNetworks = [
       "a09acf0233dccb4a"
       "1d71939404962783"
+      "41d49af6c260338d"
     ];
   };
 
