@@ -163,6 +163,7 @@ in
     solaar
     pdfarranger
     densify
+    gimp3
 
     #kde
     kdePackages.gwenview
