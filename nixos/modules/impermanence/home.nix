@@ -13,6 +13,7 @@
       "Pictures"
       "Documents"
       "Videos"
+      "Apps"
       "VMs"
       "Git"
       "nixos-config"

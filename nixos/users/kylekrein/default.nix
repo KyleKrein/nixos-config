@@ -13,6 +13,7 @@ in {
   ];
   users.users.${username} = {
     isNormalUser = true;
+    shell = pkgs.nushell;
     description = "Aleksandr Lebedev";
     extraGroups = ["networkmanager" "wheel"];
     #initialPassword = "1234";
