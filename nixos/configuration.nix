@@ -41,7 +41,11 @@ in
   };
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
+
+    plymouth = {
+      enable = true;
+    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = if hwconfig.hostname != "kylekrein-mac" then true else false;
@@ -159,6 +163,7 @@ in
 
     llvmPackages_19.clang-tools
     gdb
+    dotnet-sdk_9
     csharp-ls
     element-desktop
     
