@@ -32,16 +32,13 @@ in {
   nix.settings.trusted-users = [
     "kylekrein"
   ];
-
-  home-manager.users."${username}" = import ../../home.nix {
-    inherit lib;
+  home-manager.extraSpecialArgs = {
     inherit username;
     inherit inputs;
     inherit first-nixos-install;
     inherit hwconfig;
-    inherit config;
-    inherit pkgs;
   };
+  home-manager.users."${username}" = ../../home.nix;
   kylekrein.services.autoUpgrade = {
     #configDir = lib.mkForce "/home/${username}/nixos-config";
     #user = lib.mkForce username;

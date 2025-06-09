@@ -42,10 +42,6 @@ in
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
-
-    plymouth = {
-      enable = true;
-    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = if hwconfig.hostname != "kylekrein-mac" then true else false;
@@ -244,38 +240,6 @@ in
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        extraSpecialArgs = {
-          inherit pkgs;
-          inherit hwconfig;
-          inherit first-nixos-install;
-          inherit inputs;
-        };
-      };
-      stylix = {
-        enable = true;
-        image = "${./modules/hyprland/wallpaper.jpg}";
-        autoEnable = true;
-        opacity = {
-          desktop = 0.0;#0.5;
-        };
-        targets = {
-          gtk.enable = true;
-          plymouth = {
-            enable = true;
-            #logo = ./fastfetch/nixos.png;
-            logoAnimated = false;
-          };
-        };
-        fonts = {
-          sizes = {
-            applications = 14;
-            desktop = 12;
-            popups = 12;
-            terminal = 16;
-          };
-        };
-        polarity = "dark";
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
       };
 
       programs.bash = {

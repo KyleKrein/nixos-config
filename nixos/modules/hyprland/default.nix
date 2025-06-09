@@ -1,5 +1,31 @@
 { pkgs, inputs, hwconfig, unstable-pkgs, ... }:
 {
+  stylix = {
+        enable = true;
+        image = "${./wallpaper.jpg}";
+        autoEnable = true;
+        opacity = {
+          desktop = 0.0;#0.5;
+        };
+        targets = {
+          gtk.enable = true;
+          plymouth = {
+            enable = false;
+            #logo = ./fastfetch/nixos.png;
+            logoAnimated = false;
+          };
+        };
+        fonts = {
+          sizes = {
+            applications = 14;
+            desktop = 12;
+            popups = 12;
+            terminal = 16;
+          };
+        };
+        polarity = "dark";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
     environment.systemPackages = with pkgs; [
 	#kando
 

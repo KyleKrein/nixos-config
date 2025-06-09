@@ -66,6 +66,9 @@
       url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1";
     };
     conduwuit.url = "github:matrix-construct/tuwunel";
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+    };
   };
 
   outputs = {

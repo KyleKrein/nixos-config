@@ -23,25 +23,23 @@ in
         inherit inputs;
       }
     )
-    ++ lib.optional (config.programs.hyprland.enable) (
-      import ./modules/hyprland/home.nix {
-        inherit pkgs;
-        inherit username;
-        inherit inputs;
-        inherit hwconfig;
-        inherit lib;
-      }
-    )
+    #++ lib.optional (config.programs.hyprland.enable) (
+    #  import ./modules/hyprland/home.nix {
+    #    inherit pkgs;
+    #    inherit username;
+    #    inherit inputs;
+    #    inherit hwconfig;
+    #    inherit lib;
+     # }
+    #)
     ++ lib.optional (builtins.pathExists ./homes/${username}) (
-      import ./homes/${username} { inherit username; }
+      import ./homes/${username} { inherit username; inherit config; inherit pkgs; inherit lib; inherit inputs; inherit hwconfig; }
     );
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
   home.homeDirectory = "/home/${username}";
-  stylix = {
-    enable = lib.strings.hasInfix "kylekrein" hwconfig.hostname;
-  };
+  
   #xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
   #	General.theme = "Catppuccin-Mocha";
   # };
@@ -106,8 +104,8 @@ in
   programs.kitty = {
     enable =  lib.strings.hasInfix "kylekrein" hwconfig.hostname;
     font = {
-      #name = "JetBrainsMono Nerd Font";
-      #size = 16;
+      name = "JetBrainsMono Nerd Font";
+      size = 20;
     };
     settings = {
       confirm_os_window_close = 0;

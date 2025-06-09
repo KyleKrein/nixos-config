@@ -11,16 +11,12 @@
   imports = [
     ../../hardware/nvidia
 
-    ../../modules/hyprland
+    ../../modules/niri
 
     ../../modules/libvirt
 
     ../../users/kylekrein
     (import ../../modules/libvirt/user.nix {username = "kylekrein";})
-
-    ../../users/dima
-    (import ../../modules/libvirt/user.nix {username = "dima";})
-
 
     ../../users/tania
   ];
@@ -53,15 +49,6 @@
     home = "/persist/ollama";
     user = "ollama";
     group = "ollama";
-  };
-  services.llama-cpp = {
-    enable = false;
-    model = "/home/kylekrein/Downloads/ds/DeepSeek-R1-GGUF/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf";
-    port = 10005;
-    extraFlags = [
-      "--ctx-size 1024" #context size
-      "--n-gpu-layers 0"
-    ];
   };
 
   services.open-webui.enable = true;
