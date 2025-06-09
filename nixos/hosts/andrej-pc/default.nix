@@ -9,7 +9,7 @@
   imports = [
     ../../hardware/nvidia
 
-    ../../modules/kde-plasma
+    ../../modules/cosmic
 
     ../../users/kylekrein
 
