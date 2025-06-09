@@ -209,6 +209,9 @@
 	  open-focused = true;
 	}
       ];
+      debug = lib.mkIf (hwconfig.hostname == "kylekrein-mac") {
+	render-drm-device = "/dev/dri/renderD128";
+      };
     };
   };
 
