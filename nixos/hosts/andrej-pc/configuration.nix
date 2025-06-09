@@ -41,7 +41,7 @@
 
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
