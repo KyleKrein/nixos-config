@@ -12,7 +12,7 @@
     ./mac-hardware-conf.nix
     ../../hardware/apple-silicon-linux
 
-    ../../modules/hyprland
+    ../../modules/niri
 
     ../../users/kylekrein
   ];
