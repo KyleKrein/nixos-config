@@ -6,6 +6,7 @@
   imports = [
     inputs.niri-flake.nixosModules.niri
   ];
+  security.pam.services.swaylock = {};
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;

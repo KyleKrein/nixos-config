@@ -21,6 +21,7 @@
     swaybg
     libnotify
     swaylock
+    networkmanagerapplet
   ];
   programs.niri = {
     settings = {
@@ -46,11 +47,6 @@
 	};
       in [
 	set-low-brightness
-	{
-          command = [
-            "${lib.getExe pkgs.waybar}"
-          ];
-        }
 	{
           command = [
             "${lib.getExe pkgs.networkmanagerapplet}"
@@ -146,7 +142,7 @@
         "XF86MonBrightnessDown".action = sh "brightnessctl set 10%-";
 	#"Mod+Tab".action = focus-window-down-or-column-right;
         #"Mod+Shift+Tab".action = focus-window-up-or-column-left;
-	"Mod+Tab".action = open-overview;
+	"Mod+Tab".action = toggle-overview;
       };
       input = {
 	focus-follows-mouse = {
@@ -157,6 +153,7 @@
 	  xkb.layout = "us, ru";
 	  xkb.options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else "");
 	  track-layout = "window";
+	  #numlock = true;
 	};
 	touchpad = {
 	  tap = true;
@@ -213,5 +210,63 @@
 	}
       ];
     };
+  };
+
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      color = "808080";
+      font-size = 24;
+      indicator-idle-visible = false;
+      indicator-radius = 100;
+      line-color = "ffffff";
+      show-failed-attempts = true;
+    };
+  };
+
+  services.swayidle = let 
+    locking-script = pkgs.writeShellScript "locking-script" ''
+pidof swaylock || "${pkgs.swaylock}/bin/swaylock -fF"
+'';
+    suspendScript = pkgs.writeShellScript "suspend-script" ''
+    # check if any player has status "Playing"
+    ${lib.getExe pkgs.playerctl} -a status | ${lib.getExe pkgs.ripgrep} Playing -q
+    # only suspend if nothing is playing
+    if [ $? == 1 ]; then
+       ${pkgs.systemd}/bin/systemctl suspend
+    fi
+  '';
+in{
+    enable = true;
+    events = [
+      {
+        event = "before-sleep";
+        command = "${locking-script};niri msg action power-off-monitors";
+      }
+      {
+        event = "after-resume";
+        command = "niri msg action power-on-monitors";
+      }
+      {
+        event = "lock";
+        command = "${locking-script}";
+      }
+    ];
+    timeouts = let 
+    secondary = "systemctl suspend";
+    in[
+      {
+        timeout = 30;
+        command = "pidof swaylock && ${secondary}";
+      }
+      {
+        timeout = 300;
+        command = "${locking-script}";
+      }
+      {
+        timeout = 330;
+        command = "pidof swaylock && ${secondary}";
+      }
+    ];
   };
 }
