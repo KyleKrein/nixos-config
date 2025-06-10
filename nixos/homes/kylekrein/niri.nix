@@ -12,6 +12,7 @@
   };
   imports = [
     ./waybar
+    ./hyprlock.nix
   ];
   home.packages = with pkgs;[
     wlogout
@@ -20,7 +21,7 @@
     waybar
     swaybg
     libnotify
-    swaylock
+    hyprlock
     networkmanagerapplet
   ];
   programs.niri = {
@@ -216,7 +217,7 @@
   };
 
   programs.swaylock = {
-    enable = true;
+    enable = false;
     settings = {
       color = "808080";
       font-size = 24;
@@ -228,9 +229,11 @@
   };
 
   services.swayidle = let 
-    locking-script = pkgs.writeShellScript "locking-script" ''
-pidof swaylock || "${pkgs.swaylock}/bin/swaylock -fF"
-'';
+    niri = lib.getExe config.programs.niri.package;
+    loginctl = "${pkgs.systemd}/bin/loginctl";
+    locking-script = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
+    #locking-script = "${pkgs.swaylock}/bin/swaylock --daemonize";
+    #unlocking-script = "pkill -SIGUSR1 swaylock";
     suspendScript = pkgs.writeShellScript "suspend-script" ''
     # check if any player has status "Playing"
     ${lib.getExe pkgs.playerctl} -a status | ${lib.getExe pkgs.ripgrep} Playing -q
@@ -244,23 +247,27 @@ in{
     events = [
       {
         event = "before-sleep";
-        command = "${locking-script};niri msg action power-off-monitors";
+        command = "pidof hyprlock || ${loginctl} lock-session;${niri} msg action power-off-monitors";
       }
       {
         event = "after-resume";
-        command = "niri msg action power-on-monitors";
+        command = "${niri} msg action power-on-monitors";
       }
       {
         event = "lock";
         command = "${locking-script}";
       }
+      #{
+      #  event = "unlock";
+      #  command = "${unlocking-script}";
+      #}
     ];
     timeouts = let 
-    secondary = "systemctl suspend";
+    secondary = "${suspendScript}";
     in[
       {
         timeout = 30;
-        command = "pidof swaylock && ${secondary}";
+        command = "pidof hyprlock && ${secondary}";
       }
       {
         timeout = 300;
@@ -268,8 +275,16 @@ in{
       }
       {
         timeout = 330;
-        command = "pidof swaylock && ${secondary}";
+        command = "pidof hyprlock && ${secondary}";
       }
     ];
+  };
+  services = {
+    mako = {
+      enable = false;
+      settings = {
+        
+      };
+    };
   };
 }

@@ -6,7 +6,9 @@
   imports = [
     inputs.niri-flake.nixosModules.niri
   ];
-  security.pam.services.swaylock = {};
+  security.pam.services.hyprlock = {};
+  systemd.user.extraConfig = '' DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
+  '';
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
