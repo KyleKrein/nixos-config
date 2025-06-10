@@ -232,14 +232,15 @@
     niri = lib.getExe config.programs.niri.package;
     loginctl = "${pkgs.systemd}/bin/loginctl";
     locking-script = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
+    systemctl = "${pkgs.systemd}/bin/systemctl";
     #locking-script = "${pkgs.swaylock}/bin/swaylock --daemonize";
     #unlocking-script = "pkill -SIGUSR1 swaylock";
-    suspendScript = pkgs.writeShellScript "suspend-script" ''
+    suspendScript = cmd: pkgs.writeShellScript "suspend-script" ''
     # check if any player has status "Playing"
     ${lib.getExe pkgs.playerctl} -a status | ${lib.getExe pkgs.ripgrep} Playing -q
     # only suspend if nothing is playing
     if [ $? == 1 ]; then
-       ${pkgs.systemd}/bin/systemctl suspend
+       ${cmd}
     fi
   '';
 in{
@@ -247,11 +248,11 @@ in{
     events = [
       {
         event = "before-sleep";
-        command = "pidof hyprlock || ${loginctl} lock-session;${niri} msg action power-off-monitors";
+        command = "pidof hyprlock || ${loginctl} lock-session;#${niri} msg action power-off-monitors";
       }
       {
         event = "after-resume";
-        command = "${niri} msg action power-on-monitors";
+        command = "#${niri} msg action power-on-monitors";
       }
       {
         event = "lock";
@@ -263,19 +264,21 @@ in{
       #}
     ];
     timeouts = let 
-    secondary = "${suspendScript}";
+    secondary = "${systemctl} suspend";
     in[
-      {
-        timeout = 30;
-        command = "pidof hyprlock && ${secondary}";
-      }
+      #{
+      #  timeout = 30;
+      #  command = "pidof hyprlock && ${secondary}";
+      #}
       {
         timeout = 300;
-        command = "${locking-script}";
+	command = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
+        #command = "${locking-script}";
       }
       {
         timeout = 330;
-        command = "pidof hyprlock && ${secondary}";
+	command = "${suspendScript "${systemctl} suspend"}";
+        #command = "pidof hyprlock && ${secondary}";
       }
     ];
   };
