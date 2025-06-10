@@ -9,7 +9,7 @@
   imports = [
     ../../hardware/nvidia
 
-    ../../modules/cosmic
+    ../../modules/gnome
 
     ../../users/kylekrein
 
