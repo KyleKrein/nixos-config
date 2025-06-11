@@ -30,7 +30,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     stylix.url = "github:danth/stylix?ref=release-25.05";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
 
     sops-nix.url = "github:Mic92/sops-nix";
 
