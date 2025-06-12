@@ -157,6 +157,8 @@ in
     obs-studio
     neovim
 
+    comma #run nix run nixpkgs#nix-index to init
+
     llvmPackages_19.clang-tools
     gdb
     dotnet-sdk_9

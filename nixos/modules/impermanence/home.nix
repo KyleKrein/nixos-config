@@ -49,6 +49,7 @@
       ".config/unity3d"
       ".config/Element"
       ".config/GIMP"
+      ".cache/nix-index"
       ".local/share/aspyr-media"
       ".themes"
     ];
