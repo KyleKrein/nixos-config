@@ -160,7 +160,7 @@
 	  xkb.layout = "us, ru";
 	  xkb.options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else "");
 	  track-layout = "window";
-	  #numlock = true;
+	  numlock = true;
 	};
 	touchpad = {
 	  tap = true;
