@@ -68,6 +68,11 @@
         }
 	{
           command = [
+            "${lib.getExe pkgs.xwayland-satellite-stable}"
+          ];
+        }
+	{
+          command = [
             "${lib.getExe pkgs.swaybg}"
             "-m"
             "fill"
@@ -177,6 +182,7 @@
         XDG_SESSION_TYPE = "wayland";
         __GL_GSYNC_ALLOWED = "1";
         QT_QPA_PLATFORM = "wayland";
+	DISPLAY = ":0";
       };
       window-rules = [
 	{ #active
