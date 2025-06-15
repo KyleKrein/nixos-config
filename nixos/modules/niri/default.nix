@@ -17,7 +17,7 @@
     wayland-utils
     libsecret
     gamescope
-    xwayland-satellite-stable
+    xwayland-satellite-unstable
     swaybg
   ];
 }

@@ -68,7 +68,7 @@
         }
 	{
           command = [
-            "${lib.getExe pkgs.xwayland-satellite-stable}"
+            "${lib.getExe pkgs.xwayland-satellite-unstable}"
           ];
         }
 	{

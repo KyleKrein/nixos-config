@@ -80,6 +80,8 @@ env -u SUDO_USER ${pkgs.distrobox}/bin/distrobox-enter "${containerName}" -- sud
         libpng
         libpulseaudio
         libvorbis
+	sdl3
+	SDL2
         stdenv.cc.cc.lib
         libkrb5
         keyutils
