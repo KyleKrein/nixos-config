@@ -287,11 +287,11 @@ in{
 	command = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
         #command = "${locking-script}";
       }
-      {
-        timeout = 330;
-	command = "${suspendScript "${systemctl} suspend"}";
+      #{
+        #timeout = 330;
+	#command = "${suspendScript "${systemctl} suspend"}";
         #command = "pidof hyprlock && ${secondary}";
-      }
+      #}
     ];
   };
   services = {
