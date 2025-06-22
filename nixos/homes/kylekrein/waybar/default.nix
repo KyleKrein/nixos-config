@@ -84,6 +84,7 @@ in
     	  format = " {}";
 	  format-en = "EN";
 	  format-ru = "RU";
+	  format-de = "DE";
         };
 	"wlr/taskbar" = {
 	  format = "{icon}";

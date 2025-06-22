@@ -44,6 +44,7 @@
       ".local/share/TelegramDesktop"
       ".local/share/Paradox Interactive"
       ".config/solaar"
+      ".config/eww"
       ".config/kdeconnect"
       ".config/blender"
       ".config/unity3d"

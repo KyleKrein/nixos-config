@@ -15,6 +15,7 @@
     ./hyprlock.nix
   ];
   home.packages = with pkgs;[
+    eww
     wlogout
     brightnessctl
     fuzzel
@@ -162,7 +163,7 @@
 	};
 	warp-mouse-to-focus = true;
 	keyboard = {
-	  xkb.layout = "us, ru";
+	  xkb.layout = "us, ru, de";
 	  xkb.options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else "");
 	  track-layout = "window";
 	  numlock = true;
@@ -191,7 +192,7 @@
 	      is-active = true;
 	    }
 	  ];
-	  opacity = 0.9;
+	  opacity = 1.0;
 	}
 	{ #inactive
 	  matches = [
@@ -199,7 +200,7 @@
 	      is-active = false;
 	    }
 	  ];
-	  opacity = 0.7;
+	  opacity = 1.0;
 	}
 	{ #opaque
 	  matches = [
