@@ -161,7 +161,7 @@
 	focus-follows-mouse = {
 	  #enable = true;
 	};
-	warp-mouse-to-focus = true;
+	warp-mouse-to-focus.enable = true;
 	keyboard = {
 	  xkb.layout = "us, ru, de";
 	  xkb.options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else "");
@@ -286,12 +286,10 @@ in{
       {
         timeout = 870;
 	command = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
-        #command = "${locking-script}";
       }
       {
         timeout = 900;
 	command = "${suspendScript "${systemctl} suspend"}";
-        command = "pidof hyprlock && ${secondary}";
       }
     ];
   };
