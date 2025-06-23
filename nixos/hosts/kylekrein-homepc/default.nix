@@ -51,6 +51,8 @@
     group = "ollama";
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+
   services.open-webui.enable = true;
   #services.open-webui.package = unstable-pkgs.open-webui;
   services.open-webui.openFirewall = false;
