@@ -49,6 +49,7 @@
     egl-wayland
     xclip
     btop
+    comma
 
     csharp-ls
   ];
