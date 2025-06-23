@@ -63,7 +63,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     beeengine = {
-      url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1";
+      url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1"; #"git+https://gitlab.kylekrein.com/beeengine/BeeEngine?shallow=1";
     };
     conduwuit.url = "github:matrix-construct/tuwunel";
     niri-flake = {
