@@ -31,6 +31,12 @@
     
   ];
 
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    docker.enable = true;
+  };
+  users.extraGroups.docker.members = ["nixos"];
   environment.systemPackages = with pkgs; [
     killall
     nix-output-monitor
@@ -40,6 +46,7 @@
       ${pkgs.fd}/bin/fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd}"
     '') # https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     tealdeer
+    docker-compose
     fzf
     lazygit
     fastfetch
