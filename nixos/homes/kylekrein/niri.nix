@@ -229,18 +229,6 @@
     };
   };
 
-  programs.swaylock = {
-    enable = false;
-    settings = {
-      color = "808080";
-      font-size = 24;
-      indicator-idle-visible = false;
-      indicator-radius = 100;
-      line-color = "ffffff";
-      show-failed-attempts = true;
-    };
-  };
-
   services.swayidle = let 
     niri = lib.getExe config.programs.niri.package;
     loginctl = "${pkgs.systemd}/bin/loginctl";
