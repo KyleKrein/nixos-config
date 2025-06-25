@@ -69,11 +69,6 @@
         }
 	{
           command = [
-            "${lib.getExe pkgs.xwayland-satellite-unstable}"
-          ];
-        }
-	{
-          command = [
             "${lib.getExe pkgs.swaybg}"
             "-m"
             "fill"
@@ -225,6 +220,10 @@
       ];
       debug = lib.mkIf (hwconfig.hostname == "kylekrein-mac") {
 	render-drm-device = "/dev/dri/renderD128";
+      };
+      xwayland-satellite = {
+	enable = true;
+	path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
       };
     };
   };
