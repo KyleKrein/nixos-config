@@ -265,7 +265,7 @@ in{
     ];
     timeouts = let 
     secondary = "${systemctl} suspend";
-    in[
+    in lib.mkIf (hwconfig.isLaptop) [
       #{
       #  timeout = 30;
       #  command = "pidof hyprlock && ${secondary}";
