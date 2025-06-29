@@ -43,6 +43,7 @@
       ".local/share/PrismLauncher"
       ".local/share/TelegramDesktop"
       ".local/share/Paradox Interactive"
+      ".config/unity3d/Ludeon Studios/RimWorld by Ludeon Studios"
       ".config/solaar"
       ".config/eww"
       ".config/kdeconnect"
