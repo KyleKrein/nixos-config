@@ -16,7 +16,6 @@ in
 {
   imports = [
     inputs.sops-nix.nixosModules.sops
-    inputs.stylix.nixosModules.stylix
     inputs.nixos-facter-modules.nixosModules.facter
     inputs.home-manager.nixosModules.default
     inputs.disko.nixosModules.default
