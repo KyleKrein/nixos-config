@@ -56,8 +56,14 @@
         }
 	{
           command = [
-            "${lib.getExe pkgs.eww}"
-	    "daemon"
+            "${lib.getExe pkgs.networkmanagerapplet}"
+          ];
+        }
+	{
+          command = [
+            "dbus-update-activation-environment"
+	    "--systemd"
+	    "--all"
           ];
         }
 	{
@@ -228,10 +234,11 @@
     };
   };
 
-  services.swayidle = let 
+  services.hypridle = let 
     niri = lib.getExe config.programs.niri.package;
     loginctl = "${pkgs.systemd}/bin/loginctl";
-    locking-script = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
+    pidof = "${pkgs.procps}/bin/pidof";
+    locking-script = "${pidof} hyprlock || ${lib.getExe pkgs.hyprlock}";
     systemctl = "${pkgs.systemd}/bin/systemctl";
     #locking-script = "${pkgs.swaylock}/bin/swaylock --daemonize";
     #unlocking-script = "pkill -SIGUSR1 swaylock";
@@ -245,25 +252,12 @@
   '';
 in{
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "pidof hyprlock || ${loginctl} lock-session;#${niri} msg action power-off-monitors";
-      }
-      {
-        event = "after-resume";
-        command = "#${niri} msg action power-on-monitors";
-      }
-      {
-        event = "lock";
-        command = "${locking-script}";
-      }
-      #{
-      #  event = "unlock";
-      #  command = "${unlocking-script}";
-      #}
-    ];
-    timeouts = let 
+    settings.general = {
+      before_sleep_cmd = "${pidof} hyprlock || ${loginctl} lock-session;#${niri} msg action power-off-monitors";
+      after_sleep_cmd = "#${niri} msg action power-on-monitors";
+      lock_cmd = "${locking-script}";
+    };
+    settings.listener = let 
     secondary = "${systemctl} suspend";
     in lib.mkIf (hwconfig.isLaptop) [
       #{
@@ -272,11 +266,11 @@ in{
       #}
       {
         timeout = 870;
-	command = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
+	on-timeout = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
       }
       {
         timeout = 900;
-	command = "${suspendScript "${systemctl} suspend"}";
+	on-timeout = "${suspendScript "${systemctl} suspend"}";
       }
     ];
   };
