@@ -22,7 +22,7 @@
     inputs.disko.nixosModules.default
 
     ../../modules/firefox
-    ../../modules/flatpak
+    #../../modules/flatpak
     ../../modules/steam
     ../../modules/ly
     ../../modules/sddm
