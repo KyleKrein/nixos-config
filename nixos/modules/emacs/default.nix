@@ -6,7 +6,7 @@
   hwconfig,
   ...
 }: let
-  emacs = inputs.emacs-kylekrein.packages.${hwconfig.system}.default;
+  emacs = inputs.emacs-kylekrein.packages.${hwconfig.system}.with-lsps;
 in {
   services.emacs.enable = true;
   services.emacs.startWithGraphical = true;
