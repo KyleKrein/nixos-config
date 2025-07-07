@@ -103,6 +103,7 @@
 	sh = spawn "sh" "-c";
   in {
 	"Mod+E".action = sh "emacsclient -c";
+	"Mod+C".action = sh "dolphin";
 	"Mod+T".action = spawn "kitty";
 	"Mod+D".action = spawn "fuzzel";
 	"Mod+B".action = spawn "librewolf";

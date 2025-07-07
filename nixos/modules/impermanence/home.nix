@@ -57,6 +57,7 @@
     ];
     files = [
       ".screenrc"
+      ".config/kdeglobals"
       ".config/Minecraft Linux Launcher/Minecraft Linux Launcher UI.conf"
       #".steampid"
       #".steampath"
