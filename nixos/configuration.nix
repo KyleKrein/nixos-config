@@ -156,6 +156,7 @@ in
     # user packages
     obs-studio
     neovim
+    localsend
 
     comma #run nix run nixpkgs#nix-index to init
 
@@ -286,8 +287,8 @@ in
           };
 
           # Open ports in the firewall.
-          networking.firewall.allowedTCPPorts = [ 22 ];
-          networking.firewall.allowedUDPPorts = [ 22 ];
+          networking.firewall.allowedTCPPorts = [ 22 53317 ];
+          networking.firewall.allowedUDPPorts = [ 22 53317 ];
           # Or disable the firewall altogether.
           #networking.firewall.enable = false;
 
