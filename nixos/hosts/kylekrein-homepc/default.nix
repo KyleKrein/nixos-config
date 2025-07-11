@@ -21,12 +21,34 @@
     ../../users/tania
   ];
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
+  nixpkgs.overlays = [
+    # Fixes java crash because of bind mount with impermanence when loading too many mods(ex. All The Mods 9)
+    (self: super: {
+      prismlauncher = pkgs.symlinkJoin {
+        name = "prismlauncher";
+        paths = [ super.prismlauncher];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/prismlauncher --set HOME /persist/home/kylekrein
+        '';
+      };
+    })
+    (self: super: {
+      bottles = pkgs.symlinkJoin {
+        name = "bottles";
+        paths = [ super.bottles];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/bottles --set HOME /persist/home/kylekrein
+        '';
+      };
+    })
+  ];
   environment.systemPackages = with pkgs; [
     blender
     ladybird
+    prismlauncher
     
-    android-tools
-    android-studio
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
 

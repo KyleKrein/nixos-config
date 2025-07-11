@@ -66,6 +66,19 @@ env -u SUDO_USER ${pkgs.distrobox}/bin/distrobox-enter "${containerName}" -- sud
    }
    else 
     {
+      environment.systemPackages = with pkgs; [
+	unzip
+	wget
+	xdotool
+	xorg.xprop
+	xorg.xrandr
+	unixtools.xxd
+	xorg.xwininfo
+	yad
+	protonup-qt
+	protontricks
+	bottles
+      ];
       programs.steam = {
         enable = true;#!hwconfig.useImpermanence;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
