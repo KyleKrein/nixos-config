@@ -165,6 +165,7 @@ in
     dotnet-sdk_9
     csharp-ls
     element-desktop
+    unstable-pkgs.fluffychat
     
     beeengineeditor
     beelocalization
