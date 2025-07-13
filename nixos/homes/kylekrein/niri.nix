@@ -24,7 +24,9 @@
     libnotify
     hyprlock
     networkmanagerapplet
-  ];
+  ] ++ lib.optionals (hwconfig.hasTouchscreen) (with pkgs;[
+    wvkbd # https://github.com/jjsullivan5196/wvkbd
+  ]);
   programs.niri = {
     settings = {
       outputs = lib.mkIf (hwconfig.hostname == "kylekrein-homepc") {
@@ -47,8 +49,14 @@
 	    "25%"
 	  ];
 	};
+	touchscreen-gestures = lib.mkIf (hwconfig.hasTouchscreen) {
+          command = [
+            "${lib.getExe (import ./lisgd.nix { inherit pkgs; })}" #https://git.sr.ht/~mil/lisgd
+          ];
+        };
       in [
 	set-low-brightness
+	touchscreen-gestures
 	{
           command = [
             "${lib.getExe pkgs.networkmanagerapplet}"

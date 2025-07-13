@@ -69,6 +69,7 @@
     niri-flake = {
       url = "github:sodiboo/niri-flake";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = {
@@ -137,6 +138,16 @@
             allowUnfree = true;
           };
         };
+    kylekrein-framework12-pkgs = nixpkgs: import nixpkgs {
+      system = x86;
+      overlays = [
+	inputs.beeengine.overlays.${x86}
+      ];
+      config = {
+        allowBroken = true;
+        allowUnfree = true;
+      };
+    };
     kylekrein-mac-pkgs = nixpkgs: import nixpkgs {
           system = arm;
           overlays = [
@@ -201,6 +212,7 @@
           hwconfig = {
             hostname = "kylekrein-homepc";
             isLaptop = false;
+	    hasTouchscreen = false;
             system = x86;
             useImpermanence = true;
           };
@@ -216,11 +228,34 @@
           ./nixos/configuration.nix
         ];
       };
+      "kylekrein-framework12" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          hwconfig = {
+            hostname = "kylekrein-framework12";
+            isLaptop = true;
+	    hasTouchscreen = true;
+            system = x86;
+            useImpermanence = true;
+          };
+          inherit first-nixos-install;
+          inherit inputs;
+	  unstable-pkgs = kylekrein-framework12-pkgs nixpkgs-unstable;
+        };
+
+        system = x86;
+        pkgs = kylekrein-framework12-pkgs nixpkgs;
+        modules = [
+          (import ./disko/impermanence-tmpfs-luks.nix {device = "/dev/nvme0n1";})
+          ./nixos/configuration.nix
+	  inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
+        ];
+      };
       "kylekrein-mac" = nixpkgs.lib.nixosSystem {
         specialArgs = {
           hwconfig = {
             hostname = "kylekrein-mac";
             isLaptop = true;
+	    hasTouchscreen = false;
             system = arm;
             useImpermanence = true;
           };
@@ -240,6 +275,7 @@
           hwconfig = {
             hostname = "kylekrein-server";
             isLaptop = false;
+	    hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
@@ -259,6 +295,7 @@
           hwconfig = {
             hostname = "kylekrein-wsl";
             isLaptop = true;
+	    hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
@@ -279,6 +316,7 @@
           hwconfig = {
             hostname = "andrej-pc";
             isLaptop = false;
+	    hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
