@@ -13,12 +13,7 @@ in
       #}
       #${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
       style = ''
-        ${builtins.readFile ./waybarstyle.css}
-	      
-        * {
-        font-size: 15px;
-        }
-      '';
+${builtins.readFile ./waybarstyle.css}'';
       settings = [{
         height = 36;
         layer = "top";
@@ -29,9 +24,10 @@ in
 		    "clock"
 	      ];
         modules-left = [ 
+	  "custom/drawer"
 	  "wlr/taskbar"
 	  "niri/workspaces"
-        #	"hyprland/window"
+        	"niri/window"
         ];
         modules-right = lib.optional hwconfig.isLaptop "backlight"
 	  ++ [
@@ -73,6 +69,7 @@ in
           tooltip = true;
         };
         clock = {
+	  format = "{:%a %d | %H:%M}";
           format-alt = "{:%d.%m.%Y}";
           tooltip-format = "{:%d.%m.%Y | %H:%M}";
         };
@@ -80,11 +77,18 @@ in
           format = "{usage}% ";
           tooltip = false;
         };
+	"custom/drawer" = {
+	  format = "<span foreground='white'>󱄅</span>";
+	  tooltip = false;
+	  on-click = ''nwg-drawer -fm "dolphin" -closebtn "right" -nocats -term "kitty" -ovl -wm "niri" -s "${./drawerstyle.css}" '';
+	};
         "niri/language" = {
-    	  format = " {}";
+    	  format = "{}";
 	  format-en = "EN";
 	  format-ru = "RU";
 	  format-de = "DE";
+	  on-click = "niri msg action switch-layout next";
+	  on-click-right = "niri msg action switch-layout prev";
         };
 	"wlr/taskbar" = {
 	  format = "{icon}";
@@ -120,9 +124,9 @@ in
             phone = "";
             portable = "";
           };
-          format-muted = "  {format_source}";
+          format-muted = " {format_source}";
           format-source = "  {volume}%";
-          format-source-muted = "";
+          format-source-muted = "  ";
           on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
         };
         "hyprland/submap" = { format = ''<span style="italic">{}</span>''; };
@@ -148,16 +152,8 @@ in
         };
 
         "custom/power" = {
-	        format = "⏻ ";
+	        format = "⏻";
 	        tooltip = false;
-	        #menu = "on-click";
-	        #menu-file = ./power_menu.xml;
-	        #menu-actions = {
-	          #	shutdown = "shutdown -h now";
-	          #	reboot = "reboot";
-	          #	suspend = "systemctl suspend";
-	          #	hibernate = "systemctl hibernate";
-	          #};
             on-click = "wlogout";
         };
 
@@ -165,10 +161,10 @@ in
 	        tooltip = false;
 	        format = "{icon}";
 	        format-icons = {
-	          notification = " <span foreground='red'><small><sup>⬤</sup></small></span>";
-	          none = " ";
-	          dnd-notification = " <span foreground='red'><small><sup>⬤</sup></small></span>";
-	          dnd-none = "  ";
+	          notification = "<span foreground='red'></span>";
+	          none = "";
+	          dnd-notification = "<span foreground='red'></span>";
+	          dnd-none = "";
 	        };
 	        return-type = "json";
 	        exec-if = "which swaync-client";

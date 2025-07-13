@@ -15,7 +15,7 @@
     ./hyprlock.nix
   ];
   home.packages = with pkgs;[
-    eww
+    nwg-drawer
     wlogout
     brightnessctl
     fuzzel
