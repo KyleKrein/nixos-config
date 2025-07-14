@@ -65,7 +65,7 @@
     beeengine = {
       url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1"; #"git+https://gitlab.kylekrein.com/beeengine/BeeEngine?shallow=1";
     };
-    conduwuit.url = "github:matrix-construct/tuwunel";
+    conduwuit.url = "github:matrix-construct/tuwunel?ref=v1.2.0";
     niri-flake = {
       url = "github:sodiboo/niri-flake";
     };
