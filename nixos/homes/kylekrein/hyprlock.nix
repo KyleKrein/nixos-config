@@ -1,6 +1,6 @@
 { pkgs, lib, hwconfig, ... }:
 let
-    profile-image = ./profile-image.png;
+    profile-image = ./nixos-warbler.png;
     battery-level = (import ./battery-status.nix {inherit pkgs; inherit hwconfig;}).labelPercent;
 in
 {
