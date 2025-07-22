@@ -14,6 +14,7 @@
     ./modules/flatpak
     ./modules/emacs
     ./modules/gnupg
+    ./modules/direnv
     ./hosts/${hwconfig.hostname}
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
 

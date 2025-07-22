@@ -30,6 +30,7 @@ in
     ./modules/dolphin
     ./modules/emacs
     ./modules/gnupg
+    ./modules/direnv
     ./hosts/${hwconfig.hostname}
   ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./hosts/${hwconfig.hostname}/facter.json;

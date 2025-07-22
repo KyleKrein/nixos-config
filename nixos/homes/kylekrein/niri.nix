@@ -235,6 +235,17 @@
 	  open-floating = true;
 	  open-focused = true;
 	}
+	{ #PiP
+	  matches = [
+            {
+	      title = "Picture-in-Picture";
+	    }
+	  ];
+	  open-floating = true;
+	  open-focused = false;
+	  opacity = 1.0;
+	  default-floating-position = { x = 0; y = 0; relative-to = "top-right"; };
+	}
       ];
       debug = lib.mkIf (hwconfig.hostname == "kylekrein-mac") {
 	render-drm-device = "/dev/dri/renderD128";
