@@ -1,7 +1,7 @@
 #https://github.com/sodiboo/niri-flake/blob/main/default-config.kdl.nix
 #https://github.com/sodiboo/niri-flake/blob/main/docs.md
 #https://github.com/sodiboo/system/blob/main/niri.mod.nix
-{config, pkgs, lib, inputs, hwconfig, ...}:
+{config, pkgs, lib, inputs, hwconfig, username, ...}:
 {
   programs.fuzzel = {
     enable = true;
@@ -99,19 +99,23 @@
       ];
       layout = {
         preset-column-widths = [
-          {proportion = 1.0 / 3.0;}
+	  {proportion = 1.0 / 2.0;}
 	  {proportion = 1.0;}
 	  {proportion = 2.0 / 3.0;}
-          {proportion = 1.0 / 2.0;}
+	  {proportion = 1.0 / 3.0;}
         ];
-        default-column-width = {proportion = 1.0 / 3.0;};
+        default-column-width = {proportion = 1.0 / 2.0;};
       };
       binds = with config.lib.niri.actions; 
   let
 	sh = spawn "sh" "-c";
+        emacs = action: sh "emacsclient -c --eval \"${action}\"";
+        homedir = "/home/${username}/";
+	screenshot-annotate = sh ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" -t ppm - | ${lib.getExe pkgs.satty} --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush'';
   in {
 	"Mod+E".action = sh "emacsclient -c";
-	"Mod+C".action = sh "dolphin";
+	"Mod+Shift+C".action = sh "dolphin";
+	"Mod+C".action = emacs ''(dirvish \"${homedir}\")'';
 	"Mod+T".action = spawn "kitty";
 	"Mod+D".action = spawn "fuzzel";
 	"Mod+B".action = spawn "librewolf";
@@ -119,8 +123,7 @@
 	"Mod+F".action = fullscreen-window;
 	"Mod+R".action = switch-preset-column-width;
 	"Mod+Q".action = close-window;
-	#"Mod+Q".action = ;
-	"Mod+Shift+S".action = screenshot;
+	"Mod+Shift+S".action = screenshot-annotate;
 	"Mod+1".action = focus-workspace 1;
 	"Mod+2".action = focus-workspace 2;
 	"Mod+3".action = focus-workspace 3;
