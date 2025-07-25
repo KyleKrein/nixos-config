@@ -152,13 +152,14 @@
           system = arm;
           overlays = [
 	    inputs.beeengine.overlays.${arm}
+	    #nativePackagesOverlay
             #(import ./nixos/macos/widevine.nix)
           ];
+	  #config.replaceStdenv = {pkgs}: pkgs.impureUseNativeOptimizations pkgs.stdenv;  
           config = {
             allowBroken = true;
             allowUnfree = true;
             allowUnsupportedSystem = true;
-           # rocmSupport = true;
           };
         };
         kylekrein-wsl-pkgs = nixpkgs: import nixpkgs {
