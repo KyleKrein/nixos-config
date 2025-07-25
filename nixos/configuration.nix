@@ -27,7 +27,6 @@ in {
       ./modules/services/autoupgrade
       ./modules/sops
       ./modules/dolphin
-      ./modules/emacs
       ./modules/gnupg
       ./modules/direnv
       ./hosts/${hwconfig.hostname}

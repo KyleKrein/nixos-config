@@ -20,6 +20,7 @@
   imports = [
     ./waybar
     ./hyprlock.nix
+    ./emacs.nix
   ];
   home.packages = with pkgs;
     [
@@ -99,12 +100,12 @@
             "${../../modules/hyprland/wallpaper.jpg}"
           ];
         }
-        {
-          command = [
-            "emacs"
-            "--daemon"
-          ];
-        }
+        #{
+        #  command = [
+        #    "emacs"
+        #    "--daemon"
+        #  ];
+        #}
       ];
       layout = {
         preset-column-widths = [

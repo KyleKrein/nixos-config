@@ -12,7 +12,6 @@
     [
       ./modules/firefox
       ./modules/flatpak
-      ./modules/emacs
       ./modules/gnupg
       ./modules/direnv
       ./hosts/${hwconfig.hostname}
@@ -39,6 +38,7 @@
   };
   users.extraGroups.docker.members = ["nixos"];
   environment.systemPackages = with pkgs; [
+    inputs.emacs-kylekrein.packages.${pkgs.system}.with-lsps-native
     killall
     nix-output-monitor
     eza
