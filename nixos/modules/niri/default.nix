@@ -1,5 +1,8 @@
-{ pkgs, inputs,  ...}:
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   nixpkgs.overlays = [
     inputs.niri-flake.overlays.niri
   ];
@@ -12,7 +15,7 @@
     package = pkgs.niri-unstable;
   };
   niri-flake.cache.enable = true;
-  environment.systemPackages = with pkgs;[
+  environment.systemPackages = with pkgs; [
     wl-clipboard
     wayland-utils
     libsecret

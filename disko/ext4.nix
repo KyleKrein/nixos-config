@@ -1,5 +1,7 @@
-{ device, mountpoint ? "/run/extraDrive" }:
 {
+  device,
+  mountpoint ? "/run/extraDrive",
+}: {
   disko.devices = {
     disk = {
       "${device}" = {
@@ -7,7 +9,7 @@
         type = "disk";
         content = {
           type = "gpt";
-	  partitions = {
+          partitions = {
             root = {
               size = "100%";
               content = {

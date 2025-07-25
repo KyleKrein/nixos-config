@@ -78,114 +78,133 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
-    #systems = ["aarch64-linux" "x86_64-linux" ];
-    #forAllSystems = nixpkgs.lib.genAttrs systems;
-    #pkgs = import nixpkgs {
-    #   inherit system;
-    #   config = {
-    #      allowUnfree = true;
-    #   };
-    #};
+    systems = ["aarch64-linux" "x86_64-linux"];
+    eachSystem = nixpkgs.lib.genAttrs systems;
+    pkgsFor = eachSystem (system:
+      import nixpkgs {
+        localSystem = system;
+        overlays = [
+        ];
+      });
     arm = "aarch64-linux";
     x86 = "x86_64-linux";
-    ladybirdMaster = self: super: { ladybird = super.ladybird.overrideAttrs(old: {
-      src = super.fetchFromGitHub {
-	owner = "LadybirdWebBrowser";
-	repo = "ladybird";
-	rev = "71222df4c4103d306fd05b9b0bffb1c1b8e5485e";
-	hash = "sha256-hJkK7nag3Z9E8etPFCo0atUEJJnPjjkl7sle/UwkzbE=";
-      };
-      version = "0-unstable-2025-05-22";
-    });};
-     nativePackagesOverlay = self: super: {
-              stdenv = super.impureUseNativeOptimizations super.stdenv;
-            };
-    kylekrein-homepc-pkgs = nixpkgs: import nixpkgs {
-          system = x86;
-          overlays = [
-	    inputs.beeengine.overlays.${x86}
-	    (final: prev: { #https://github.com/NixOS/nixpkgs/issues/388681
-	      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [(
-		python-final: python-prev: {
-		  onnxruntime = python-prev.onnxruntime.overridePythonAttrs (
-		    oldAttrs: {
-		      buildInputs = prev.lib.lists.remove prev.onnxruntime oldAttrs.buildInputs;
-		    }
-		  );
-		}
-	      )];
-	    })
-            #nativePackagesOverlay
-	    #ladybirdMaster
-          ];
-          config = {
-            allowBroken = true;
-            allowUnfree = true;
-            cudaSupport = true;
-          };
+    ladybirdMaster = self: super: {
+      ladybird = super.ladybird.overrideAttrs (old: {
+        src = super.fetchFromGitHub {
+          owner = "LadybirdWebBrowser";
+          repo = "ladybird";
+          rev = "71222df4c4103d306fd05b9b0bffb1c1b8e5485e";
+          hash = "sha256-hJkK7nag3Z9E8etPFCo0atUEJJnPjjkl7sle/UwkzbE=";
         };
-    kylekrein-server-pkgs = nixpkgs: import nixpkgs {
-          system = x86;
-          overlays = [
-	    (self: super: {
-	      conduwuit = inputs.conduwuit.packages."${x86}".all-features;
-	    })
-            #nativePackagesOverlay
-	    #ladybirdMaster
-          ];
-          config = {
-            allowBroken = true;
-            allowUnfree = true;
-          };
-        };
-    kylekrein-framework12-pkgs = nixpkgs: import nixpkgs {
-      system = x86;
-      overlays = [
-	inputs.beeengine.overlays.${x86}
-      ];
-      config = {
-        allowBroken = true;
-        allowUnfree = true;
-      };
+        version = "0-unstable-2025-05-22";
+      });
     };
-    kylekrein-mac-pkgs = nixpkgs: import nixpkgs {
-          system = arm;
-          overlays = [
-	    inputs.beeengine.overlays.${arm}
-	    #nativePackagesOverlay
-            #(import ./nixos/macos/widevine.nix)
-          ];
-	  #config.replaceStdenv = {pkgs}: pkgs.impureUseNativeOptimizations pkgs.stdenv;  
-          config = {
-            allowBroken = true;
-            allowUnfree = true;
-            allowUnsupportedSystem = true;
-          };
+    nativePackagesOverlay = self: super: {
+      stdenv = super.impureUseNativeOptimizations super.stdenv;
+    };
+    kylekrein-homepc-pkgs = nixpkgs:
+      import nixpkgs {
+        system = x86;
+        overlays = [
+          inputs.beeengine.overlays.${x86}
+          (final: prev: {
+            #https://github.com/NixOS/nixpkgs/issues/388681
+            pythonPackagesExtensions =
+              prev.pythonPackagesExtensions
+              ++ [
+                (
+                  python-final: python-prev: {
+                    onnxruntime = python-prev.onnxruntime.overridePythonAttrs (
+                      oldAttrs: {
+                        buildInputs = prev.lib.lists.remove prev.onnxruntime oldAttrs.buildInputs;
+                      }
+                    );
+                  }
+                )
+              ];
+          })
+          #nativePackagesOverlay
+          #ladybirdMaster
+        ];
+        config = {
+          allowBroken = true;
+          allowUnfree = true;
+          cudaSupport = true;
         };
-        kylekrein-wsl-pkgs = nixpkgs: import nixpkgs {
-          system = x86;
-          overlays = [
-            #nativePackagesOverlay
-          ];
-          config = {
-            allowUnfree = true;
-          };
+      };
+    kylekrein-server-pkgs = nixpkgs:
+      import nixpkgs {
+        system = x86;
+        overlays = [
+          (self: super: {
+            conduwuit = inputs.conduwuit.packages."${x86}".all-features;
+          })
+          #nativePackagesOverlay
+          #ladybirdMaster
+        ];
+        config = {
+          allowBroken = true;
+          allowUnfree = true;
         };
-    andrej-pc-pkgs = nixpkgs: import nixpkgs {
-          system = x86;
-          overlays = [
-	    inputs.beeengine.overlays.${x86}
-            #nativePackagesOverlay
-          ];
-          config = {
-            #allowBroken = true;
-            allowUnfree = true;
-            #cudaSupport = true;
-          };
+      };
+    kylekrein-framework12-pkgs = nixpkgs:
+      import nixpkgs {
+        system = x86;
+        overlays = [
+          inputs.beeengine.overlays.${x86}
+        ];
+        config = {
+          allowBroken = true;
+          allowUnfree = true;
         };
+      };
+    kylekrein-mac-pkgs = nixpkgs:
+      import nixpkgs {
+        system = arm;
+        overlays = [
+          inputs.beeengine.overlays.${arm}
+          #nativePackagesOverlay
+          #(import ./nixos/macos/widevine.nix)
+        ];
+        #config.replaceStdenv = {pkgs}: pkgs.impureUseNativeOptimizations pkgs.stdenv;
+        config = {
+          allowBroken = true;
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+        };
+      };
+    kylekrein-wsl-pkgs = nixpkgs:
+      import nixpkgs {
+        system = x86;
+        overlays = [
+          #nativePackagesOverlay
+        ];
+        config = {
+          allowUnfree = true;
+        };
+      };
+    andrej-pc-pkgs = nixpkgs:
+      import nixpkgs {
+        system = x86;
+        overlays = [
+          inputs.beeengine.overlays.${x86}
+          #nativePackagesOverlay
+        ];
+        config = {
+          #allowBroken = true;
+          allowUnfree = true;
+          #cudaSupport = true;
+        };
+      };
 
     first-nixos-install = "1729112485"; #stat -c %W /
   in {
+    formatter = eachSystem (
+      system: let
+        pkgs = pkgsFor.${system};
+      in
+        pkgs.alejandra
+    );
     nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
       pkgs = import nixpkgs {
         system = "aarch64-linux";
@@ -213,13 +232,13 @@
           hwconfig = {
             hostname = "kylekrein-homepc";
             isLaptop = false;
-	    hasTouchscreen = false;
+            hasTouchscreen = false;
             system = x86;
             useImpermanence = true;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = kylekrein-homepc-pkgs nixpkgs-unstable;
+          unstable-pkgs = kylekrein-homepc-pkgs nixpkgs-unstable;
         };
 
         system = x86;
@@ -234,13 +253,13 @@
           hwconfig = {
             hostname = "kylekrein-framework12";
             isLaptop = true;
-	    hasTouchscreen = true;
+            hasTouchscreen = true;
             system = x86;
             useImpermanence = true;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = kylekrein-framework12-pkgs nixpkgs-unstable;
+          unstable-pkgs = kylekrein-framework12-pkgs nixpkgs-unstable;
         };
 
         system = x86;
@@ -248,7 +267,7 @@
         modules = [
           (import ./disko/impermanence-tmpfs-luks.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
-	  inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
+          inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
         ];
       };
       "kylekrein-mac" = nixpkgs.lib.nixosSystem {
@@ -256,13 +275,13 @@
           hwconfig = {
             hostname = "kylekrein-mac";
             isLaptop = true;
-	    hasTouchscreen = false;
+            hasTouchscreen = false;
             system = arm;
             useImpermanence = true;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = kylekrein-mac-pkgs nixpkgs-unstable;
+          unstable-pkgs = kylekrein-mac-pkgs nixpkgs-unstable;
         };
 
         system = arm;
@@ -276,13 +295,13 @@
           hwconfig = {
             hostname = "kylekrein-server";
             isLaptop = false;
-	    hasTouchscreen = false;
+            hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = kylekrein-server-pkgs nixpkgs-unstable;
+          unstable-pkgs = kylekrein-server-pkgs nixpkgs-unstable;
         };
 
         system = x86;
@@ -296,13 +315,13 @@
           hwconfig = {
             hostname = "kylekrein-wsl";
             isLaptop = true;
-	    hasTouchscreen = false;
+            hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = kylekrein-wsl-pkgs nixpkgs-unstable;
+          unstable-pkgs = kylekrein-wsl-pkgs nixpkgs-unstable;
         };
 
         system = x86;
@@ -317,20 +336,23 @@
           hwconfig = {
             hostname = "andrej-pc";
             isLaptop = false;
-	    hasTouchscreen = false;
+            hasTouchscreen = false;
             system = x86;
             useImpermanence = false;
           };
           inherit first-nixos-install;
           inherit inputs;
-	  unstable-pkgs = andrej-pc-pkgs nixpkgs-unstable;
+          unstable-pkgs = andrej-pc-pkgs nixpkgs-unstable;
         };
 
         system = x86;
         pkgs = andrej-pc-pkgs nixpkgs;
         modules = [
-          (import ./disko/ext4-swap.nix {device = "/dev/sda"; swapSize = "16G";})
-	  (import ./disko/ext4.nix {device = "/dev/sdb";})
+          (import ./disko/ext4-swap.nix {
+            device = "/dev/sda";
+            swapSize = "16G";
+          })
+          (import ./disko/ext4.nix {device = "/dev/sdb";})
           ./nixos/hosts/andrej-pc/configuration.nix
         ];
       };

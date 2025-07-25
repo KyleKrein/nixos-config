@@ -7,16 +7,14 @@
   username,
   inputs,
   ...
-}:
-let
-in
-{
+}: let
+in {
   imports =
     [
       #./modules/fastfetch
       #./modules/tmux/home.nix
     ]
-++ lib.optional (lib.strings.hasInfix "kylekrein" hwconfig.hostname) ./modules/fastfetch
+    ++ lib.optional (lib.strings.hasInfix "kylekrein" hwconfig.hostname) ./modules/fastfetch
     ++ lib.optional (hwconfig.useImpermanence) (
       import ./modules/impermanence/home.nix {
         inherit username;
@@ -30,16 +28,23 @@ in
     #    inherit inputs;
     #    inherit hwconfig;
     #    inherit lib;
-     # }
+    # }
     #)
     ++ lib.optional (builtins.pathExists ./homes/${username}) (
-      import ./homes/${username} { inherit username; inherit config; inherit pkgs; inherit lib; inherit inputs; inherit hwconfig; }
+      import ./homes/${username} {
+        inherit username;
+        inherit config;
+        inherit pkgs;
+        inherit lib;
+        inherit inputs;
+        inherit hwconfig;
+      }
     );
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
   home.homeDirectory = "/home/${username}";
-  
+
   #xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
   #	General.theme = "Catppuccin-Mocha";
   # };
@@ -102,7 +107,7 @@ in
   ];
 
   programs.kitty = {
-    enable =  lib.strings.hasInfix "kylekrein" hwconfig.hostname;
+    enable = lib.strings.hasInfix "kylekrein" hwconfig.hostname;
     font = {
       name = "JetBrainsMono Nerd Font";
       size = 20;

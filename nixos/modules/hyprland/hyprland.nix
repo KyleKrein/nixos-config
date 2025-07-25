@@ -118,7 +118,7 @@ in {
         "$mainMod ALT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
         ''$mainMod, E, exec, $emacs''
-	#''$mainMod SHIFT, E, exec, emacsclient -e "(emacs-everywhere)"''
+        #''$mainMod SHIFT, E, exec, emacsclient -e "(emacs-everywhere)"''
       ];
 
       bindm = [
@@ -126,17 +126,23 @@ in {
         "$mod, mouse:273, resizewindow"
       ];
       misc = {
-	vfr = true; #lowers the amount of frames when nothing happens
-	allow_session_lock_restore = true; # hope that it fixes the crash of hyprlock
-	disable_hyprland_logo = true;# disables the random Hyprland logo / anime girl background. :(
+        vfr = true; #lowers the amount of frames when nothing happens
+        allow_session_lock_restore = true; # hope that it fixes the crash of hyprlock
+        disable_hyprland_logo = true; # disables the random Hyprland logo / anime girl background. :(
       };
       input = {
         kb_layout = "us, ru";
-        kb_options = "grp:lctrl_toggle, ctrl:nocaps" + (if hwconfig.hostname == "kylekrein-mac" then ", altwin:swap_alt_win" else ""); # "ctrl:nocaps, grp:toggle"
+        kb_options =
+          "grp:lctrl_toggle, ctrl:nocaps"
+          + (
+            if hwconfig.hostname == "kylekrein-mac"
+            then ", altwin:swap_alt_win"
+            else ""
+          ); # "ctrl:nocaps, grp:toggle"
 
         touchpad = {
           natural_scroll = true;
-	  disable_while_typing = false; #for games
+          disable_while_typing = false; #for games
         };
       };
       env = [
@@ -159,7 +165,7 @@ in {
 
       cursor = {
         no_hardware_cursors = true;
-	inactive_timeout = 10;
+        inactive_timeout = 10;
       };
 
       general = {
@@ -173,8 +179,9 @@ in {
         allow_tearing = false;
         layout = "dwindle";
       };
-      render = lib.mkIf (hwconfig.system == "aarch64-linux") { # Explicit sync breaks asahi driver https://github.com/hyprwm/Hyprland/issues/8158
-	explicit_sync = 0;
+      render = lib.mkIf (hwconfig.system == "aarch64-linux") {
+        # Explicit sync breaks asahi driver https://github.com/hyprwm/Hyprland/issues/8158
+        explicit_sync = 0;
       };
 
       windowrule = [
@@ -212,9 +219,9 @@ in {
         #emacs run launcher
         "float, title:emacs-run-launcher"
         "pin, title:emacs-run-launcher"
-	
-	#emacs
-	"opaque, class:emacs"
+
+        #emacs
+        "opaque, class:emacs"
       ];
 
       decoration = {

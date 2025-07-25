@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   programs.firefox.profiles.default.settings = {
     "media.gmp-widevinecdm.version" = pkgs.widevinecdm-aarch64.version;
     "media.gmp-widevinecdm.visible" = true;
@@ -12,7 +11,7 @@
   home.file."firefox-widevinecdm" = {
     enable = true;
     target = ".mozilla/firefox/default/gmp-widevinecdm";
-    source = pkgs.runCommandLocal "firefox-widevinecdm" { } ''
+    source = pkgs.runCommandLocal "firefox-widevinecdm" {} ''
       out=$out/${pkgs.widevinecdm-aarch64.version}
       mkdir -p $out
       ln -s ${pkgs.widevinecdm-aarch64}/manifest.json $out/manifest.json
@@ -20,5 +19,4 @@
     '';
     recursive = true;
   };
-
 }

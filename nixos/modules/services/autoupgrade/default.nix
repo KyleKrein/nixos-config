@@ -3,13 +3,10 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.kylekrein.services.autoUpgrade;
   script = ./nixos-upgrade-script.sh;
-in
-{
+in {
   options = {
     kylekrein.services.autoUpgrade = {
       enable = lib.mkEnableOption "Enables automatic system updates.";
@@ -69,15 +66,31 @@ in
         unitConfig.RequiresMountsFor = cfg.configDir;
         script =
           "${script} --operation ${cfg.operation} "
-          + (if (cfg.configDir != "") then "--flake ${cfg.configDir} " else "")
-          + (if (cfg.user != "") then "--user ${cfg.user} " else "")
-          + (if (cfg.pushUpdates) then "--update " else "")
-          + (if (cfg.extraFlags != "") then cfg.extraFlags else "");
+          + (
+            if (cfg.configDir != "")
+            then "--flake ${cfg.configDir} "
+            else ""
+          )
+          + (
+            if (cfg.user != "")
+            then "--user ${cfg.user} "
+            else ""
+          )
+          + (
+            if (cfg.pushUpdates)
+            then "--update "
+            else ""
+          )
+          + (
+            if (cfg.extraFlags != "")
+            then cfg.extraFlags
+            else ""
+          );
       };
       timers."nixos-upgrade" = {
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        wantedBy = [ "timers.target" ];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = cfg.onCalendar;
           Persistent = cfg.persistent;

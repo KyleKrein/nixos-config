@@ -1,18 +1,25 @@
-{ pkgs, lib, hwconfig, ... }:
-let
-    profile-image = ./profile-image.png;
-    battery-level = (import ./battery-status.nix {inherit pkgs; inherit hwconfig;}).labelPercent;
-in
 {
+  pkgs,
+  lib,
+  hwconfig,
+  ...
+}: let
+  profile-image = ./profile-image.png;
+  battery-level =
+    (import ./battery-status.nix {
+      inherit pkgs;
+      inherit hwconfig;
+    }).labelPercent;
+in {
   programs.hyprlock = {
     enable = true;
     settings = {
       general = {
         #enable_fingerprint = true;
-	disable_loading_bar = true;
-	hide_cursor = true;
-	no_fade_in = false;
-	grace = 10;
+        disable_loading_bar = true;
+        hide_cursor = true;
+        no_fade_in = false;
+        grace = 10;
       };
       background = {
         blur_passes = 1;
@@ -24,14 +31,14 @@ in
         vibrancy_darkness = 0.0;
       };
       image = {
-            path = "${profile-image}";
-            size = 150;
-            border_size = 4;
-            #border_color = "rgb(0C96F9)";
-            rounding = -1; # Negative means circle
-            position = "0, 220";
-            halign = "center";
-            valign = "center";
+        path = "${profile-image}";
+        size = 150;
+        border_size = 4;
+        #border_color = "rgb(0C96F9)";
+        rounding = -1; # Negative means circle
+        position = "0, 220";
+        halign = "center";
+        valign = "center";
       };
       input-field = {
         size = "600, 100";
@@ -51,41 +58,41 @@ in
         halign = "center";
         valign = "center";
       };
-      label = [
-        {
-          text = "$USER";
-          font_family = "Fira Code";
-          font_size = 56;
-          position = "0, 100";
-          halign = "center";
-          valign = "center";
-        }
-        {
-          text = "$TIME";
-          font_family = "Roboto";
-          font_size = 72;
-          position = "-40, -40";
-          halign = "right";
-          valign = "top";
-        }
-        {
-          text = "$LAYOUT";
-          font_family = "JetBrains Mono";
-          font_size = 28;
-          position = "-20, 20";
-          halign = "right";
-          valign = "bottom";
-        }
-      ] ++ lib.optional (hwconfig.isLaptop) (
-        {
+      label =
+        [
+          {
+            text = "$USER";
+            font_family = "Fira Code";
+            font_size = 56;
+            position = "0, 100";
+            halign = "center";
+            valign = "center";
+          }
+          {
+            text = "$TIME";
+            font_family = "Roboto";
+            font_size = 72;
+            position = "-40, -40";
+            halign = "right";
+            valign = "top";
+          }
+          {
+            text = "$LAYOUT";
+            font_family = "JetBrains Mono";
+            font_size = 28;
+            position = "-20, 20";
+            halign = "right";
+            valign = "bottom";
+          }
+        ]
+        ++ lib.optional (hwconfig.isLaptop) {
           text = ''cmd[update:10000] ${battery-level}'';
           font_family = "JetBrains Mono";
           font_size = 28;
           position = "20, 20";
           halign = "left";
           valign = "bottom";
-        });
+        };
     };
   };
 }
-

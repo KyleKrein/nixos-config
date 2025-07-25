@@ -26,8 +26,8 @@
     (self: super: {
       prismlauncher = pkgs.symlinkJoin {
         name = "prismlauncher";
-        paths = [ super.prismlauncher];
-        buildInputs = [ pkgs.makeWrapper ];
+        paths = [super.prismlauncher];
+        buildInputs = [pkgs.makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/prismlauncher --set HOME /persist/home/kylekrein
         '';
@@ -36,8 +36,8 @@
     (self: super: {
       bottles = pkgs.symlinkJoin {
         name = "bottles";
-        paths = [ super.bottles];
-        buildInputs = [ pkgs.makeWrapper ];
+        paths = [super.bottles];
+        buildInputs = [pkgs.makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/bottles --set HOME /persist/home/kylekrein
         '';
@@ -48,7 +48,7 @@
     blender
     ladybird
     prismlauncher
-    
+
     #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
 
@@ -66,14 +66,14 @@
   #LLMs
   services.ollama = {
     enable = true;
-    loadModels = [ "qwq" "llama3.1" "qwen2.5-coder:7b" ];
+    loadModels = ["qwq" "llama3.1" "qwen2.5-coder:7b"];
     acceleration = "cuda";
     home = "/persist/ollama";
     user = "ollama";
     group = "ollama";
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux" "riscv64-linux"];
 
   services.open-webui.enable = true;
   #services.open-webui.package = unstable-pkgs.open-webui;
@@ -85,9 +85,9 @@
   systemd.services.open-webui.serviceConfig.DynamicUser = lib.mkForce false;
 
   #Chat host
-  networking.firewall.allowedTCPPorts = [ 80 443 22 8448 9993 8081] ++ [ config.services.zerotierone.port ];
+  networking.firewall.allowedTCPPorts = [80 443 22 8448 9993 8081] ++ [config.services.zerotierone.port];
   networking.firewall.allowedUDPPorts = [config.services.zerotierone.port];
-#  users.users.nginx.extraGroups = [ "acme" ];
+  #  users.users.nginx.extraGroups = [ "acme" ];
   services.hypridle.enable = lib.mkForce false;
   programs.hyprlock.enable = lib.mkForce false;
 
@@ -106,14 +106,17 @@
       #forceSSL = true;
       #useACMEHost = "kylekrein.com";
       #acmeRoot = "/var/lib/acme/challenges-kylekrein";
-    }; in {
-      "chat.kylekrein.com" = (SSL // {
+    };
+  in {
+    "chat.kylekrein.com" =
+      SSL
+      // {
         locations."/" = {
           proxyPass = "http://localhost:8080/";
           proxyWebsockets = true;
         };
-      });
-    };
+      };
+  };
 
   systemd.network.wait-online.enable = lib.mkForce false;
 }

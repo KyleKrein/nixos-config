@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.kk.services.conduwuit;
   defaultUser = "conduwuit";
   defaultGroup = "conduwuit";
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   configFile = format.generate "conduwuit.toml" cfg.settings;
-in
-{
-  meta.maintainers = with lib.maintainers; [ niklaskorz ];
+in {
+  meta.maintainers = with lib.maintainers; [niklaskorz];
   options.kk.services.conduwuit = {
     enable = lib.mkEnableOption "conduwuit";
 
@@ -36,13 +34,13 @@ in
     extraEnvironment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       description = "Extra Environment variables to pass to the conduwuit server.";
-      default = { };
+      default = {};
       example = {
         RUST_BACKTRACE = "yes";
       };
     };
 
-    package = lib.mkPackageOption pkgs "conduwuit" { };
+    package = lib.mkPackageOption pkgs "conduwuit" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
@@ -68,7 +66,7 @@ in
           };
           global.port = lib.mkOption {
             type = lib.types.listOf lib.types.port;
-            default = [ 6167 ];
+            default = [6167];
             description = ''
               The port(s) conduwuit will be running on.
               You need to set up a reverse proxy in your web server (e.g. apache or nginx),
@@ -127,7 +125,7 @@ in
           };
           global.trusted_servers = lib.mkOption {
             type = lib.types.listOf lib.types.nonEmptyStr;
-            default = [ "matrix.org" ];
+            default = ["matrix.org"];
             description = ''
               Servers listed here will be used to gather public keys of other servers
               (notary trusted key servers).
@@ -147,14 +145,14 @@ in
               Note that database_path cannot be edited because of the service's reliance on systemd StateDir.
             '';
           };
-	  global.database_backup_path = lib.mkOption {
+          global.database_backup_path = lib.mkOption {
             type = lib.types.nullOr lib.types.path;
             default = null;
             description = ''
               Path to the conduwuit database, the directory where conduwuit will backup its data.
             '';
           };
-	  global.database_backups_to_keep = lib.mkOption {
+          global.database_backups_to_keep = lib.mkOption {
             type = lib.types.ints.positive;
             default = 1;
             description = "";
@@ -170,103 +168,103 @@ in
               Disabled by default.
             '';
           };
-	  global.allow_local_presence = lib.mkOption {
+          global.allow_local_presence = lib.mkOption {
             type = lib.types.bool;
             default = true;
             description = ''
             '';
           };
-	  global.allow_incoming_presence = lib.mkOption {
+          global.allow_incoming_presence = lib.mkOption {
             type = lib.types.bool;
             default = true;
             description = ''
             '';
           };
-	  global.allow_outgoing_presence = lib.mkOption {
+          global.allow_outgoing_presence = lib.mkOption {
             type = lib.types.bool;
             default = false;
             description = ''
             '';
           };
-	  global.require_auth_for_profile_requests = lib.mkOption {
+          global.require_auth_for_profile_requests = lib.mkOption {
             type = lib.types.bool;
             default = false;
             description = ''
             '';
           };
-	  global.new_user_displayname_suffix = lib.mkOption {
+          global.new_user_displayname_suffix = lib.mkOption {
             type = lib.types.str;
             default = "🏳️‍⚧️";
             description = ''
             '';
           };
-	  global.registration_token = lib.mkOption {
+          global.registration_token = lib.mkOption {
             type = lib.types.str;
             default = "";
             description = ''
             '';
           };
-	  global.registration_token_file = lib.mkOption {
+          global.registration_token_file = lib.mkOption {
             type = lib.types.nullOr lib.types.path;
             default = null;
             description = ''
             '';
           };
-	  global.allow_public_room_directory_over_federation = lib.mkOption {
+          global.allow_public_room_directory_over_federation = lib.mkOption {
             type = lib.types.bool;
             default = false;
             description = ''
             '';
           };
-	  global.allow_public_room_directory_without_auth = lib.mkOption {
+          global.allow_public_room_directory_without_auth = lib.mkOption {
             type = lib.types.bool;
             default = false;
             description = ''
             '';
           };
-	  global.allow_device_name_federation = lib.mkOption {
+          global.allow_device_name_federation = lib.mkOption {
             type = lib.types.bool;
             default = false;
             description = ''
             '';
           };
-	  global.allow_inbound_profile_lookup_federation_requests = lib.mkOption {
+          global.allow_inbound_profile_lookup_federation_requests = lib.mkOption {
             type = lib.types.bool;
             default = true;
             description = ''
             '';
           };
-	  global.turn_secret = lib.mkOption {
+          global.turn_secret = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
             description = ''
             '';
           };
-	  global.turn_uris = lib.mkOption {
+          global.turn_uris = lib.mkOption {
             type = lib.types.listOf lib.types.nonEmptyStr;
             default = [];
             description = ''
             '';
           };
-	  global.turn_secret_file = lib.mkOption {
+          global.turn_secret_file = lib.mkOption {
             type = lib.types.nullOr lib.types.path;
             default = null;
             description = ''
             '';
           };
-	  global.prevent_media_downloads_from = lib.mkOption {
+          global.prevent_media_downloads_from = lib.mkOption {
             type = lib.types.listOf lib.types.nonEmptyStr;
             default = [];
             description = ''
             '';
           };
-	  global.well_known.client = lib.mkOption {
+          global.well_known.client = lib.mkOption {
             type = lib.types.str;
             default = "";
             description = ''
             '';
           };
-	  global.well_known.server = lib.mkOption {
+          global.well_known.server = lib.mkOption {
             type = lib.types.str;
             default = "";
             description = ''
@@ -274,7 +272,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       # TOML does not allow null values, so we use null to omit those fields
       apply = lib.filterAttrsRecursive (_: v: v != null);
       description = ''
@@ -314,19 +312,19 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == defaultGroup) {
-      ${defaultGroup} = { };
+      ${defaultGroup} = {};
     };
 
     systemd.services.conduwuit = {
       description = "Conduwuit Matrix Server";
-      documentation = [ "https://conduwuit.puppyirl.gay/" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      environment = lib.mkMerge ([
-        { CONDUWUIT_CONFIG = configFile; }
+      documentation = ["https://conduwuit.puppyirl.gay/"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      environment = lib.mkMerge [
+        {CONDUWUIT_CONFIG = configFile;}
         cfg.extraEnvironment
-      ]);
+      ];
       startLimitBurst = 5;
       startLimitIntervalSec = 60;
       serviceConfig = {

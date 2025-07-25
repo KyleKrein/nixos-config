@@ -1,2 +1,2 @@
-{ pkgs }:
-pkgs.lisgd.override { conf = ./lisgd-config.h; }
+{pkgs}:
+pkgs.lisgd.override {conf = ./lisgd-config.h;}

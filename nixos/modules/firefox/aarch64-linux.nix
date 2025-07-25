@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
- nixpkgs = {
+{pkgs, ...}: {
+  nixpkgs = {
     overlays = [
       (final: prev: {
         firefox = prev.firefox.overrideAttrs (old: {
@@ -14,7 +13,7 @@
                       --set MOZ_GMP_PATH "$out/gmp-widevinecdm/system-installed"
             '';
         });
-	librewolf = prev.librewolf.overrideAttrs (old: {
+        librewolf = prev.librewolf.overrideAttrs (old: {
           buildCommand =
             old.buildCommand
             + ''
@@ -25,6 +24,7 @@
                       --set MOZ_GMP_PATH "$out/gmp-widevinecdm/system-installed"
             '';
         });
-    })];
+      })
+    ];
   };
 }

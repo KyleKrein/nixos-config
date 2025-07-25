@@ -1,7 +1,4 @@
-{
-  device ? throw "Set this to your disk device, e.g. /dev/sda",
-  ...
-}: {
+{device ? throw "Set this to your disk device, e.g. /dev/sda", ...}: {
   disko.devices = {
     disk.main = {
       inherit device;
@@ -30,7 +27,7 @@
             content = {
               type = "filesystem";
               format = "ext4";
-	      mountpoint = "/persist";
+              mountpoint = "/persist";
             };
           };
         };
@@ -41,10 +38,10 @@
         fsType = "tmpfs";
       };
       "/nix" = {
-	    device = "/persist/nix";
+        device = "/persist/nix";
       };
       "/tmp" = {
-	device = "/persist/tmp";
+        device = "/persist/tmp";
       };
     };
   };

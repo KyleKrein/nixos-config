@@ -4,8 +4,7 @@
   lib,
   hwconfig,
   ...
-}:
-{
+}: {
   imports = [
     (import ./hyprland.nix {
       inherit pkgs;

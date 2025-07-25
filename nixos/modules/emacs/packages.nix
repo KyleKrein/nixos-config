@@ -1,8 +1,7 @@
 {
   pkgs,
   emacs,
-}:
-{
+}: {
   packages = with pkgs; [
     git
     gzip

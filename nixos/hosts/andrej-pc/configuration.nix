@@ -10,27 +10,28 @@
   inputs,
   unstable-pkgs,
   ...
-}:
-{
+}: {
   programs.firefox.policies.Preferences."browser.startup.page" = lib.mkForce 1;
 
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-    inputs.stylix.nixosModules.stylix
-    inputs.nixos-facter-modules.nixosModules.facter
-    inputs.home-manager.nixosModules.default
-    inputs.disko.nixosModules.default
+  imports =
+    [
+      inputs.sops-nix.nixosModules.sops
+      inputs.stylix.nixosModules.stylix
+      inputs.nixos-facter-modules.nixosModules.facter
+      inputs.home-manager.nixosModules.default
+      inputs.disko.nixosModules.default
 
-    ../../modules/firefox
-    #../../modules/flatpak
-    ../../modules/steam
-    ../../modules/ly
-    ../../modules/sddm
-    ../../modules/services/autoupgrade
-    ../../modules/sops
-    #../../modules/emacs
-    ./default.nix
-  ] ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
+      ../../modules/firefox
+      #../../modules/flatpak
+      ../../modules/steam
+      ../../modules/ly
+      ../../modules/sddm
+      ../../modules/services/autoupgrade
+      ../../modules/sops
+      #../../modules/emacs
+      ./default.nix
+    ]
+    ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./facter.json;
   kylekrein.services.autoUpgrade = {
     enable = true;
@@ -38,7 +39,6 @@
     configDir = "/etc/nixos-config";
     user = "root";
   };
-
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
@@ -62,11 +62,10 @@
   #flatpak
   kk.services.flatpak.enable = true;
   services.flatpak.packages = [
-    
   ];
 
   services.pipewire = {
-    extraLv2Packages = [ pkgs.rnnoise-plugin ];
+    extraLv2Packages = [pkgs.rnnoise-plugin];
     configPackages = [
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/20-rnnoise.conf" ''
         context.modules = [
@@ -190,7 +189,8 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/etc/nixos-config";
   };
-  fonts.packages = with unstable-pkgs; [ #TODO change to pkgs when 25.05 comes out
+  fonts.packages = with unstable-pkgs; [
+    #TODO change to pkgs when 25.05 comes out
     nerd-fonts.jetbrains-mono
     font-awesome
     nerd-fonts.symbols-only
@@ -209,7 +209,7 @@
       enable = true;
     };
     logitech.wireless.enable = true;
-      bluetooth = {
+    bluetooth = {
       enable = true;
       powerOnBoot = true;
       settings = {
@@ -222,110 +222,110 @@
   services.blueman.enable = true;
   security.polkit.enable = true;
 
-      security.rtkit.enable = true;
-      services.pipewire = {
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+  stylix = {
+    enable = false;
+    image = "${../../modules/hyprland/wallpaper.jpg}";
+    autoEnable = true;
+    opacity = {
+      desktop = 0.0; #0.5;
+    };
+    targets = {
+      gtk.enable = true;
+      plymouth = {
         enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        jack.enable = true;
+        #logo = ./fastfetch/nixos.png;
+        logoAnimated = false;
       };
-
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
+    };
+    fonts = {
+      sizes = {
+        applications = 14;
+        desktop = 12;
+        popups = 12;
+        terminal = 16;
       };
-      stylix = {
-        enable = false;
-        image = "${../../modules/hyprland/wallpaper.jpg}";
-        autoEnable = true;
-        opacity = {
-          desktop = 0.0;#0.5;
-        };
-        targets = {
-          gtk.enable = true;
-          plymouth = {
-            enable = true;
-            #logo = ./fastfetch/nixos.png;
-            logoAnimated = false;
-          };
-        };
-        fonts = {
-          sizes = {
-            applications = 14;
-            desktop = 12;
-            popups = 12;
-            terminal = 16;
-          };
-        };
-        polarity = "dark";
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-      };
+    };
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+  };
 
-      programs.bash = {
-        shellAliases = {
-          ls = "${pkgs.eza}/bin/eza --icons=always";
-        };
-      };
+  programs.bash = {
+    shellAliases = {
+      ls = "${pkgs.eza}/bin/eza --icons=always";
+    };
+  };
 
-      #services.flatpak.enable = true;
-      #services.flatpak.packages = [
-        #	"flathub:app/org.kde.dolphin//stable"
-        # ];
+  #services.flatpak.enable = true;
+  #services.flatpak.packages = [
+  #	"flathub:app/org.kde.dolphin//stable"
+  # ];
 
-        # Some programs need SUID wrappers, can be configured further or are
-        # started in user sessions.
-        # programs.mtr.enable = true;
-        # programs.gnupg.agent = {
-          #   enable = true;
-          #   enableSSHSupport = true;
-          # };
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
-          kk.steam.enable = true;
+  kk.steam.enable = true;
 
-          # List services that you want to enable:
+  # List services that you want to enable:
 
-          # Enable the OpenSSH daemon.
-          services.openssh = {
-            enable = true;
-            # require public key authentication for better security
-            settings.PasswordAuthentication = false;
-            settings.KbdInteractiveAuthentication = false;
-            settings.PermitRootLogin = "no";
-            #extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
-          };
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
+    settings.PermitRootLogin = "no";
+    #extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
+  };
 
-          # Open ports in the firewall.
-          networking.firewall.allowedTCPPorts = [ 22 25565 ];
-          networking.firewall.allowedUDPPorts = [ 22 25565 ];
-          # Or disable the firewall altogether.
-          #networking.firewall.enable = false;
+  # Open ports in the firewall.
+  networking.firewall.allowedTCPPorts = [22 25565];
+  networking.firewall.allowedUDPPorts = [22 25565];
+  # Or disable the firewall altogether.
+  #networking.firewall.enable = false;
 
-          # This value determines the NixOS release from which the default
-          # settings for stateful data, like file locations and database versions
-          # on your system were taken. It‘s perfectly fine and recommended to leave
-          # this value at the release version of the first install of this system.
-          # Before changing this value read the documentation for this option
-          # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-          system.stateVersion = "24.11"; # Did you read the comment?
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.11"; # Did you read the comment?
 
-          nix = {
-            settings = {
-              experimental-features = [
-                "nix-command"
-                "flakes"
-              ];
-              auto-optimise-store = true;
-              substituters = [
-                "https://hyprland.cachix.org"
-                "https://nix-gaming.cachix.org"
-                "https://nix-community.cachix.org"
-              ];
-              trusted-public-keys = [
-                "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-                "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-              ];
-            };
-          };
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      auto-optimise-store = true;
+      substituters = [
+        "https://hyprland.cachix.org"
+        "https://nix-gaming.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+  };
 }

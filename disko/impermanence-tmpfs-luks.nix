@@ -1,8 +1,4 @@
-{
-  device ? throw "Set this to your disk device, e.g. /dev/sda",
-  ...
-}:
-{
+{device ? throw "Set this to your disk device, e.g. /dev/sda", ...}: {
   disko.devices = {
     disk = {
       main = {
@@ -41,42 +37,44 @@
                 content = {
                   type = "filesystem";
                   format = "ext4";
-		  mountpoint = "/persist";
-		  };
+                  mountpoint = "/persist";
                 };
               };
             };
           };
         };
       };
+    };
     nodev = {
       "/" = {
         fsType = "tmpfs";
-	mountOptions = [ "defaults" "size=8G" "mode=755" ];
+        mountOptions = ["defaults" "size=8G" "mode=755"];
       };
     };
   };
 
   fileSystems."/persist" = {
-    depends = [ "/" ];
+    depends = ["/"];
     neededForBoot = true;
   };
   fileSystems."/nix" = {
     device = "/persist/nix";
-    options = [ "bind" ];
-    depends = [ "/persist" ];
+    options = ["bind"];
+    depends = ["/persist"];
     neededForBoot = true;
   };
   fileSystems."/tmp" = {
     device = "/persist/tmp";
-    options = [ "bind" ];
-    depends = [ "/persist" ];
+    options = ["bind"];
+    depends = ["/persist"];
     neededForBoot = true;
   };
-  swapDevices = [{
-    device = "/persist/swapfile";
-    size = 64*1024; # 64 GB
-  }];
+  swapDevices = [
+    {
+      device = "/persist/swapfile";
+      size = 64 * 1024; # 64 GB
+    }
+  ];
 
   boot.resumeDevice = "/persist/swapfile";
 }
