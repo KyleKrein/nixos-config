@@ -24,6 +24,7 @@
       ".emacs.d"
       ".local/share/keyrings"
       ".local/share/direnv"
+      ".klei"
       "Android"
       {
         directory = ".var/app";
