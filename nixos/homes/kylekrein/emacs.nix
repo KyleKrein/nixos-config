@@ -10,10 +10,4 @@ in {
     enable = true;
     package = emacs;
   };
-  services.emacs = {
-    enable = true;
-    package = config.programs.emacs.package;
-    startWithUserSession = true;
-    client.enable = true;
-  };
 }

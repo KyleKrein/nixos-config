@@ -100,12 +100,12 @@
             "${../../modules/hyprland/wallpaper.jpg}"
           ];
         }
-        #{
-        #  command = [
-        #    "emacs"
-        #    "--daemon"
-        #  ];
-        #}
+        {
+          command = [
+            "emacs"
+            "--daemon"
+          ];
+        }
       ];
       layout = {
         preset-column-widths = [
