@@ -9,7 +9,7 @@
   ...
 }: {
   imports = [
-    ../../hardware/nvidia
+    ../../hardware/framework12
 
     ../../modules/niri
 
@@ -50,15 +50,13 @@
     blender
     ladybird
     prismlauncher
-
-    #inputs.nix-gaming.packages.${pkgs.system}.star-citizen
   ];
 
   zramSwap = {
     enable = true; # Hopefully? helps with freezing when using swap
   };
   services.zerotierone = {
-    enable = true;
+    enable = false;
     port = 9994;
     joinNetworks = [
       "A84AC5C10AD269CA"
@@ -69,13 +67,12 @@
   services.ollama = {
     enable = true;
     loadModels = ["qwq" "llama3.1" "qwen2.5-coder:7b"];
-    acceleration = "cuda";
     home = "/persist/ollama";
     user = "ollama";
     group = "ollama";
   };
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux" "riscv64-linux"];
+  #boot.binfmt.emulatedSystems = ["aarch64-linux" "riscv64-linux"];
 
   services.open-webui.enable = true;
   #services.open-webui.package = unstable-pkgs.open-webui;

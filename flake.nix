@@ -267,7 +267,6 @@
         modules = [
           (import ./disko/impermanence-tmpfs-luks.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
-          inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
         ];
       };
       "kylekrein-mac" = nixpkgs.lib.nixosSystem {
