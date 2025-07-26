@@ -18,7 +18,9 @@ in {
       inputs.nixos-facter-modules.nixosModules.facter
       inputs.home-manager.nixosModules.default
       inputs.disko.nixosModules.default
-
+      inputs.chaotic.nixosModules.nyx-cache
+      inputs.chaotic.nixosModules.nyx-overlay
+      inputs.chaotic.nixosModules.nyx-registry
       ./modules/firefox
       ./modules/flatpak
       ./modules/steam

@@ -1,4 +1,5 @@
 {
+  config,
   hwconfig,
   inputs,
   ...
@@ -11,7 +12,7 @@ in {
   };
   services.emacs = {
     enable = true;
-    package = emacs;
+    package = config.programs.emacs.package;
     startWithUserSession = true;
     client.enable = true;
   };
