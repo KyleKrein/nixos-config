@@ -25,6 +25,6 @@
     })
   ];
   environment.systemPackages = [
-    pkgs.frameworkTool
+    pkgs.framework-tool
   ];
 }

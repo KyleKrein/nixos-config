@@ -20,6 +20,9 @@
       inputs.nixos-facter-modules.nixosModules.facter
       inputs.home-manager.nixosModules.default
       inputs.disko.nixosModules.default
+      inputs.chaotic.nixosModules.nyx-cache
+      inputs.chaotic.nixosModules.nyx-overlay
+      inputs.chaotic.nixosModules.nyx-registry
 
       ../../modules/firefox
       #../../modules/flatpak
@@ -34,14 +37,14 @@
     ++ lib.optional (hwconfig.useImpermanence) ./modules/impermanence;
   facter.reportPath = ./facter.json;
   kylekrein.services.autoUpgrade = {
-    enable = true;
+    enable = false;
     pushUpdates = false;
     configDir = "/etc/nixos-config";
     user = "root";
   };
-
+  services.scx.enable = true; # by default uses scx_rustland scheduler
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -60,9 +63,9 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   #flatpak
-  kk.services.flatpak.enable = true;
-  services.flatpak.packages = [
-  ];
+  #kk.services.flatpak.enable = true;
+  #services.flatpak.packages = [
+  #];
 
   services.pipewire = {
     extraLv2Packages = [pkgs.rnnoise-plugin];
