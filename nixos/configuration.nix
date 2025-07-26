@@ -121,7 +121,6 @@ in {
     kdePackages.kdenlive
     system-config-printer
     libreoffice
-    killall
     nix-output-monitor
     eza
     fd
@@ -130,10 +129,8 @@ in {
     '') # https://www.reddit.com/r/NixOS/comments/1d1apm0/comment/l5tgbwz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     gparted
     qdirstat
-    #freetube
     exfatprogs
     kitty
-    yazi
     tealdeer
     fzf
     lazygit
@@ -161,16 +158,12 @@ in {
     localsend
 
     comma #run nix run nixpkgs#nix-index to init
-
-    clang-tools
     gdb
-    dotnet-sdk_9
-    csharp-ls
     element-desktop
     unstable-pkgs.fluffychat
 
-    beeengineeditor
-    beelocalization
+    #beeengineeditor
+    #beelocalization
   ];
 
   programs.kdeconnect.enable = true;
@@ -311,12 +304,10 @@ in {
       ];
       auto-optimise-store = true;
       substituters = [
-        "https://hyprland.cachix.org"
         "https://nix-gaming.cachix.org"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
