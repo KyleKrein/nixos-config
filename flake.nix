@@ -263,7 +263,7 @@
         system = x86;
         pkgs = kylekrein-framework12-pkgs nixpkgs;
         modules = [
-          (import ./disko/impermanence-tmpfs-luks.nix {device = "/dev/nvme0n1";})
+          (import ./disko/impermanence-btrfs-luks.nix {device = "/dev/nvme0n1";})
           ./nixos/configuration.nix
         ];
       };
