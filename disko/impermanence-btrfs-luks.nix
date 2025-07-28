@@ -1,4 +1,4 @@
-{ device ? throw "Set this to your disk device, e.g. /dev/sda", , ... }:
+{ device ? throw "Set this to your disk device, e.g. /dev/sda", ... }:
 # IMPORTANT
 # Calculate offset using https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Acquire_swap_file_offset
 # AND create this config
