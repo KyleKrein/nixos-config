@@ -28,7 +28,6 @@
   };
 
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
-  facter.reportPath = lib.mkForce null; #changeme ?
   services.fwupd.enable = true; #fwupdmgr update
   nixpkgs.overlays = [
     # Fixes java crash because of bind mount with impermanence when loading too many mods(ex. All The Mods 9)

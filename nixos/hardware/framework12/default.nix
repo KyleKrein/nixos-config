@@ -24,6 +24,7 @@
       });
     })
   ];
+  hardware.enableRedistributableFirmware = true;
   environment.systemPackages = [
     pkgs.framework-tool
   ];
