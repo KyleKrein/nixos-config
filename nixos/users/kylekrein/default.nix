@@ -14,7 +14,7 @@ in {
   users.users.${username} = {
     isNormalUser = true;
     description = "Aleksandr Lebedev";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "input"];
     #initialPassword = "1234";
     hashedPasswordFile = config.sops.secrets."users/${username}".path;
     packages = with pkgs; [];

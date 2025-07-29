@@ -15,34 +15,38 @@ unsigned int distancethreshold_pressed = 60;
 unsigned int degreesleniency = 15;
 unsigned int timeoutms = 800;
 unsigned int orientation = 0;
-unsigned int verbose = 0;
+unsigned int verbose = 1;
 double edgesizeleft = 50.0;
 double edgesizetop = 50.0;
 double edgesizeright = 50.0;
 double edgesizebottom = 50.0;
 double edgessizecaling = 1.0;
-char *device = "/dev/input/touchscreen";
+char *device = "/dev/input/event7";
 
-//Gestures can also be specified interactively from the command line using -g
+// Gestures can also be specified interactively from the command line using -g
 Gesture gestures[] = {
-    /* nfingers  gesturetype  command */
-    //{1, SwipeLR, EdgeAny, DistanceAny, ActModeReleased, "niri msg action "},
-    //{1, SwipeRL, EdgeAny, DistanceAny, ActModeReleased,
-    // "xdotool key --clearmodifiers Alt+Shift+r"},
-    //{1, SwipeDLUR, EdgeAny, DistanceAny, ActModeReleased, "sxmo_vol.sh up"},
-    //{1, SwipeURDL, EdgeAny, DistanceAny, ActModeReleased, "sxmo_vol.sh down"},
-    //{1, SwipeDRUL, EdgeAny, DistanceAny, ActModeReleased,
-    // "sxmo_brightness.sh up"},
-    //{1, SwipeULDR, EdgeAny, DistanceAny, ActModeReleased,
-     //"sxmo_brightness.sh down"},
-    //{2, SwipeLR, EdgeAny, DistanceAny, ActModeReleased,
-    // "xdotool key --clearmodifiers Alt+e"},
-    //{2, SwipeRL, EdgeAny, DistanceAny, ActModeReleased,
-    // "xdotool key --clearmodifiers Alt+r"},
-    {2, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,
-     "pidof wvkbd-mobintl || wvkbd-mobintl -l simple,special,emoji &"},
-    {2, SwipeUD, EdgeAny, DistanceAny, ActModeReleased,
-     "pkill -9 -f wvkbd-mobintl"},
+    {1, SwipeRL, EdgeRight, DistanceAny, ActModeReleased,
+     "niri msg action focus-column-right"},
+    {1, SwipeLR, EdgeLeft, DistanceAny, ActModeReleased,
+     "niri msg action focus-column-left"},
+    {1, SwipeDU, CornerBottomRight, DistanceMedium, ActModeReleased,
+     "niri msg action focus-workspace-down"},
+    {1, SwipeUD, CornerTopRight, DistanceMedium, ActModeReleased,
+     "niri msg action focus-workspace-up"},
+    //{1, SwipeUD, EdgeTop, DistanceAny, ActModeReleased, "nwggrid -o 0.98"},
+    //"pkill -SIGRTMIN -f wvkbd"},
+    //{2, SwipeUD, EdgeAny, DistanceAny, ActModeReleased,
+     //"sway-interactive-screenshot -s focused-output"},
+    //{3, SwipeLR, EdgeAny, DistanceAny, ActModeReleased,
+     //"swaymsg layout tabbed"},
+    //{3, SwipeRL, EdgeAny, DistanceAny, ActModeReleased,
+     //"swaymsg layout toggle split"},
+    {2, SwipeUD, EdgeLeft, DistanceShort, ActModePressed, "niri msg action fullscreen-window"},
+    {2, SwipeUD, EdgeRight, DistanceMedium, ActModeReleased, "niri msg action close-window"},
+    {1, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
+     "kill -34 $(ps -C wvkbd-mobintl)"},
+    //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
+     //"pkill -9 -f wvkbd-mobintl"},
     {3, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,
-     "niri msg action toggle-overview"},    
+     "niri msg action toggle-overview"},
 };

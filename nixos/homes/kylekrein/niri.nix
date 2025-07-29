@@ -9,7 +9,11 @@
   hwconfig,
   username,
   ...
-}: {
+}: 
+let 
+lisgd-patched = pkgs.callPackage ./lisgd.nix {};
+in
+{
   programs.fuzzel = {
     enable = true;
     settings.main.terminal = "kitty";
@@ -36,6 +40,7 @@
     ]
     ++ lib.optionals (hwconfig.hasTouchscreen) (with pkgs; [
       wvkbd # https://github.com/jjsullivan5196/wvkbd
+      lisgd-patched
     ]);
   programs.niri = {
     settings = {
@@ -61,12 +66,19 @@
         };
         touchscreen-gestures = lib.mkIf (hwconfig.hasTouchscreen) {
           command = [
-            "${lib.getExe (import ./lisgd.nix {inherit pkgs;})}" #https://git.sr.ht/~mil/lisgd
+            "while true; do ${lisgd-patched}/bin/lisgd; done" #https://git.sr.ht/~mil/lisgd
           ];
         };
+	touchscreen-keyboard = lib.mkIf(hwconfig.hasTouchscreen){
+	  command = [
+	    "wvkbd-mobintl"
+	    "--hidden"
+	  ];
+	};
       in [
         set-low-brightness
         touchscreen-gestures
+	touchscreen-keyboard
         {
           command = [
             "${lib.getExe pkgs.networkmanagerapplet}"
@@ -179,6 +191,7 @@
         "Mod+Tab".action = toggle-overview;
       };
       input = {
+        power-key-handling.enable = hwconfig.hostname != "kylekrein-framework12";
         focus-follows-mouse = {
           #enable = true;
         };
