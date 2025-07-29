@@ -19,13 +19,9 @@
     (import ../../modules/libvirt/user.nix {username = "kylekrein";})
 
     ../../users/tania
+
+    ./hibernation.nix
   ];
-  boot = {
-  #  kernelParams = [
-  #    "resume_offset=YOUR_OFFSET"
-  #  ];
- #   resumeDevice = "/dev/disk/by-label/nixos";
-  };
 
   sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
   services.fwupd.enable = true; #fwupdmgr update
