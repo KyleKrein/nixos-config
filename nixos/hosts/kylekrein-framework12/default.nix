@@ -23,9 +23,6 @@
     ./hibernation.nix
   ];
 
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; # by default uses scx_rustland scheduler
-
   services.fwupd.enable = true; #fwupdmgr update
   nixpkgs.overlays = [
     # Fixes java crash because of bind mount with impermanence when loading too many mods(ex. All The Mods 9)
