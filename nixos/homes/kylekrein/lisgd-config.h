@@ -43,7 +43,7 @@ Gesture gestures[] = {
      //"swaymsg layout toggle split"},
     {2, SwipeUD, EdgeLeft, DistanceShort, ActModePressed, "niri msg action fullscreen-window"},
     {2, SwipeUD, EdgeRight, DistanceMedium, ActModeReleased, "niri msg action close-window"},
-    {1, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
+    {2, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
      "pkill -34 -f wvkbd"},
     //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
      //"pkill -9 -f wvkbd-mobintl"},
