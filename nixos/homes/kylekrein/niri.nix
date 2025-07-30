@@ -12,6 +12,7 @@
 }: 
 let 
 lisgd-patched = pkgs.callPackage ./lisgd.nix {};
+wvkbd-patched = pkgs.callPackage ./wvkbd.nix {};
 in
 {
   programs.fuzzel = {
@@ -39,7 +40,7 @@ in
       networkmanagerapplet
     ]
     ++ lib.optionals (hwconfig.hasTouchscreen) (with pkgs; [
-      wvkbd # https://github.com/jjsullivan5196/wvkbd
+      wvkbd-patched # https://github.com/jjsullivan5196/wvkbd
       lisgd-patched
     ]);
   programs.niri = {
@@ -61,7 +62,7 @@ in
           command = [
             "${lib.getExe pkgs.brightnessctl}"
             "set"
-            "25%"
+            (if hwconfig.hostname == "kylekrein-framework12" then "20%" else "25%")
           ];
         };
         touchscreen-gestures = lib.mkIf (hwconfig.hasTouchscreen) {
@@ -71,7 +72,7 @@ in
         };
 	touchscreen-keyboard = lib.mkIf(hwconfig.hasTouchscreen){
 	  command = [
-	    "wvkbd-mobintl"
+	    "${wvkbd-patched}/bin/wvkbd"
 	    "--hidden"
 	  ];
 	};

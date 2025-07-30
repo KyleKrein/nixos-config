@@ -44,7 +44,7 @@ Gesture gestures[] = {
     {2, SwipeUD, EdgeLeft, DistanceShort, ActModePressed, "niri msg action fullscreen-window"},
     {2, SwipeUD, EdgeRight, DistanceMedium, ActModeReleased, "niri msg action close-window"},
     {1, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
-     "kill -34 $(ps -C wvkbd-mobintl)"},
+     "pkill -34 -f wvkbd"},
     //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
      //"pkill -9 -f wvkbd-mobintl"},
     {3, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,
