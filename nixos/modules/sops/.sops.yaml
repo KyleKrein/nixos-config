@@ -1,7 +1,9 @@
 keys:
   - &primary age1l8euy4w4nccrpdmfdfct468parcrulkqcts2jcljajs2as0k7passdv2x4
+  - &kylekrein-framework12 age10s6c9har9pg2a0md30fhpp2mfy89xxrrnu5dwrjtqzh3lktcdaysq7st65
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
     - age:
       - *primary
+      - *kylekrein-framework12

@@ -25,7 +25,6 @@
   config = {
     home-manager.users = lib.mkForce {};
     stylix.image = ../../modules/hyprland/wallpaper.jpg;
-    #sops.secrets."ssh_keys/${hwconfig.hostname}" = {};
     boot.tmp.cleanOnBoot = true;
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "/dev/sda";
@@ -56,7 +55,6 @@
       settings.PasswordAuthentication = false;
       settings.KbdInteractiveAuthentication = false;
       settings.PermitRootLogin = "no";
-      #extraConfig = "HostKey ${config.sops.secrets."ssh_keys/${hwconfig.hostname}".path}";
     };
 
     zramSwap = {

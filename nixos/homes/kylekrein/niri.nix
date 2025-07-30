@@ -9,12 +9,10 @@
   hwconfig,
   username,
   ...
-}: 
-let 
-lisgd-patched = pkgs.callPackage ./lisgd.nix {};
-wvkbd-patched = pkgs.callPackage ./wvkbd.nix {};
-in
-{
+}: let
+  lisgd-patched = pkgs.callPackage ./lisgd.nix {};
+  wvkbd-patched = pkgs.callPackage ./wvkbd.nix {};
+in {
   programs.fuzzel = {
     enable = true;
     settings.main.terminal = "kitty";
@@ -62,7 +60,11 @@ in
           command = [
             "${lib.getExe pkgs.brightnessctl}"
             "set"
-            (if hwconfig.hostname == "kylekrein-framework12" then "20%" else "25%")
+            (
+              if hwconfig.hostname == "kylekrein-framework12"
+              then "20%"
+              else "25%"
+            )
           ];
         };
         touchscreen-gestures = lib.mkIf (hwconfig.hasTouchscreen) {
@@ -70,16 +72,16 @@ in
             "while true; do ${lisgd-patched}/bin/lisgd; done" #https://git.sr.ht/~mil/lisgd
           ];
         };
-	touchscreen-keyboard = lib.mkIf(hwconfig.hasTouchscreen){
-	  command = [
-	    "${wvkbd-patched}/bin/wvkbd"
-	    "--hidden"
-	  ];
-	};
+        touchscreen-keyboard = lib.mkIf (hwconfig.hasTouchscreen) {
+          command = [
+            "${wvkbd-patched}/bin/wvkbd"
+            "--hidden"
+          ];
+        };
       in [
         set-low-brightness
         touchscreen-gestures
-	touchscreen-keyboard
+        touchscreen-keyboard
         {
           command = [
             "${lib.getExe pkgs.networkmanagerapplet}"
