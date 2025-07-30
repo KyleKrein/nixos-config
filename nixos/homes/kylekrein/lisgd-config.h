@@ -21,7 +21,7 @@ double edgesizetop = 50.0;
 double edgesizeright = 50.0;
 double edgesizebottom = 50.0;
 double edgessizecaling = 1.0;
-char *device = "/dev/input/event7";
+char *device = "/dev/touchscreen";
 
 // Gestures can also be specified interactively from the command line using -g
 Gesture gestures[] = {
@@ -33,20 +33,24 @@ Gesture gestures[] = {
      "niri msg action focus-workspace-down"},
     {1, SwipeUD, CornerTopRight, DistanceMedium, ActModeReleased,
      "niri msg action focus-workspace-up"},
+    {1, SwipeDU, CornerBottomLeft, DistanceShort, ActModeReleased,
+     "niri msg action switch-preset-column-width"},
     //{1, SwipeUD, EdgeTop, DistanceAny, ActModeReleased, "nwggrid -o 0.98"},
     //"pkill -SIGRTMIN -f wvkbd"},
     //{2, SwipeUD, EdgeAny, DistanceAny, ActModeReleased,
-     //"sway-interactive-screenshot -s focused-output"},
+    //"sway-interactive-screenshot -s focused-output"},
     //{3, SwipeLR, EdgeAny, DistanceAny, ActModeReleased,
-     //"swaymsg layout tabbed"},
+    //"swaymsg layout tabbed"},
     //{3, SwipeRL, EdgeAny, DistanceAny, ActModeReleased,
-     //"swaymsg layout toggle split"},
-    {2, SwipeUD, EdgeLeft, DistanceShort, ActModePressed, "niri msg action fullscreen-window"},
-    {2, SwipeUD, EdgeRight, DistanceMedium, ActModeReleased, "niri msg action close-window"},
+    //"swaymsg layout toggle split"},
+    {2, SwipeUD, EdgeLeft, DistanceShort, ActModePressed,
+     "niri msg action fullscreen-window"},
+    {2, SwipeUD, EdgeRight, DistanceMedium, ActModeReleased,
+     "niri msg action close-window"},
     {2, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
      "pkill -34 -f wvkbd"},
     //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
-     //"pkill -9 -f wvkbd-mobintl"},
+    //"pkill -9 -f wvkbd-mobintl"},
     {3, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,
      "niri msg action toggle-overview"},
 };

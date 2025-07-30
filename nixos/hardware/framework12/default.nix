@@ -28,4 +28,8 @@
   environment.systemPackages = [
     pkgs.framework-tool
   ];
+  users.groups.touchscreen = {};
+  services.udev.extraRules = ''
+    KERNEL=="event*", ATTRS{name}=="ILIT2901:00 222A:5539", SYMLINK+="touchscreen", MODE="0660", GROUP="touchscreen"
+  '';
 }

@@ -69,7 +69,7 @@ in {
         };
         touchscreen-gestures = lib.mkIf (hwconfig.hasTouchscreen) {
           command = [
-            "while true; do ${lisgd-patched}/bin/lisgd; done" #https://git.sr.ht/~mil/lisgd
+            "${lisgd-patched}/bin/lisgd" #https://git.sr.ht/~mil/lisgd
           ];
         };
         touchscreen-keyboard = lib.mkIf (hwconfig.hasTouchscreen) {
@@ -117,7 +117,7 @@ in {
         }
         {
           command = [
-            "emacs"
+            "${config.programs.emacs.package}/bin/emacs"
             "--daemon"
           ];
         }
@@ -228,6 +228,12 @@ in {
         QT_QPA_PLATFORM = "wayland";
         DISPLAY = ":0";
       };
+      layer-rules = [
+        {
+          #this is for later to place keyboard on top of hyprlock
+          matches = [{namespace = "wvkbd";}];
+        }
+      ];
       window-rules = [
         {
           #active
@@ -343,6 +349,21 @@ in {
       enable = false;
       settings = {
       };
+    };
+  };
+  systemd.user.services.lisgd-niri = lib.mkIf (hwconfig.hasTouchscreen) {
+    Unit = {
+      Description = "Makes sure that you have touchscreen gestures.";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+    Service = {
+      ExecStart = "${pkgs.writeShellScript "run-lisgd" ''
+        ${lisgd-patched}/bin/lisgd
+      ''}";
+      Restart = "on-failure";
+      RestartSec = 5;
     };
   };
 }
