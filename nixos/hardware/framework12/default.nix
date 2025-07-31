@@ -12,6 +12,7 @@
   boot.extraModprobeConfig = ''
     softdep soc_button_array pre: pinctrl_tigerlake
   '';
+  boot.initrd.kernelModules = ["pinctrl_tigerlake"];
   # Patch the `udev` rules shipping with `iio-sensor-proxy` according to:
   # https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md
   nixpkgs.overlays = [

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hwconfig,
   ...
 }: let
   cfg = config.kk.loginManagers.sddm;
@@ -18,6 +19,7 @@ in {
         #background;
         loginBackground = false;
       })
+      wvkbd
     ];
     services.xserver.enable = true;
     services.displayManager.sddm = {
@@ -25,6 +27,11 @@ in {
       theme = "catppuccin-mocha";
       package = lib.mkDefault pkgs.kdePackages.sddm;
       wayland.enable = true;
+      settings = {
+        General = {
+          InputMethod = "wvkbd-mobintl"; # Enables optional virtual keyboard at login (SDDM). Useful for touchscreens or accessibility.
+        };
+      };
     };
   };
 }
