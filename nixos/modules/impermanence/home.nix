@@ -24,6 +24,7 @@
       ".emacs.d"
       ".local/share/keyrings"
       ".local/share/direnv"
+      ".local/share/chat.fluffy.fluffychat"
       ".klei"
       "Android"
       {
