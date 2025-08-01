@@ -18,7 +18,7 @@ in {
     #initialPassword = "1234";
     hashedPasswordFile = config.sops.secrets."users/${username}".path;
     packages = with pkgs; [];
-    linger = true;
+    linger = false;
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMt3PWVvmEL6a0HHTsxL4KMq1UGKFdzgX5iIkm6owGQ kylekrein@kylekrein-mac"

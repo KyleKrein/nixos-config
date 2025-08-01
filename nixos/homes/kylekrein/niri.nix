@@ -115,12 +115,6 @@ in {
             "${../../modules/hyprland/wallpaper.jpg}"
           ];
         }
-        {
-          command = [
-            "${config.programs.emacs.package}/bin/emacs"
-            "--daemon"
-          ];
-        }
       ];
       layout = {
         preset-column-widths = [
