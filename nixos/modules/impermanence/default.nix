@@ -54,15 +54,17 @@ in {
   #https://blog.decent.id/post/nixos-systemd-initrd/
   boot.initrd.systemd.services.btrfs-rollback-impermanence = lib.mkIf (isBtrfs && config.boot.initrd.systemd.enable) {
     description = "Rollback BTRFS root dataset to blank snapshot";
-    wantedBy = [
-      "initrd.target"
-    ];
+    wantedBy = [ "initrd.target" ];
+    requires = [ "initrd-root-device.target" ];
     after = [
+      "initrd-root-device.target"
       # LUKS/TPM process
       "systemd-cryptsetup@root_vg.service"
+      "local-fs-pre.target"
     ];
     before = [
       "sysroot.mount"
+      "create-needed-for-boot-dirs.service"
     ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
