@@ -21,6 +21,7 @@ in {
       inputs.chaotic.nixosModules.nyx-cache
       inputs.chaotic.nixosModules.nyx-overlay
       inputs.chaotic.nixosModules.nyx-registry
+      inputs.lanzaboote.nixosModules.lanzaboote
       ./modules/firefox
       ./modules/flatpak
       ./modules/steam

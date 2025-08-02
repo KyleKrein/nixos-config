@@ -2,8 +2,10 @@
   config,
   lib,
   inputs,
+  pkgs,
   ...
 }: let
+  isBtrfs = config.fileSystems."/".fsType == "btrfs";
 in {
   imports = [
     inputs.impermanence.nixosModules.impermanence
@@ -12,6 +14,7 @@ in {
   environment.persistence."/persist/system" = {
     hideMounts = true;
     directories = [
+      "/var/lib/sbctl"
       "/etc/nixos"
       "/var/log"
       "/var/lib/bluetooth"
@@ -47,4 +50,45 @@ in {
   ];
 
   programs.fuse.userAllowOther = true;
+
+  #https://blog.decent.id/post/nixos-systemd-initrd/
+  boot.initrd.systemd.services.btrfs-rollback-impermanence = lib.mkIf (isBtrfs && config.boot.initrd.systemd.enable) {
+    description = "Rollback BTRFS root dataset to blank snapshot";
+    wantedBy = [
+      "initrd.target"
+    ];
+    after = [
+      # LUKS/TPM process
+      "systemd-cryptsetup@root_vg.service"
+    ];
+    before = [
+      "sysroot.mount"
+    ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      mkdir -p /btrfs_tmp
+      mount /dev/mapper/root_vg /btrfs_tmp
+      if [[ -e /btrfs_tmp/root ]]; then
+          mkdir -p /btrfs_tmp/old_roots
+          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+      fi
+
+      delete_subvolume_recursively() {
+          IFS=$'\n'
+          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+              delete_subvolume_recursively "/btrfs_tmp/$i"
+          done
+          btrfs subvolume delete "$1"
+      }
+
+      for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +7); do
+          delete_subvolume_recursively "$i"
+      done
+
+      btrfs subvolume create /btrfs_tmp/root
+      umount /btrfs_tmp
+    '';
+  };
 }

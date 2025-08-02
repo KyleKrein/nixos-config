@@ -21,6 +21,7 @@
     ../../users/tania
 
     ./hibernation.nix
+    ./secure-boot.nix
   ];
 
   services.fwupd.enable = true; #fwupdmgr update

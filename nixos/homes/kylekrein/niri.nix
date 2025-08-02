@@ -369,34 +369,34 @@ in {
     };
     Service = {
       ExecStart = "${pkgs.writeShellScript "autorotate" ''
-        transform="normal"
+          transform="normal"
 
-        monitor-sensor | while read -r line; do
-          case "$line" in
-            *normal*)
-              new_transform="normal"
-              ;;
-            *right-up*)
-              new_transform="270"
-              ;;
-            *bottom-up*)
-              new_transform="180"
-                  ;;
-            *left-up*)
-              new_transform="90"
-              ;;
-            *)
-              continue
-              ;;
-          esac
-          
-          if [[ "$new_transform" != "$transform" ]]; then
-            transform="$new_transform"
-            echo "Transform: $transform"
-            niri msg output eDP-1 transform "$transform"
-            systemctl --user restart lisgd-niri.service
-          fi
-      done
+          monitor-sensor | while read -r line; do
+            case "$line" in
+              *normal*)
+                new_transform="normal"
+                ;;
+              *right-up*)
+                new_transform="270"
+                ;;
+              *bottom-up*)
+                new_transform="180"
+                    ;;
+              *left-up*)
+                new_transform="90"
+                ;;
+              *)
+                continue
+                ;;
+            esac
+
+            if [[ "$new_transform" != "$transform" ]]; then
+              transform="$new_transform"
+              echo "Transform: $transform"
+              niri msg output eDP-1 transform "$transform"
+              systemctl --user restart lisgd-niri.service
+            fi
+        done
       ''}";
       Restart = "on-failure";
       RestartSec = 5;

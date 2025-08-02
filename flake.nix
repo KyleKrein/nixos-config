@@ -68,6 +68,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    lanzaboote.url = "github:nix-community/lanzaboote";
   };
 
   outputs = {
