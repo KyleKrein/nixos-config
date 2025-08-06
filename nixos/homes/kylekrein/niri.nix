@@ -260,10 +260,13 @@ in {
           opacity = 1.0;
         }
         {
-          #app-launcher
+          #Popups
           matches = [
             {
               title = "emacs-run-launcher";
+            }
+            {
+              title = "Paradox Crash Reporter";
             }
           ];
           open-floating = true;

@@ -54,8 +54,8 @@ in {
   #https://blog.decent.id/post/nixos-systemd-initrd/
   boot.initrd.systemd.services.btrfs-rollback-impermanence = lib.mkIf (isBtrfs && config.boot.initrd.systemd.enable) {
     description = "Rollback BTRFS root dataset to blank snapshot";
-    wantedBy = [ "initrd.target" ];
-    requires = [ "initrd-root-device.target" ];
+    wantedBy = ["initrd.target"];
+    requires = ["initrd-root-device.target"];
     after = [
       "initrd-root-device.target"
       # LUKS/TPM process

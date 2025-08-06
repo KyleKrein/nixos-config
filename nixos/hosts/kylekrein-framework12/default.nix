@@ -68,7 +68,7 @@
   #LLMs
   services.ollama = {
     enable = true;
-    loadModels = ["qwq" "llama3.1" "qwen2.5-coder:7b"];
+    loadModels = ["qwq" "llama3.1" "qwen2.5-coder:7b" "gpt-oss:20b"];
     home = "/persist/ollama";
     user = "ollama";
     group = "ollama";
