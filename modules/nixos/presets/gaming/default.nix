@@ -1,18 +1,25 @@
 {
-  pkgs,
   lib,
+  pkgs,
+  inputs,
+  namespace,
+  system,
+  target,
+  format,
+  virtual,
+  systems,
   config,
-  hwconfig,
-  unstable-pkgs,
   ...
-}: let
-  cfg = config.kk.steam;
+}:
+with lib;
+with lib.${namespace}; let
+  cfg = config.${namespace}.presets.gaming;
 in {
-  options.kk.steam = {
-    enable = lib.mkEnableOption "Enable steam";
+  options.${namespace}.presets.gaming = with types; {
+    enable = mkBoolOpt false "Enable everything that you need for gaming";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       unzip
       wget
@@ -27,7 +34,7 @@ in {
       bottles
     ];
     programs.steam = {
-      enable = true; #!hwconfig.useImpermanence;
+      enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers

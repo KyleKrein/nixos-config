@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  isBtrfs = config.fileSystems."/".fsType == "btrfs";
+  rootIsBtrfs = config.fileSystems."/".fsType == "btrfs";
 in {
   imports = [
     inputs.impermanence.nixosModules.impermanence

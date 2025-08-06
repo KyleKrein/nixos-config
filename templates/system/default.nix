@@ -1,0 +1,39 @@
+{
+  lib,
+  pkgs,
+  inputs,
+  namespace,
+  system,
+  target,
+  format,
+  virtual,
+  systems,
+  config,
+  ...
+}: {
+  imports = [./hardware-configuration.nix];
+
+  # Enable Bootloader (EFI or BIOS)
+  #system.boot.efi.enable = true;
+  #system.boot.bios.enable = true;
+
+  # Better battery life on laptops
+  # system.battery.enable = true;
+
+  # suites.desktop.enable = true;
+  # suites.development.enable = true;
+
+  # suites.server.enable = true;
+
+  # Nvidia Drivers
+  # hardware.nvidia.enable = true;
+
+  # Add packages (custom for ones in these dotfiles)
+  # environment.systemPackages = with pkgs; [
+  #   ${namespace}.package
+  # ];
+
+  # ======================== DO NOT CHANGE THIS ========================
+  system.stateVersion = "25.05";
+  # ======================== DO NOT CHANGE THIS ========================
+}

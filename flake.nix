@@ -69,294 +69,56 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     lanzaboote.url = "github:nix-community/lanzaboote";
-  };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    ...
-  } @ inputs: let
-    systems = ["aarch64-linux" "x86_64-linux"];
-    eachSystem = nixpkgs.lib.genAttrs systems;
-    pkgsFor = eachSystem (system:
-      import nixpkgs {
-        localSystem = system;
-        overlays = [
-        ];
-      });
-    arm = "aarch64-linux";
-    x86 = "x86_64-linux";
-    ladybirdMaster = self: super: {
-      ladybird = super.ladybird.overrideAttrs (old: {
-        src = super.fetchFromGitHub {
-          owner = "LadybirdWebBrowser";
-          repo = "ladybird";
-          rev = "71222df4c4103d306fd05b9b0bffb1c1b8e5485e";
-          hash = "sha256-hJkK7nag3Z9E8etPFCo0atUEJJnPjjkl7sle/UwkzbE=";
-        };
-        version = "0-unstable-2025-05-22";
-      });
+    # The name "snowfall-lib" is required due to how Snowfall Lib processes your
+    # flake's inputs.
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    nativePackagesOverlay = self: super: {
-      stdenv = super.impureUseNativeOptimizations super.stdenv;
-    };
-    kylekrein-homepc-pkgs = nixpkgs:
-      import nixpkgs {
-        system = x86;
-        overlays = [
-          inputs.beeengine.overlays.${x86}
-          (final: prev: {
-            #https://github.com/NixOS/nixpkgs/issues/388681
-            pythonPackagesExtensions =
-              prev.pythonPackagesExtensions
-              ++ [
-                (
-                  python-final: python-prev: {
-                    onnxruntime = python-prev.onnxruntime.overridePythonAttrs (
-                      oldAttrs: {
-                        buildInputs = prev.lib.lists.remove prev.onnxruntime oldAttrs.buildInputs;
-                      }
-                    );
-                  }
-                )
-              ];
-          })
-          #nativePackagesOverlay
-          #ladybirdMaster
-        ];
-        config = {
-          allowBroken = true;
-          allowUnfree = true;
-          cudaSupport = true;
-        };
-      };
-    kylekrein-server-pkgs = nixpkgs:
-      import nixpkgs {
-        system = x86;
-        overlays = [
-          (self: super: {
-            conduwuit = inputs.conduwuit.packages."${x86}".all-features;
-          })
-          #nativePackagesOverlay
-          #ladybirdMaster
-        ];
-        config = {
-          allowBroken = true;
-          allowUnfree = true;
-        };
-      };
-    kylekrein-framework12-pkgs = nixpkgs:
-      import nixpkgs {
-        system = x86;
-        overlays = [
-          inputs.beeengine.overlays.${x86}
-        ];
-        config = {
-          allowBroken = true;
-          allowUnfree = true;
-        };
-      };
-    kylekrein-mac-pkgs = nixpkgs:
-      import nixpkgs {
-        system = arm;
-        overlays = [
-          inputs.beeengine.overlays.${arm}
-          #nativePackagesOverlay
-          #(import ./nixos/macos/widevine.nix)
-        ];
-        #config.replaceStdenv = {pkgs}: pkgs.impureUseNativeOptimizations pkgs.stdenv;
-        config = {
-          allowBroken = true;
-          allowUnfree = true;
-          allowUnsupportedSystem = true;
-        };
-      };
-    kylekrein-wsl-pkgs = nixpkgs:
-      import nixpkgs {
-        system = x86;
-        overlays = [
-          #nativePackagesOverlay
-        ];
-        config = {
-          allowUnfree = true;
-        };
-      };
-    andrej-pc-pkgs = nixpkgs:
-      import nixpkgs {
-        system = x86;
-        overlays = [
-          inputs.beeengine.overlays.${x86}
-          #nativePackagesOverlay
-        ];
-        config = {
-          #allowBroken = true;
-          allowUnfree = true;
-          #cudaSupport = true;
-        };
-      };
-
-    first-nixos-install = "1729112485"; #stat -c %W /
-  in {
-    formatter = eachSystem (
-      system: let
-        pkgs = pkgsFor.${system};
-      in
-        pkgs.alejandra
-    );
-    nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-      pkgs = import nixpkgs {
-        system = "aarch64-linux";
-        overlays = [inputs.nix-on-droid.overlays.default];
-      };
-      modules = [./nixos/hosts/android];
-      home-manager-path = inputs.home-manager.outPath;
-      extraSpecialArgs = {
-        inherit inputs;
-        inherit first-nixos-install;
-      };
-    };
-    darwinConfigurations = {
-      "kylekrein-air" = inputs.nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit self;
-          inherit inputs;
-        };
-        modules = [./nixos/hosts/kylekrein-air];
-      };
-    };
-    nixosConfigurations = {
-      "kylekrein-homepc" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "kylekrein-homepc";
-            isLaptop = false;
-            hasTouchscreen = false;
-            system = x86;
-            useImpermanence = true;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = kylekrein-homepc-pkgs nixpkgs-unstable;
-        };
-
-        system = x86;
-        pkgs = kylekrein-homepc-pkgs nixpkgs;
-        modules = [
-          (import ./disko/impermanence-btrfs.nix {device = "/dev/nvme0n1";})
-          ./nixos/configuration.nix
-        ];
-      };
-      "kylekrein-framework12" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "kylekrein-framework12";
-            isLaptop = true;
-            hasTouchscreen = true;
-            system = x86;
-            useImpermanence = true;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = kylekrein-framework12-pkgs nixpkgs-unstable;
-        };
-
-        system = x86;
-        pkgs = kylekrein-framework12-pkgs nixpkgs;
-        modules = [
-          (import ./disko/impermanence-btrfs-luks.nix {
-            device = "/dev/nvme0n1";
-            lib = (kylekrein-framework12-pkgs nixpkgs).lib;
-          })
-          ./nixos/configuration.nix
-        ];
-      };
-      "kylekrein-mac" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "kylekrein-mac";
-            isLaptop = true;
-            hasTouchscreen = false;
-            system = arm;
-            useImpermanence = true;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = kylekrein-mac-pkgs nixpkgs-unstable;
-        };
-
-        system = arm;
-        pkgs = kylekrein-mac-pkgs nixpkgs;
-        modules = [
-          ./nixos/configuration.nix
-        ];
-      };
-      "kylekrein-server" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "kylekrein-server";
-            isLaptop = false;
-            hasTouchscreen = false;
-            system = x86;
-            useImpermanence = false;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = kylekrein-server-pkgs nixpkgs-unstable;
-        };
-
-        system = x86;
-        pkgs = kylekrein-server-pkgs nixpkgs;
-        modules = [
-          ./nixos/hosts/kylekrein-server
-        ];
-      };
-      "kylekrein-wsl" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "kylekrein-wsl";
-            isLaptop = true;
-            hasTouchscreen = false;
-            system = x86;
-            useImpermanence = false;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = kylekrein-wsl-pkgs nixpkgs-unstable;
-        };
-
-        system = x86;
-        pkgs = kylekrein-wsl-pkgs nixpkgs;
-        modules = [
-          inputs.nixos-wsl.nixosModules.default
-          ./nixos/wsl.nix
-        ];
-      };
-      "andrej-pc" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          hwconfig = {
-            hostname = "andrej-pc";
-            isLaptop = false;
-            hasTouchscreen = false;
-            system = x86;
-            useImpermanence = false;
-          };
-          inherit first-nixos-install;
-          inherit inputs;
-          unstable-pkgs = andrej-pc-pkgs nixpkgs-unstable;
-        };
-
-        system = x86;
-        pkgs = andrej-pc-pkgs nixpkgs;
-        modules = [
-          (import ./disko/ext4-swap.nix {
-            device = "/dev/sda";
-            swapSize = "16G";
-          })
-          (import ./disko/ext4.nix {device = "/dev/sdb";})
-          ./nixos/hosts/andrej-pc/configuration.nix
-        ];
-      };
+    snowfall-flake = {
+      url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
+
+      channels-config = {
+        allowUnfree = true;
+      };
+
+      overlays = with inputs; [
+        niri-flake.overlays.niri
+        snowfall-flake.overlays.default
+      ];
+
+      systems.modules.nixos = with inputs; [
+        nix-flatpak.nixosModules.nix-flatpak
+        niri-flake.nixosModules.niri
+        nixos-wsl.nixosModules.default
+        sops-nix.nixosModules.sops
+        nixos-facter-modules.nixosModules.facter
+        home-manager.nixosModules.default
+        disko.nixosModules.default
+        chaotic.nixosModules.nyx-cache
+        chaotic.nixosModules.nyx-overlay
+        chaotic.nixosModules.nyx-registry
+        lanzaboote.nixosModules.lanzaboote
+        impermanence.nixosModules.impermanence
+      ];
+
+      templates = import ./templates {};
+
+      snowfall = {
+        namespace = "custom";
+        meta = {
+          name = "KyleKrein's awesome Nix Flake";
+          title = "KyleKrein's awesome Nix Flake";
+        };
+      };
+    };
 }
