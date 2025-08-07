@@ -14,6 +14,20 @@ in {
   };
 
   config = mkIf cfg.enable {
+    zramSwap = {
+      enable = true; # Hopefully? helps with freezing when using swap
+    };
+    boot = {
+      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      loader = {
+        systemd-boot.enable = !config.${namespace}.hardware.secureBoot.enable;
+        efi.canTouchEfiVariables = !config.${namespace}.hardware.asahi.enable;
+      };
+      # Hide the OS choice for bootloaders.
+      # It's still possible to open the bootloader list by pressing any key
+      # It will just not appear on screen unless a key is pressed
+      loader.timeout = 0;
+    };
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 

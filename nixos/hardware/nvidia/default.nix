@@ -46,11 +46,4 @@
     logitech.wireless.enable = true;
   };
   services.xserver.videoDrivers = ["nvidia"];
-  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver { #fixes https://github.com/NixOS/nixpkgs/issues/375730 temporary
-  #   version = "570.133.07"; # use new 570 drivers
-  #  sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY=";
-  # openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
-  # settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-  # usePersistenced = false;
-  #};
 }

@@ -80,6 +80,11 @@
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-schemes = {
+      url = "github:DeterminateSystems/nix-src/flake-schemas";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
   };
 
   outputs = inputs:
@@ -94,12 +99,12 @@
       overlays = with inputs; [
         niri-flake.overlays.niri
         snowfall-flake.overlays.default
+        nix-schemes.overlays.default
       ];
 
       systems.modules.nixos = with inputs; [
         nix-flatpak.nixosModules.nix-flatpak
         niri-flake.nixosModules.niri
-        nixos-wsl.nixosModules.default
         sops-nix.nixosModules.sops
         nixos-facter-modules.nixosModules.facter
         home-manager.nixosModules.default
@@ -112,6 +117,12 @@
       ];
 
       templates = import ./templates {};
+
+      outputs-builder = channels: {
+        formatter = channels.nixpkgs.alejandra;
+      };
+
+      schemas = inputs.flake-schemas.schemas;
 
       snowfall = {
         namespace = "custom";

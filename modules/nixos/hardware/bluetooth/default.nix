@@ -19,9 +19,8 @@ in {
     enable = mkBoolOpt false "Enable bluetooth support";
   };
 
-  config =
-    mkIf cfg.enable {
-      hardware.bluetooth = {
+  config = mkIf cfg.enable {
+    hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
       settings = {
@@ -30,6 +29,6 @@ in {
         };
       };
     };
-      services.blueman.enable = true;
-    };
+    services.blueman.enable = true;
+  };
 }

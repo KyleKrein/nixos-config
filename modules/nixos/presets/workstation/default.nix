@@ -25,10 +25,14 @@ in {
       presets.wayland = enabled;
       hardware.printing = enabled;
       hardware.bluetooth = enabled;
+      #programs.fastfetch = {
+      #  enable = true;
+      #  firstNixOSInstall = 1729112485;
+      #};
       gpg = enabled;
       services.syncthing = {
-	enable = true;
-	user = "kylekrein";
+        enable = true;
+        user = "kylekrein";
       };
     };
 
@@ -71,44 +75,44 @@ in {
       element-desktop
     ];
     programs.kdeconnect.enable = true;
-  programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
+    programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
     fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    font-awesome
-    nerd-fonts.symbols-only
-    hack-font
-    # microsoft fonts:
-    #corefonts
-    #vistafonts
-  ];
+      nerd-fonts.jetbrains-mono
+      font-awesome
+      nerd-fonts.symbols-only
+      hack-font
+      # microsoft fonts:
+      #corefonts
+      #vistafonts
+    ];
     environment.sessionVariables = {
-    MANPAGER = "emacsclient -c";
-    EDITOR = "emacsclient -c";
-  };
+      MANPAGER = "emacsclient -c";
+      EDITOR = "emacsclient -c";
+    };
     hardware = {
-    logitech.wireless.enable = true;
-  };
+      logitech.wireless.enable = true;
+    };
 
-  security.polkit.enable = true;
+    security.polkit.enable = true;
 
-  #programs.thunar = {
-  #	enable = true;
-  #	plugins = with pkgs.xfce; [
-  #		thunar-archive-plugin
-  #		thunar-volman
-  #	];
-  # };
-  #programs.xfconf.enable = true; # so thunar can save config
-  #services.gvfs.enable = true; # Mount, trash, and other functionalities
-  #services.tumbler.enable = true; # Thumbnail support for images
+    #programs.thunar = {
+    #	enable = true;
+    #	plugins = with pkgs.xfce; [
+    #		thunar-archive-plugin
+    #		thunar-volman
+    #	];
+    # };
+    #programs.xfconf.enable = true; # so thunar can save config
+    #services.gvfs.enable = true; # Mount, trash, and other functionalities
+    #services.tumbler.enable = true; # Thumbnail support for images
 
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
   };
 }

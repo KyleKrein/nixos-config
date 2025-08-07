@@ -35,7 +35,7 @@ in {
       enable = true;
       theme = "catppuccin-mocha";
       package = mkDefault pkgs.kdePackages.sddm;
-      wayland.enable = mkDefault config.${username}.presets.wayland.enable;
+      wayland.enable = mkDefault config.${namespace}.presets.wayland.enable;
       settings = {
         General = {
           InputMethod = "wvkbd-mobintl"; # Enables optional virtual keyboard at login (SDDM). Useful for touchscreens or accessibility.

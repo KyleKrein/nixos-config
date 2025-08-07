@@ -18,4 +18,8 @@
     path = ./home;
     description = "Snowfall home";
   };
+  user = {
+    path = ./user;
+    description = "Snowfall user";
+  };
 }

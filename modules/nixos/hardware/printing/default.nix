@@ -19,16 +19,15 @@ in {
     enable = mkBoolOpt false "Enable printers support";
   };
 
-  config =
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-system-config-printer
-];
-      services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      system-config-printer
+    ];
+    services.printing.enable = true;
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
     };
+  };
 }

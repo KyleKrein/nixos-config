@@ -26,5 +26,12 @@ in {
         pinentry-program = lib.mkForce "${pkgs.pinentry-curses}/bin/pinentry-curses";
       };
     };
+    environment.systemPackages = [
+      (pkgs.pass.withExtensions (exts:
+        with exts; [
+          pass-otp
+          pass-import
+        ]))
+    ];
   };
 }

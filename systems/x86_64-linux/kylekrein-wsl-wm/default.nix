@@ -4,8 +4,12 @@
   inputs,
   ...
 }:
+with lib;
 with lib.custom; {
+  imports = [inputs.nixos-wsl.nixosModules.default];
+  boot.loader.systemd-boot.enable = mkForce false;
   custom.presets.default = enabled;
+  custom.security.users = disabled;
   custom.gpg = enabled;
 
   programs.direnv = {
