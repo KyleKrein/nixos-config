@@ -20,7 +20,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    ${namespace}.loginManagers.sddm.enable = mkDefault true;
+    ${namespace} = {
+      loginManagers.sddm.enable = mkDefault true;
+      programs.dolphin.enable = mkDefault true;
+    };
     security.pam.services.hyprlock = {};
     programs.niri = {
       enable = true;

@@ -1,51 +1,11 @@
 {
   lib,
   namespace,
+  inputs,
   ...
 }:
 with lib; rec {
-  mkHomeManagerConfigOpt = config:
-    mkOption {
-      # HM-compatible options taken from:
-      # https://github.com/nix-community/home-manager/blob/0ee5ab611dc1fbb5180bd7d88d2aeb7841a4d179/nixos/common.nix#L14
-      # NOTE: This has been adapted to support documentation generation without
-      # having home-manager options fully declared.
-      type = types.submoduleWith {
-        specialArgs =
-          {
-            osConfig = config;
-            modulesPath = "${inputs.home-manager or "/"}/modules";
-          }
-          // (config.home-manager.extraSpecialArgs or {});
-        modules =
-          [
-            ({
-              lib,
-              modulesPath,
-              ...
-            }:
-              if inputs ? home-manager
-              then {
-                imports = import "${modulesPath}/modules.nix" {
-                  inherit pkgs lib;
-                  useNixpkgsModule = !(config.home-manager.useGlobalPkgs or false);
-                };
-
-                config = {
-                  submoduleSupport.enable = true;
-                  submoduleSupport.externalPackageInstall = config.home-manager.useUserPackages;
-
-                  home.username = config.users.users.${name}.name;
-                  home.homeDirectory = config.users.users.${name}.home;
-
-                  nix.package = config.nix.package;
-                };
-              }
-              else {})
-          ]
-          ++ (config.home-manager.sharedModules or []);
-      };
-    };
+  mkHomeManagerConfigOpt = config: lib.${namespace}.mkOpt' types.anything {};
 
   mkUser = {
     config,
@@ -65,7 +25,7 @@ with lib; rec {
 
       home = {
         enable = enable;
-        config = homeConfig;
+        #config = homeConfig;
       };
     };
     users.users.${username} = mkIf enable {

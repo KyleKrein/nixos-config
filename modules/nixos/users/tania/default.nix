@@ -1,0 +1,37 @@
+{
+  lib,
+  pkgs,
+  inputs,
+  namespace,
+  system,
+  target,
+  format,
+  virtual,
+  systems,
+  config,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  username = "tania";
+  admin = false;
+  extraGroups = ["networkmanager" "touchscreen"];
+  trustedSshKeys = [];
+
+  cfg = config.${namespace}.users.${username};
+in {
+  options.${namespace}.users.${username} = with types; {
+    enable = mkBoolOpt false "Enable ${username} user";
+    config = mkHomeManagerConfigOpt config;
+  };
+
+  config = mkUser {
+    inherit config;
+    inherit (cfg) enable;
+    homeConfig = cfg.config;
+    inherit username;
+    inherit admin;
+    inherit extraGroups;
+    inherit trustedSshKeys;
+  };
+}

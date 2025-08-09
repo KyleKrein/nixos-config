@@ -14,10 +14,10 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=nixos-25.05";
     };
-    nixpkgs-unstable = {
+    unstable = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
-    nixpkgs-master = {
+    master = {
       url = "github:nixos/nixpkgs?ref=master";
     };
     neovim = {
@@ -80,11 +80,12 @@
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-schemes = {
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+    ## nix client with schema support: see https://github.com/NixOS/nix/pull/8892
+    nix-schemas = {
       url = "github:DeterminateSystems/nix-src/flake-schemas";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
   };
 
   outputs = inputs:
@@ -99,10 +100,10 @@
       overlays = with inputs; [
         niri-flake.overlays.niri
         snowfall-flake.overlays.default
-        nix-schemes.overlays.default
       ];
 
       systems.modules.nixos = with inputs; [
+        home-manager.nixosModules.home-manager
         nix-flatpak.nixosModules.nix-flatpak
         niri-flake.nixosModules.niri
         sops-nix.nixosModules.sops
@@ -114,6 +115,14 @@
         chaotic.nixosModules.nyx-registry
         lanzaboote.nixosModules.lanzaboote
         impermanence.nixosModules.impermanence
+      ];
+
+      systems.modules.home = with inputs; [
+        inputs.impermanence.nixosModules.home-manager.impermanence
+      ];
+
+      home.modules = with inputs; [
+        impermanence.homeManagerModules.impermanence
       ];
 
       templates = import ./templates {};

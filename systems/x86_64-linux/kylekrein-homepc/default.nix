@@ -13,6 +13,10 @@
 }:
 with lib;
 with lib.${namespace}; {
+  facter.reportPath = ./facter.json;
+  systemd.network.wait-online.enable = lib.mkForce false; #facter
+
+  custom.hardware.nvidia = enabled;
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
   services.scx.enable = true; # by default uses scx_rustland scheduler
   custom.impermanence = enabled;
@@ -31,11 +35,29 @@ with lib.${namespace}; {
   };
 
   custom.users = {
-    kylekrein = enabled;
+    tania = enabled;
+    kylekrein = {
+      enable = true;
+    };
   };
+  snowfallorg.users.kylekrein.home.config = {
+        programs.niri.settings.outputs = {
+          "DP-1" = {
+            scale = 1.6;
+            position.x = 1600;
+            position.y = 0;
+          };
+          "DP-3" = {
+            scale = 1.6;
+            position.x = 0;
+            position.y = 0;
+          };
+        };
+      };
 
   environment.systemPackages = with pkgs; [
     blender
+    nix-schemas
   ];
 
   services.zerotierone = {

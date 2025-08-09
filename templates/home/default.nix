@@ -9,6 +9,7 @@ let
   name = config.snowfallorg.user.name;
   home = config.snowfallorg.user.home.directory;
 in {
+  imports = lib.snowfall.fs.get-non-default-nix-files ./.;
   home = {
     packages = with pkgs; [
       librewolf

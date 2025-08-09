@@ -47,7 +47,6 @@ in {
     with pkgs.${namespace}; [
       libreoffice
       root-files
-      pass
       gparted
       qdirstat
       exfatprogs
@@ -65,14 +64,6 @@ in {
       #kde
       kdePackages.gwenview
       kdePackages.ark
-
-      # user packages
-      obs-studio
-      neovim
-      localsend
-
-      gdb
-      element-desktop
     ];
     programs.kdeconnect.enable = true;
     programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
