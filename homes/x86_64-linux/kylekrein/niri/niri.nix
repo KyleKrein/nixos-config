@@ -87,12 +87,11 @@ in
         binds = with config.lib.niri.actions; let
           sh = spawn "sh" "-c";
           emacs = action: sh "emacsclient -c --eval \"${action}\"";
-          homedir = "/home/${username}/";
           screenshot-annotate = sh ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" -t ppm - | ${lib.getExe pkgs.satty} --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush'';
         in {
           "Mod+E".action = sh "emacsclient -c";
           "Mod+Shift+C".action = sh "dolphin";
-          "Mod+C".action = emacs ''(dirvish \"${homedir}\")'';
+          "Mod+C".action = emacs ''(dirvish \"${home}\")'';
           "Mod+T".action = spawn "kitty";
           "Mod+D".action = spawn "fuzzel";
           "Mod+B".action = spawn "librewolf";
@@ -147,7 +146,7 @@ in
           "Mod+Tab".action = toggle-overview;
         };
         input = {
-          power-key-handling.enable = true;
+          power-key-handling.enable = !osConfig.custom.hardware.hibernation.enable;
           focus-follows-mouse = {
             #enable = true;
           };

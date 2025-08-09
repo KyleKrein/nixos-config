@@ -117,8 +117,8 @@
         impermanence.nixosModules.impermanence
       ];
 
-      systems.modules.home = with inputs; [
-        inputs.impermanence.nixosModules.home-manager.impermanence
+      systems.hosts.kylekrein-framework12.modules = with inputs; [
+        nixos-hardware.nixosModules.framework-12-13th-gen-intel
       ];
 
       home.modules = with inputs; [

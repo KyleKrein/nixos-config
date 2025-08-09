@@ -22,6 +22,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    ${namespace}.impermanence = {
+      enable = true;
+      persistentStorage = "/persist";
+    };
     disko.devices = {
       disk.main = {
         inherit (cfg) device;
