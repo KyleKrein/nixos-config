@@ -57,7 +57,6 @@ in
     };
     environment.systemPackages = with pkgs; [
       blender
-      nix-schemas
     ];
     #Chat host
     networking.firewall.allowedTCPPorts = [80 443 22 8448 9993 8081];

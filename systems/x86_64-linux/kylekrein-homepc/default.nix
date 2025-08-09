@@ -61,7 +61,6 @@ in
 
     environment.systemPackages = with pkgs; [
       blender
-      nix-schemas
     ];
 
     services.zerotierone = {

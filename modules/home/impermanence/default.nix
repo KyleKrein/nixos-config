@@ -1,6 +1,6 @@
 {
   lib,
-  osConfig,
+  osConfig ? null,
   pkgs,
   inputs,
   namespace,
@@ -15,18 +15,14 @@
 with lib;
 with lib.${namespace}; let
   cfg = config.${namespace}.impermanence;
-  osCfg = osConfig.${namespace}.impermanence;
+  osCfg = osConfig.${namespace}.impermanence or null;
   name = config.snowfallorg.user.name;
   home = config.snowfallorg.user.home.directory;
 in {
   options.${namespace}.impermanence = with types; {
-    enable = mkBoolOpt osCfg.enable "Enable impermanence";
-    persistentStorage = mkOpt path "${osCfg.persistentStorage}${home}" "Actual persistent storage path";
+    enable = mkBoolOpt osCfg.enable or false "Enable impermanence";
+    persistentStorage = mkOpt path "${osCfg.persistentStorage or "/persist"}${home}" "Actual persistent storage path";
   };
-
-  imports = with inputs; [
-    impermanence.homeManagerModules.impermanence
-  ];
 
   config = mkIf cfg.enable {
     home.persistence."${cfg.persistentStorage}" = {

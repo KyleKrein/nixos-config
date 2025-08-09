@@ -73,17 +73,11 @@
     # The name "snowfall-lib" is required due to how Snowfall Lib processes your
     # flake's inputs.
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:KyleKrein/snowfall-lib";#"git+file:///home/kylekrein/Git/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-    ## nix client with schema support: see https://github.com/NixOS/nix/pull/8892
-    nix-schemas = {
-      url = "github:DeterminateSystems/nix-src/flake-schemas";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -121,7 +115,7 @@
         nixos-hardware.nixosModules.framework-12-13th-gen-intel
       ];
 
-      home.modules = with inputs; [
+      homes.modules = with inputs; [
         impermanence.homeManagerModules.impermanence
       ];
 
@@ -131,7 +125,7 @@
         formatter = channels.nixpkgs.alejandra;
       };
 
-      schemas = inputs.flake-schemas.schemas;
+      #schemas = inputs.flake-schemas.schemas;
 
       snowfall = {
         namespace = "custom";
