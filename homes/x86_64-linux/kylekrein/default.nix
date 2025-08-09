@@ -23,20 +23,22 @@ in
       };
     };
     home = {
-      packages = with pkgs; [
-        gdb
-        element-desktop
-        obs-studio
-        neovim
-        localsend
-	kdePackages.kdenlive
-      ] ++ lib.optionals osConfig.custom.presets.gaming.enable [mcpelauncher-ui-qt];
+      packages = with pkgs;
+        [
+          gdb
+          element-desktop
+          obs-studio
+          neovim
+          localsend
+          kdePackages.kdenlive
+        ]
+        ++ lib.optionals osConfig.custom.presets.gaming.enable [mcpelauncher-ui-qt];
 
       sessionVariables = {
         EDITOR = "emacsclient -c";
-	NH_OS_FLAKE = "${home}/nixos-config";
-	NH_HOME_FLAKE = "${home}/nixos-config";
-	NH_DARWIN_FLAKE = "${home}/nixos-config";
+        NH_OS_FLAKE = "${home}/nixos-config";
+        NH_HOME_FLAKE = "${home}/nixos-config";
+        NH_DARWIN_FLAKE = "${home}/nixos-config";
       };
 
       stateVersion = "25.05";

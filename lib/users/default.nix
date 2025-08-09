@@ -5,8 +5,6 @@
   ...
 }:
 with lib; rec {
-  mkHomeManagerConfigOpt = config: lib.${namespace}.mkOpt' types.anything {};
-
   mkUser = {
     config,
     enable,
@@ -25,7 +23,7 @@ with lib; rec {
 
       home = {
         enable = enable;
-        #config = homeConfig;
+        config = homeConfig;
       };
     };
     users.users.${username} = mkIf enable {

@@ -22,7 +22,7 @@ with lib.${namespace}; let
 in {
   options.${namespace}.users.${username} = with types; {
     enable = mkBoolOpt false "Enable ${username} user";
-    config = mkHomeManagerConfigOpt config;
+    config = mkOpt types.attrs {} "Additional home manager config for ${username}";
   };
 
   config = mkUser {

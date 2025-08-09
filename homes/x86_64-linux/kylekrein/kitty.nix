@@ -1,5 +1,8 @@
-{osConfig, pkgs, ...}:
 {
+  osConfig,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [kitty-themes];
   programs.fzf = {
     enable = true;
@@ -10,7 +13,7 @@
     enable = true;
     icons = "always";
   };
-programs.kitty = {
+  programs.kitty = {
     enable = osConfig.custom.presets.workstation.enable;
     font = {
       name = "JetBrainsMono Nerd Font";

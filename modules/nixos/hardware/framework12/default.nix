@@ -17,6 +17,7 @@ with lib.${namespace}; let
 in {
   options.${namespace}.hardware.framework12 = with types; {
     enable = mkBoolOpt false "Enable hardware support for framework 12. P.s. you still need to import inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel yourself";
+    imports = [inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel];
   };
   config = mkIf cfg.enable {
     # Ensure that the `pinctrl_tigerlake` kernel module is loaded before `soc_button_array`.
