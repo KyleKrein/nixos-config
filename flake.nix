@@ -73,11 +73,19 @@
     # The name "snowfall-lib" is required due to how Snowfall Lib processes your
     # flake's inputs.
     snowfall-lib = {
-      url = "github:KyleKrein/snowfall-lib";#"git+file:///home/kylekrein/Git/snowfall-lib";
+      url = "github:KyleKrein/snowfall-lib"; #"git+file:///home/kylekrein/Git/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -120,6 +128,15 @@
       ];
 
       templates = import ./templates {};
+
+      deploy.nodes.server = {
+        hostname = "kylekrein.com";
+        interactiveSudo = false;
+        profiles.system = {
+          user = "kylekrein";
+          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.kylekrein-server;
+        };
+      };
 
       outputs-builder = channels: {
         formatter = channels.nixpkgs.alejandra;

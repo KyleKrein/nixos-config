@@ -2,15 +2,18 @@
   pkgs,
   system,
   inputs,
+  osConfig,
+  lib,
+  config,
   ...
 }: let
   emacs = inputs.emacs-kylekrein.packages.${system}.with-lsps-native;
 in {
   programs.emacs = {
-    enable = true;
+    enable = osConfig.custom.presets.wayland.enable;
     package = emacs;
   };
-  systemd.user.services.emacs = {
+  systemd.user.services.emacs = lib.mkIf config.programs.emacs.enable {
     Unit = {
       Description = "Launches (and relaunches) emacs";
     };

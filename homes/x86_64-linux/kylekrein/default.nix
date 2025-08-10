@@ -17,25 +17,30 @@ in
           enable = true;
           firstNixOSInstall = 1729112485;
         };
-        librewolf = enabled;
+        librewolf.enable = osConfig.custom.presets.wayland.enable;
         prismlauncher.enable = osConfig.custom.presets.gaming.enable;
-        bottles = enabled;
+        bottles.enable = osConfig.custom.presets.wayland.enable;
       };
     };
     home = {
       packages = with pkgs;
         [
+          neovim
+        ]
+        ++ lib.optionals osConfig.custom.presets.wayland.enable [
           gdb
           element-desktop
           obs-studio
-          neovim
           localsend
           kdePackages.kdenlive
         ]
         ++ lib.optionals osConfig.custom.presets.gaming.enable [mcpelauncher-ui-qt];
 
       sessionVariables = {
-        EDITOR = "emacsclient -c";
+        EDITOR =
+          if osConfig.custom.presets.wayland.enable
+          then "emacsclient -c"
+          else "nvim";
         NH_OS_FLAKE = "${home}/nixos-config";
         NH_HOME_FLAKE = "${home}/nixos-config";
         NH_DARWIN_FLAKE = "${home}/nixos-config";
