@@ -90,8 +90,21 @@
     };
   };
 
-  outputs = inputs:
-    inputs.snowfall-lib.mkFlake {
+  outputs = inputs: let
+    lib = inputs.snowfall-lib.mkLib {
+      inherit inputs;
+      src = ./.;
+
+      snowfall = {
+        namespace = "custom";
+        meta = {
+          name = "KyleKrein's awesome Nix Flake";
+          title = "KyleKrein's awesome Nix Flake";
+        };
+      };
+    };
+  in
+    lib.mkFlake {
       inherit inputs;
       src = ./.;
 
@@ -128,13 +141,10 @@
       ];
 
       templates = import ./templates {};
-
-      deploy.nodes.server = {
-        hostname = "kylekrein.com";
-        interactiveSudo = true;
-        profiles.system = {
-          user = "root";
-          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.kylekrein-server;
+      deploy = lib.mkDeploy {
+        inherit (inputs) self;
+        overrides = {
+          kylekrein-server.hostname = "kylekrein.com";
         };
       };
 
@@ -143,13 +153,5 @@
       };
 
       #schemas = inputs.flake-schemas.schemas;
-
-      snowfall = {
-        namespace = "custom";
-        meta = {
-          name = "KyleKrein's awesome Nix Flake";
-          title = "KyleKrein's awesome Nix Flake";
-        };
-      };
     };
 }

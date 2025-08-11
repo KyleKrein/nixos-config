@@ -34,6 +34,7 @@ with lib; rec {
     sops.secrets."users/${username}" = mkIf enable {
       neededForUsers = true;
     };
+    users.users.root.openssh.authorizedKeys.keys = mkIf enable trustedSshKeys;
     systemd.tmpfiles.rules = optionals (impermanence.enable) ["d ${persist}/home/${username} 0700 ${username} users -"]; # /persist/home/<user> created, owned by that user
 
     nix.settings.trusted-users = optionals admin [

@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  emacs = inputs.emacs-kylekrein.packages.${hwconfig.system}.with-lsps-native;
+  emacs = inputs.emacs-kylekrein.packages.${hwconfig.system}.with-lsps;
 in {
   programs.emacs = {
     enable = true;
