@@ -210,49 +210,30 @@
         "type": "github"
       }
     },
-    "complement": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1741891349,
-        "narHash": "sha256-YvrzOWcX7DH1drp5SGa+E/fc7wN3hqFtPbqPjZpOu1Q=",
-        "owner": "matrix-construct",
-        "repo": "complement",
-        "rev": "e587b3df569cba411aeac7c20b6366d03c143745",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matrix-construct",
-        "ref": "main",
-        "repo": "complement",
-        "type": "github"
-      }
-    },
     "conduwuit": {
       "inputs": {
         "attic": "attic",
         "cachix": "cachix",
-        "complement": "complement",
         "crane": "crane_2",
         "fenix": "fenix",
         "flake-compat": "flake-compat_4",
         "flake-utils": "flake-utils",
-        "liburing": "liburing",
         "nix-filter": "nix-filter",
         "nixpkgs": "nixpkgs_8",
         "rocksdb": "rocksdb"
       },
       "locked": {
-        "lastModified": 1751594407,
-        "narHash": "sha256-YiZuCdSs3f4Hlfdzhz/B/u8GLf8VPgaLN8KMPLjFoVk=",
-        "owner": "matrix-construct",
-        "repo": "tuwunel",
-        "rev": "3d8876797745e1ecd22f36b0ce5e9814e22c8720",
+        "lastModified": 1753449006,
+        "narHash": "sha256-u1k1r95qBoEizeILR5rrM5lDFz2a2NjUwM9TTi0HNjw=",
+        "owner": "continuwuity",
+        "repo": "continuwuity",
+        "rev": "00c7e220bbefaca35b44d64ec0af4d3d146a0fbd",
         "type": "github"
       },
       "original": {
-        "owner": "matrix-construct",
-        "ref": "v1.2.0",
-        "repo": "tuwunel",
+        "owner": "continuwuity",
+        "ref": "v0.5.0-rc.7",
+        "repo": "continuwuity",
         "type": "github"
       }
     },
@@ -1188,23 +1169,6 @@
       "original": {
         "owner": "libgit2",
         "repo": "libgit2",
-        "type": "github"
-      }
-    },
-    "liburing": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1749816983,
-        "narHash": "sha256-p5hXfDe53Y4MVwL2+wKZYpy4OPGvqFFnOEvkMsFAO6c=",
-        "owner": "axboe",
-        "repo": "liburing",
-        "rev": "ad83d3ab64894c16eaf21ef869656a5bddb93ca4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "axboe",
-        "ref": "master",
-        "repo": "liburing",
         "type": "github"
       }
     },
@@ -4198,18 +4162,18 @@
     "rocksdb": {
       "flake": false,
       "locked": {
-        "lastModified": 1749358049,
-        "narHash": "sha256-ZSjvAZBfZkJrBIpw8ANZMbJVb8AeuogvuAipGVE4Qe4=",
-        "owner": "matrix-construct",
-        "repo": "rocksdb",
-        "rev": "cf7f65d0b377af019661c240f9165b3ef60640c3",
-        "type": "github"
+        "lastModified": 1741308171,
+        "narHash": "sha256-YdBvdQ75UJg5ffwNjxizpviCVwVDJnBkM8ZtGIduMgY=",
+        "ref": "v9.11.1",
+        "rev": "3ce04794bcfbbb0d2e6f81ae35fc4acf688b6986",
+        "revCount": 13177,
+        "type": "git",
+        "url": "https://forgejo.ellis.link/continuwuation/rocksdb"
       },
       "original": {
-        "owner": "matrix-construct",
-        "ref": "tuwunel-changes",
-        "repo": "rocksdb",
-        "type": "github"
+        "ref": "v9.11.1",
+        "type": "git",
+        "url": "https://forgejo.ellis.link/continuwuation/rocksdb"
       }
     },
     "root": {
