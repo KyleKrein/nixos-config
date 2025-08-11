@@ -36,7 +36,7 @@ in {
       # require public key authentication for better security
       settings.PasswordAuthentication = false;
       settings.KbdInteractiveAuthentication = false;
-      settings.PermitRootLogin = "no";
+      #settings.PermitRootLogin = "no";
     };
     networking.firewall.allowedTCPPorts = [22];
     networking.firewall.allowedUDPPorts = [22];

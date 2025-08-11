@@ -113,6 +113,7 @@
       };
 
       overlays = with inputs; [
+        emacs-kylekrein.overlays.default
         niri-flake.overlays.niri
         snowfall-flake.overlays.default
       ];
@@ -144,6 +145,7 @@
       deploy = lib.mkDeploy {
         inherit (inputs) self;
         overrides = {
+          user = "root";
           kylekrein-server.hostname = "kylekrein.com";
         };
         exclude = ["kylekrein-wsl-wm"];

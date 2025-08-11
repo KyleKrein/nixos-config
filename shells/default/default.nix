@@ -5,6 +5,7 @@
 }:
 mkShell {
   packages = with pkgs; [
-    pkgs.deploy-rs
+    deploy-rs
+    custom.deploy-rs-online
   ];
 }

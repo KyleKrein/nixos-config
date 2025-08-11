@@ -24,7 +24,8 @@ with lib.custom; {
   };
   users.extraGroups.docker.members = ["nixos"];
   environment.systemPackages = with pkgs; [
-    inputs.emacs-kylekrein.packages.${pkgs.system}.with-lsps-native
+    (kylekrein.nixmacs.override
+      {withLsps = true;})
     nix-output-monitor
     eza
     fd

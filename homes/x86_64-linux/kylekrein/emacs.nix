@@ -7,7 +7,7 @@
   config,
   ...
 }: let
-  emacs = inputs.emacs-kylekrein.packages.${system}.with-lsps;
+  emacs = pkgs.kylekrein.nixmacs.override {withLsps = true;};
 in {
   programs.emacs = {
     enable = osConfig.custom.presets.wayland.enable;

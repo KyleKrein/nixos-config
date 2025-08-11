@@ -65,6 +65,9 @@ in {
       #kde
       kdePackages.gwenview
       kdePackages.ark
+
+      deploy-rs
+      custom.deploy-rs-online
     ];
     programs.kdeconnect.enable = true;
     programs.kdeconnect.package = lib.mkDefault pkgs.kdePackages.kdeconnect-kde;
