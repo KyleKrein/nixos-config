@@ -56,6 +56,7 @@ in {
       vlc
       git-credential-manager
       kitty-themes
+      qpwgraph
       solaar
       pdfarranger
       densify
