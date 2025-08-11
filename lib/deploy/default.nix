@@ -19,14 +19,18 @@ in rec {
   mkDeploy = {
     self,
     overrides ? {},
+    exclude ? [],
   }: let
-    hosts = self.nixosConfigurations or {};
+    hosts =
+      builtins.removeAttrs
+      (self.nixosConfigurations or {})
+      exclude;
     names = builtins.attrNames hosts;
     nodes =
       lib.foldl (
         result: name: let
           host = hosts.${name};
-          user = host.config.user.name or null;
+          user = overrides.user or null;
           inherit (host.pkgs) system;
         in
           result

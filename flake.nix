@@ -146,6 +146,7 @@
         overrides = {
           kylekrein-server.hostname = "kylekrein.com";
         };
+        exclude = ["kylekrein-wsl-wm"];
       };
 
       outputs-builder = channels: {
