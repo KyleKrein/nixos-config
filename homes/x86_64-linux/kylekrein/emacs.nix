@@ -7,7 +7,7 @@
   config,
   ...
 }: let
-  emacs = inputs.emacs-kylekrein.packages.${system}.with-lsps-native;
+  emacs = inputs.emacs-kylekrein.packages.${system}.with-lsps;
 in {
   programs.emacs = {
     enable = osConfig.custom.presets.wayland.enable;
