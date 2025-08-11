@@ -131,9 +131,9 @@
 
       deploy.nodes.server = {
         hostname = "kylekrein.com";
-        interactiveSudo = false;
+        interactiveSudo = true;
         profiles.system = {
-          user = "kylekrein";
+          user = "root";
           path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.kylekrein-server;
         };
       };

@@ -108,7 +108,7 @@
           port = [6167];
           trusted_servers = ["matrix.org"];
           allow_registration = false;
-          registration_token = ""; #nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
+          registration_token = null;#nix shell nixpkgs#openssl -c openssl rand -base64 48 | tr -d '/+' | cut -c1-64
           allow_federation = true;
           allow_encryption = true;
 
