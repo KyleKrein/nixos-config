@@ -61,8 +61,12 @@
     };
     beeengine = {
       url = "git+https://github.com/KyleKrein/BeeEngine?submodules=1"; #"git+https://gitlab.kylekrein.com/beeengine/BeeEngine?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    conduwuit.url = "github:continuwuity/continuwuity?ref=v0.5.0-rc.7";
+    conduwuit = {
+      url = "github:continuwuity/continuwuity?ref=v0.5.0-rc.7";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     niri-flake = {
       url = "github:sodiboo/niri-flake";
     };

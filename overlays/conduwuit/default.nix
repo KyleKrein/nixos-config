@@ -1,3 +1,3 @@
 {inputs, ...}: final: prev: {
-  conduwuit = inputs.conduwuit.packages.${prev.system}.all-features;
+  conduwuit = prev.matrix-continuwuity; #inputs.conduwuit.packages.${prev.system}.all-features;
 }
