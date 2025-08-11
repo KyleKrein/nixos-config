@@ -1,77 +1,123 @@
 {
-  writeShellScriptBin,
+  custom,
   lib,
   jq,
   deploy-rs,
   ...
 }:
-writeShellScriptBin "deploy-rs-online" ''
-  set -euo pipefail
+custom.writeCppScriptBin {
+  name = "deploy-rs-online";
+  code = ''
+    #include <string>
+    #include <vector>
+    #include <print>
+    #include <format>
+    #include <cstdlib>
+    #include <cstdio>
+    #include <memory>
+    #include <stdexcept>
+    #include <sstream>
+    #include <algorithm>
 
-  # ANSI colors (safe form for bash inside Nix)
-  RED=$'\033[0;31m'
-  GREEN=$'\033[0;32m'
-  YELLOW=$'\033[0;33m'
-  NC=$'\033[0m'
+    constexpr auto RED    = "\033[0;31m";
+    constexpr auto GREEN  = "\033[0;32m";
+    constexpr auto YELLOW = "\033[0;33m";
+    constexpr auto NC     = "\033[0m";
 
-  # Flake path from first argument, default to "."
-  FLAKE_PATH="''${1:-.}"
-  shift || true
+    std::string execCmd(const std::string& cmd) {
+        std::array<char, 4096> buffer{};
+        std::string result;
+        FILE* pipe = popen(cmd.c_str(), "r");
+        if (!pipe) throw std::runtime_error("popen() failed");
+        while (fgets(buffer.data(), buffer.size(), pipe)) {
+            result += buffer.data();
+        }
+        pclose(pipe);
+        if (!result.empty() && result.back() == '\n') result.pop_back();
+        return result;
+    }
 
-  # Collect extra args after --
-  DEPLOY_ARGS=()
-  if [ "$#" -gt 0 ]; then
-    if [ "$1" = "--" ]; then
-      shift
-      DEPLOY_ARGS=("$@")
-    fi
-  fi
+    bool runCmd(const std::string& cmd) {
+        return std::system(cmd.c_str()) == 0;
+    }
 
-  # Check if user provided --skip-checks or -s; if not, add -s
-  SKIP_CHECKS_SET=false
-  for arg in "''${DEPLOY_ARGS[@]}"; do
-    if [ "$arg" = "--skip-checks" ] || [ "$arg" = "-s" ]; then
-      SKIP_CHECKS_SET=true
-      break
-    fi
-  done
-  if ! $SKIP_CHECKS_SET; then
-    DEPLOY_ARGS+=("-s")
-  fi
+    int main(int argc, char** argv) {
+        std::string flakePath = ".";
+        std::vector<std::string> deployArgs;
 
-  # Run nix flake check first
-  if ! $SKIP_CHECKS_SET; then
-    echo "Running nix flake check on $FLAKE_PATH..."
-    if ! nix flake check "$FLAKE_PATH"; then
-      echo "$RED Flake check failed! Aborting deployment. $NC"
-      exit 1
-    fi
-  fi
+        if (argc > 1) {
+            flakePath = argv[1];
+        }
 
-  # Get node names
-  NODES=$(nix eval --json "$FLAKE_PATH#deploy.nodes" | ${lib.getExe jq} -r 'keys[]')
+        // Collect args after "--"
+        for (int i = 2; i < argc; ++i) {
+            deployArgs.emplace_back(argv[i]);
+        }
 
-  RESULTS=()
+        bool skipChecksSet = false;
+        for (auto& arg : deployArgs) {
+            if (arg == "--skip-checks" || arg == "-s") {
+                skipChecksSet = true;
+                break;
+            }
+        }
+        if (!skipChecksSet) {
+            deployArgs.push_back("-s");
+        }
 
-  for node in $NODES; do
-    HOST=$(nix eval --raw "$FLAKE_PATH#deploy.nodes.$node.hostname")
-    echo -n "Checking $node ($HOST)... "
-    if ssh -o ConnectTimeout=3 -o BatchMode=yes "$HOST" true 2>/dev/null; then
-      echo "$GREEN ONLINE ✅ $NC — deploying"
-      if ${lib.getExe deploy-rs} "$FLAKE_PATH#$node" "''${DEPLOY_ARGS[@]}"; then
-        RESULTS+=("$node: $GREEN OK $NC")
-      else
-        RESULTS+=("$node: $RED DEPLOY ERROR $NC")
-      fi
-    else
-      echo "$RED OFFLINE ❌ $NC — skipping"
-      RESULTS+=("$node: $YELLOW OFFLINE $NC ")
-    fi
-  done
+        if (!skipChecksSet) {
+            std::println("Running nix flake check on {}", flakePath);
+            if (!runCmd(std::format("nix flake check {}", flakePath))) {
+                std::println("{}Flake check failed! Aborting deployment.{}", RED, NC);
+                return 1;
+            }
+        }
 
-  echo
-  echo "===== Deployment summary ====="
-  for r in "''${RESULTS[@]}"; do
-    echo -e "$r"
-  done
-''
+        std::string nodes = execCmd(std::format(
+            "nix eval --json {}#deploy.nodes | {} -r 'keys[]'",
+            flakePath,
+            "${lib.getExe jq}"
+        ));
+        std::istringstream iss(nodes);
+        std::vector<std::string> nodeList;
+        for (std::string node; std::getline(iss, node); ) {
+            nodeList.push_back(node);
+        }
+
+        std::vector<std::string> results;
+
+        for (auto& node : nodeList) {
+            std::string host = execCmd(std::format(
+                "nix eval --raw {}#deploy.nodes.{}.hostname",
+                flakePath, node
+            ));
+
+            std::print("Checking {} ({})... ", node, host);
+            if (runCmd(std::format("ssh -o ConnectTimeout=3 -o BatchMode=yes {} true", host))) {
+                std::println("{}ONLINE ✅{} — deploying", GREEN, NC);
+                std::string deployCmd = std::format("{} {}#{}",
+                    "${lib.getExe deploy-rs}",
+                    flakePath,
+                    node
+                );
+                for (auto& arg : deployArgs) {
+                    deployCmd += " " + arg;
+                }
+                if (runCmd(deployCmd)) {
+                    results.push_back(std::format("{}: {}OK{}", node, GREEN, NC));
+                } else {
+                    results.push_back(std::format("{}: {}DEPLOY ERROR{}", node, RED, NC));
+                }
+            } else {
+                std::println("{}OFFLINE ❌{} — skipping", RED, NC);
+                results.push_back(std::format("{}: {}OFFLINE{}", node, YELLOW, NC));
+            }
+        }
+
+        std::println("\n===== Deployment summary =====");
+        for (auto& r : results) {
+            std::println("{}", r);
+        }
+    }
+  '';
+}
