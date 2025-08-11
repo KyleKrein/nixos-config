@@ -40,10 +40,12 @@ writeShellScriptBin "deploy-rs-online" ''
   fi
 
   # Run nix flake check first
-  echo "Running nix flake check on $FLAKE_PATH..."
-  if ! nix flake check "$FLAKE_PATH"; then
-    echo "$RED Flake check failed! Aborting deployment. $NC"
-    exit 1
+  if ! $SKIP_CHECKS_SET; then
+    echo "Running nix flake check on $FLAKE_PATH..."
+    if ! nix flake check "$FLAKE_PATH"; then
+      echo "$RED Flake check failed! Aborting deployment. $NC"
+      exit 1
+    fi
   fi
 
   # Get node names
