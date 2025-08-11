@@ -1,11 +1,11 @@
 {
-  custom,
+  writeCppScriptBin,
   lib,
   jq,
   deploy-rs,
   ...
 }:
-custom.writeCppScriptBin {
+writeCppScriptBin {
   name = "deploy-rs-online";
   code = ''
     #include <string>

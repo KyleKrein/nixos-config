@@ -48,11 +48,6 @@ in
           }
           {
             command = [
-              "${lib.getExe pkgs.networkmanagerapplet}"
-            ];
-          }
-          {
-            command = [
               "dbus-update-activation-environment"
               "--systemd"
               "--all"
@@ -275,7 +270,7 @@ in
       settings.listener = let
         secondary = "${systemctl} suspend";
       in
-        lib.mkIf (osConfig.custom.hardware.battery.enable) [
+        lib.optionals (osConfig.custom.hardware.battery.enable) [
           #{
           #  timeout = 30;
           #  command = "pidof hyprlock && ${secondary}";
@@ -289,13 +284,6 @@ in
             on-timeout = "${suspendScript "${systemctl} suspend"}";
           }
         ];
-    };
-    services = {
-      mako = {
-        enable = false;
-        settings = {
-        };
-      };
     };
     systemd.user.services.lisgd-niri = lib.mkIf (osConfig.custom.hardware.framework12.enable) {
       Unit = {

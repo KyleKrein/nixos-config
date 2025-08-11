@@ -24,7 +24,7 @@ in {
       ExecStart = "${pkgs.writeShellScript "run-emacs" ''
         ${emacs}/bin/emacs --fg-daemon
       ''}";
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 5;
     };
   };

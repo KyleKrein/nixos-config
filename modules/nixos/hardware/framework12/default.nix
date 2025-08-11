@@ -44,6 +44,10 @@ in {
         });
       })
     ];
+
+    hardware.intel-gpu-tools.enable = true;
+    services.thermald.enable = true;
+
     hardware.enableRedistributableFirmware = true;
     environment.systemPackages = [
       pkgs.framework-tool
