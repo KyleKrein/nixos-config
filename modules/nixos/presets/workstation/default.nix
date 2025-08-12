@@ -65,6 +65,7 @@ in {
       #kde
       kdePackages.gwenview
       kdePackages.ark
+      shotwell
 
       deploy-rs
       custom.deploy-rs-online

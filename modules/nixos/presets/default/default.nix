@@ -17,6 +17,7 @@ in {
     zramSwap = {
       enable = true; # Hopefully? helps with freezing when using swap
     };
+    services.fwupd.enable = true; #fwupdmgr update
     boot = {
       kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
       loader = {

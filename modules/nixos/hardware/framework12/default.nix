@@ -25,7 +25,6 @@ in {
       remainingEnergy = "charge_now";
       powerUsage = "current_now";
     };
-    services.fwupd.enable = true; #fwupdmgr update
     # Ensure that the `pinctrl_tigerlake` kernel module is loaded before `soc_button_array`.
     # This is required for correcly switching to tablet mode when the display is folded back.
     boot.extraModprobeConfig = ''

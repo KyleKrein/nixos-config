@@ -19,7 +19,7 @@ with lib.custom; {
     presets.wayland = enabled;
     presets.gaming = enabled;
     hardware = {
-      nvidia = enabled;
+      #nvidia = enabled;
       bluetooth = enabled;
       printing = enabled;
     };
@@ -105,7 +105,6 @@ with lib.custom; {
     discord
     solaar
     element-desktop
-    wasistlos
 
     prismlauncher
     mcpelauncher-ui-qt
