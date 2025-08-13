@@ -33,6 +33,7 @@ in {
     environment.persistence."${persist}/system" = {
       hideMounts = true;
       directories = [
+        "/etc/ssh"
         "/var/lib/sbctl"
         "/etc/nixos"
         "/var/log"
