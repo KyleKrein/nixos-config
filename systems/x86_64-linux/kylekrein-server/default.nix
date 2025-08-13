@@ -63,7 +63,7 @@ with lib.custom; {
 
           respond /client `{ "m.homeserver": { "base_url": "https://matrix.kylekrein.com/" }, "org.matrix.msc3575.proxy": { "url": "https://matrix.kylekrein.com/"}, "org.matrix.msc4143.rtc_foci": [ { "type": "livekit", "livekit_service_url": "https://livekit-jwt.call.matrix.org" } ] }`
 
-          respond /server `{ "m.server": "https://matrix.kylekrein.com" }`
+          respond /server `{ "m.server": "matrix.kylekrein.com:443" }`
 
           ## return http/404 if nothing matches
           respond 404
