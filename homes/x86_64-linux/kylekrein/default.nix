@@ -22,6 +22,7 @@ in
         bottles.enable = osConfig.custom.presets.wayland.enable;
       };
     };
+    programs.nheko.enable = custom.presets.wayland.enable;
     home = {
       packages = with pkgs;
         [

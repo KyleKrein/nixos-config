@@ -61,10 +61,10 @@ in {
       };
 
       ### KERNEL
-      boot.kernelParams = [
-        "ahci.mobile_lpm_policy=3"
-        "rtc_cmos.use_acpi_alarm=1"
-      ];
+      # boot.kernelParams = [
+      #   "ahci.mobile_lpm_policy=3"
+      #   "rtc_cmos.use_acpi_alarm=1"
+      #];
 
       ### HWP
       systemd.tmpfiles.rules = [
@@ -73,7 +73,7 @@ in {
 
       ### TLP
       services.tlp = {
-        enable = true;
+        enable = false;
         settings = {
           CPU_SCALING_GOVERNOR_ON_AC = "performance";
           CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -90,10 +90,10 @@ in {
           CPU_HWP_DYN_BOOST_ON_AC = 1;
           CPU_HWP_DYN_BOOST_ON_BAT = 0;
 
-          CPU_MIN_PERF_ON_AC = 0;
-          CPU_MAX_PERF_ON_AC = 100;
-          CPU_MIN_PERF_ON_BAT = 0;
-          CPU_MAX_PERF_ON_BAT = 20;
+          #CPU_MIN_PERF_ON_AC = 0;
+          #CPU_MAX_PERF_ON_AC = 100;
+          #CPU_MIN_PERF_ON_BAT = 0;
+          #CPU_MAX_PERF_ON_BAT = 20;
 
           #Optional helps save long term battery health
           #START_CHARGE_THRESH_BAT0 = 60; # 60 and below it starts to charge
