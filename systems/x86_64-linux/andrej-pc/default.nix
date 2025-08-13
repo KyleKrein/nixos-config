@@ -111,7 +111,6 @@ with lib.custom; {
     jdk
     teams-for-linux
   ];
-  hardware.nvidia.powerManagement.enable = lib.mkForce false;
   hardware.nvidia.open = lib.mkForce false;
   #hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
   systemd.network.wait-online.enable = lib.mkForce false;
