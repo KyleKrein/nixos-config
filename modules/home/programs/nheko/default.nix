@@ -20,16 +20,15 @@ in {
     enable = mkBoolOpt false "Enable Nheko - Matrix client written in C++";
   };
 
-  config = mkIf cfg.enable (mkIf impermanence.enable {
-      home.persistence."${impermanence.persistentStorage}".directories = [
+  config = mkIf cfg.enable {
+    programs.nheko.enable = true;
+
+    home.persistence = mkIf impermanence.enable {
+      "${impermanence.persistentStorage}".directories = [
         ".config/nheko"
         ".local/share/nheko"
         ".cache/nheko"
       ];
-    }
-    // {
-      programs.nheko = {
-        enable = true;
-      };
-    });
+    };
+  };
 }

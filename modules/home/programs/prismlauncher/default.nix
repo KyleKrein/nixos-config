@@ -20,15 +20,15 @@ in {
     enable = mkBoolOpt false "Enable prismlauncher";
   };
 
-  config = mkIf cfg.enable (mkIf impermanence.enable {
-      home.persistence."${impermanence.persistentStorage}".directories = [
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [prismlauncher];
+    home.persistence = mkIf impermanence.enable {
+      "${impermanence.persistentStorage}".directories = [
         {
           directory = ".local/share/Prismlauncher";
           method = "symlink";
         }
       ];
-    }
-    // {
-      home.packages = with pkgs; [prismlauncher];
-    });
+    };
+  };
 }

@@ -31,7 +31,6 @@ in {
       yad
       protonup-qt
       protontricks
-      bottles
     ];
     programs.steam = {
       enable = true;

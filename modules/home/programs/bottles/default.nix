@@ -20,15 +20,15 @@ in {
     enable = mkBoolOpt false "Enable Bottles";
   };
 
-  config = mkIf cfg.enable (mkIf impermanence.enable {
-      home.persistence."${impermanence.persistentStorage}".directories = [
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [bottles];
+    home.persistence = mkIf impermanence.enable {
+      "${impermanence.persistentStorage}".directories = [
         {
           directory = ".local/share/bottles";
           method = "symlink";
         }
       ];
-    }
-    // {
-      home.packages = with pkgs; [bottles];
-    });
+    };
+  };
 }
