@@ -27,6 +27,7 @@ with lib.custom; {
     (kylekrein.nixmacs.override
       {withLsps = true;})
     nix-output-monitor
+    tree
     eza
     fd
     tealdeer
