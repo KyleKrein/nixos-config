@@ -31,8 +31,8 @@ in {
   };
 
   config = mkIf cfg.enable (import ./batteryStatus.nix {
-      inherit config;
-      inherit namespace;
-      inherit pkgs;
-    });
+    inherit config;
+    inherit namespace;
+    inherit pkgs;
+  });
 }
