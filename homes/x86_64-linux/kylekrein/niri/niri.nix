@@ -290,7 +290,7 @@ in
         Description = "Makes sure that you have touchscreen gestures.";
       };
       Install = {
-        WantedBy = ["default.target"];
+        WantedBy = ["graphical.target"];
       };
       Service = {
         ExecStart = "${pkgs.writeShellScript "run-lisgd" ''
@@ -305,7 +305,7 @@ in
         Description = "Adds auto rotation to Niri.";
       };
       Install = {
-        WantedBy = ["default.target"];
+        WantedBy = ["graphical.target"];
       };
       Service = {
         ExecStart = "${pkgs.writeShellScript "autorotate" ''
@@ -341,5 +341,19 @@ in
         Restart = "always";
         RestartSec = 5;
       };
+    };
+    custom.hardware.tablet = {
+      onTabletModeEnable = [
+        {
+          name = "autorotate";
+          command = "systemctl --user start autorotate-niri.service";
+        }
+      ];
+      onTabletModeDisable = [
+        {
+          name = "autorotate";
+          command = "systemctl --user stop autorotate-niri.service";
+        }
+      ];
     };
   }
