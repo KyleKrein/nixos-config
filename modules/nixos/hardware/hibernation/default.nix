@@ -28,8 +28,8 @@ in {
           "mem_sleep_default=deep"
         ]
         #https://github.com/nix-community/disko/issues/651#issuecomment-2383741717
-        ++ optional (!config.boot.initrd.systemd.enable) "resume_offset=${builtins.toString cfg.swapFileOffset}";
-      inherit (cfg) resumeDevice;
+        ++ optional (cfg.swapFileOffset != null) "resume_offset=${builtins.toString cfg.swapFileOffset}";
+      resumeDevice = mkDefault cfg.resumeDevice;
     };
     services.logind = {
       lidSwitch = mkDefault "suspend-then-hibernate";

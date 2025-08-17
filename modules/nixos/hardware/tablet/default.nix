@@ -31,25 +31,25 @@ in {
           description = "Watch for tablet mode changes";
           serviceConfig = {
             ExecStart = "${pkgs.writeShellScript "tablet-mode-eventd" ''
-in_tablet_mode=$(${pkgs.coreutils}/bin/cat "${cfg.path}" 2>/dev/null || $(echo 0 > "${cfg.path}" && echo 0))
+              in_tablet_mode=$(${pkgs.coreutils}/bin/cat "${cfg.path}" 2>/dev/null || $(echo 0 > "${cfg.path}" && echo 0))
 
-stdbuf -oL -eL ${lib.getExe pkgs.libinput} debug-events --device "${cfg.inputDevice}" | while read -r line; do
-  if [[ "$line" =~ switch\ tablet-mode\ state\ ([01]) ]]; then
-    d="''${BASH_REMATCH[1]}"
-    if [ "$d" -ne "$in_tablet_mode" ]; then
-      in_tablet_mode=$d
-      if [ "$d" -eq 1 ]; then
-        systemctl start tablet-on.target
-	echo "Tablet mode ON"
-        echo 1 > "${cfg.path}"
-      else
-        systemctl start tablet-off.target
-	echo "Tablet mode OFF"
-        echo 0 > "${cfg.path}"
-      fi
-    fi
-  fi
-done
+              stdbuf -oL -eL ${lib.getExe pkgs.libinput} debug-events --device "${cfg.inputDevice}" | while read -r line; do
+                if [[ "$line" =~ switch\ tablet-mode\ state\ ([01]) ]]; then
+                  d="''${BASH_REMATCH[1]}"
+                  if [ "$d" -ne "$in_tablet_mode" ]; then
+                    in_tablet_mode=$d
+                    if [ "$d" -eq 1 ]; then
+                      systemctl start tablet-on.target
+              	echo "Tablet mode ON"
+                      echo 1 > "${cfg.path}"
+                    else
+                      systemctl start tablet-off.target
+              	echo "Tablet mode OFF"
+                      echo 0 > "${cfg.path}"
+                    fi
+                  fi
+                fi
+              done
             ''}";
             Restart = "always";
           };
