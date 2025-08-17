@@ -146,6 +146,7 @@
 
       homes.modules = with inputs; [
         impermanence.homeManagerModules.impermanence
+        nix-flatpak.homeManagerModules.nix-flatpak
       ];
 
       templates = import ./templates {};

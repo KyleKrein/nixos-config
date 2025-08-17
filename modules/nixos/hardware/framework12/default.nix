@@ -19,11 +19,14 @@ in {
     enable = mkBoolOpt false "Enable hardware support for framework 12. P.s. you still need to import inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel yourself";
   };
   config = mkIf cfg.enable {
-    ${namespace}.hardware.battery = {
-      enable = true;
-      batteryName = "BAT1";
-      remainingEnergy = "charge_now";
-      powerUsage = "current_now";
+    ${namespace}.hardware = {
+      tablet.enable = true;
+      battery = {
+        enable = true;
+        batteryName = "BAT1";
+        remainingEnergy = "charge_now";
+        powerUsage = "current_now";
+      };
     };
     # Ensure that the `pinctrl_tigerlake` kernel module is loaded before `soc_button_array`.
     # This is required for correcly switching to tablet mode when the display is folded back.

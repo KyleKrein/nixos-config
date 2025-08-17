@@ -13,6 +13,9 @@ in {
   custom = {
     programs.librewolf.enable = true;
   };
+  services.flatpak.packages = [
+    "org.vinegarhq.Sober"
+  ];
   home = {
     packages = with pkgs; [
       zapzap
