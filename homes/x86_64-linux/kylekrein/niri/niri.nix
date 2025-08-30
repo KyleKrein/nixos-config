@@ -352,7 +352,10 @@ in
       onTabletModeDisable = [
         {
           name = "autorotate";
-          command = "systemctl --user stop autorotate-niri.service";
+          command = ''
+systemctl --user stop autorotate-niri.service
+niri msg output eDP-1 transform normal
+'';
         }
       ];
     };
