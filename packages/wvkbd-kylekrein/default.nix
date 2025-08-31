@@ -8,12 +8,12 @@ in
   wvkbd.overrideAttrs (final: prev: {
     pname = "wvkbd-kylekrein";
     name = "wvkbd-kylekrein";
-    version = "0.17";
+    version = "0.17-kylekrein";
     src = fetchFromGitHub {
-      owner = "Paulicat";
+      owner = "KyleKrein";
       repo = "wvkbd";
-      rev = "ac02545ab6f6ccfa5b6f132414021ba57ea73096";
-      hash = "sha256-py/IqNEEaTOx/9W935Vc47WoNFz99+bNaYD0sL//JmY=";
+      rev = "ed46e1b0e64fd105402dc85e607892343677f5bd";
+      hash = "sha256-xhn3QjKJL53K59oSnnLFVEv4AyRUGhYBoqSwJe4qfxE=";
     };
     installFlags = prev.installFlags ++ ["LAYOUT=vistath"];
     patches = prev.patches or [] ++ [smithay-patch];

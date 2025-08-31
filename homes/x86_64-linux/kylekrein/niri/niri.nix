@@ -7,11 +7,15 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+with lib.custom; let
   username = config.snowfallorg.user.name;
   home = config.snowfallorg.user.home.directory;
 in
   lib.mkIf osConfig.custom.windowManagers.niri.enable {
+    custom = {
+      programs.nautilus = enabled;
+    };
     programs.fuzzel = {
       enable = true;
       settings.main.terminal = "kitty";
@@ -20,6 +24,8 @@ in
       enable = true;
     };
     home.packages = with pkgs; [
+      playerctl
+      papers
       nwg-drawer
       wlogout
       brightnessctl
@@ -136,6 +142,11 @@ in
 
           "XF86MonBrightnessUp".action = sh "brightnessctl set 10%+";
           "XF86MonBrightnessDown".action = sh "brightnessctl set 10%-";
+
+          "XF86AudioNext".action = sh "playerctl next";
+          "XF86AudioPause".action = sh "playerctl play-pause";
+          "XF86AudioPlay".action = sh "playerctl play-pause";
+          "XF86AudioPrev".action = sh "playerctl previous";
           #"Mod+Tab".action = focus-window-down-or-column-right;
           #"Mod+Shift+Tab".action = focus-window-up-or-column-left;
           "Mod+Tab".action = toggle-overview;
@@ -162,7 +173,7 @@ in
           hide-after-inactive-ms = 10000;
         };
         gestures.hot-corners.enable = true;
-        prefer-no-csd = true;
+        prefer-no-csd = !config.custom.hardware.tablet.enable;
         environment = {
           XDG_SESSION_TYPE = "wayland";
           __GL_GSYNC_ALLOWED = "1";

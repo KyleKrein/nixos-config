@@ -45,6 +45,7 @@ in {
 
     environment.systemPackages = with pkgs;
     with pkgs.${namespace}; [
+      rnote
       libreoffice
       root-files
       gparted
