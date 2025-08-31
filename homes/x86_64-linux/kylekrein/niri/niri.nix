@@ -173,7 +173,7 @@ in
           hide-after-inactive-ms = 10000;
         };
         gestures.hot-corners.enable = true;
-        prefer-no-csd = !config.custom.hardware.tablet.enable;
+        prefer-no-csd = true;
         environment = {
           XDG_SESSION_TYPE = "wayland";
           __GL_GSYNC_ALLOWED = "1";

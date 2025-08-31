@@ -44,12 +44,14 @@ in {
         ".local/share/keyrings"
         ".local/share/direnv"
         ".local/share/chat.fluffy.fluffychat"
+        ".local/share/fractal"
         ".klei"
         "Android"
-        {
-          directory = ".var/app";
-          method = "symlink";
-        }
+        ".var/app"
+        #{
+        #  directory = ".var/app";
+        #  method = "symlink";
+        #}
         {
           directory = ".local/share/Steam";
           method = "symlink";

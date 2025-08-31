@@ -78,6 +78,7 @@ in {
       font-awesome
       nerd-fonts.symbols-only
       hack-font
+      noto-fonts-emoji
       # microsoft fonts:
       #corefonts
       #vistafonts
@@ -91,6 +92,7 @@ in {
     };
 
     security.polkit.enable = true;
+    services.flatpak = enabled;
 
     #programs.thunar = {
     #	enable = true;
