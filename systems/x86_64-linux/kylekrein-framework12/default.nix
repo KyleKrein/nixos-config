@@ -42,6 +42,7 @@ in
     };
     custom.hardware.framework12 = enabled;
     custom.hardware.secureBoot = enabled;
+    custom.hardware.tablet.inputDevice = "/dev/input/by-path/platform-gpio-keys.9.auto-event";
     custom.impermanence = enabled;
     custom.presets.workstation = enabled;
     custom.presets.gaming = enabled;

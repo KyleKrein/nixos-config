@@ -6,6 +6,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 with lib.custom; let
@@ -16,25 +17,11 @@ in
     custom = {
       programs.nautilus = enabled;
     };
-    programs.fuzzel = {
-      enable = true;
-      settings.main.terminal = "kitty";
-    };
-    services.swaync = {
-      enable = true;
-    };
     home.packages = with pkgs; [
       playerctl
       papers
-      nwg-drawer
-      wlogout
       brightnessctl
-      fuzzel
-      waybar
-      swaybg
       libnotify
-      hyprlock
-      networkmanagerapplet
       custom.wvkbd-kylekrein
       custom.lisgd-kylekrein
     ];
@@ -49,11 +36,6 @@ in
           }
           {
             command = [
-              "${lib.getExe pkgs.networkmanagerapplet}"
-            ];
-          }
-          {
-            command = [
               "dbus-update-activation-environment"
               "--systemd"
               "--all"
@@ -64,15 +46,6 @@ in
               "${pkgs.solaar}/bin/solaar"
               "-w"
               "hide"
-            ];
-          }
-          {
-            command = [
-              "${lib.getExe pkgs.swaybg}"
-              "-m"
-              "fill"
-              "-i"
-              "${./wallpaper.jpg}"
             ];
           }
         ];
@@ -91,7 +64,7 @@ in
           screenshot-annotate = sh ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" -t ppm - | ${lib.getExe pkgs.satty} --early-exit --copy-command 'wl-copy' --filename '-' --initial-tool brush'';
         in {
           "Mod+E".action = sh "emacsclient -c";
-          "Mod+Shift+C".action = sh "dolphin";
+          "Mod+Shift+C".action = sh "nautilus";
           "Mod+C".action = emacs ''(dirvish \"${home}\")'';
           "Mod+T".action = spawn "kitty";
           "Mod+D".action = spawn "fuzzel";
@@ -136,9 +109,101 @@ in
           "Mod+Shift+Ctrl+Left".action = move-column-to-monitor-left;
           "Mod+Shift+Ctrl+Right".action = move-column-to-monitor-right;
 
-          "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-          "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-          "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "Mod+Space".action.spawn = [
+            "qs"
+            "-c"
+            "DankMaterialShell"
+            "ipc"
+            "call"
+            "spotlight"
+            "toggle"
+          ];
+          "Mod+V".action.spawn = [
+            "qs"
+            "-c"
+            "DankMaterialShell"
+            "ipc"
+            "call"
+            "clipboard"
+            "toggle"
+          ];
+          "Mod+M".action.spawn = [
+            "qs"
+            "-c"
+            "DankMaterialShell"
+            "ipc"
+            "call"
+            "processlist"
+            "toggle"
+          ];
+          "Mod+Comma".action.spawn = [
+            "qs"
+            "-c"
+            "DankMaterialShell"
+            "ipc"
+            "call"
+            "settings"
+            "toggle"
+          ];
+          "Super+L".action.spawn = [
+            "qs"
+            "-c"
+            "DankMaterialShell"
+            "ipc"
+            "call"
+            "lock"
+            "lock"
+          ];
+          "XF86AudioRaiseVolume" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "audio"
+              "increment"
+              "3"
+            ];
+          };
+          "XF86AudioLowerVolume" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "audio"
+              "decrement"
+              "3"
+            ];
+          };
+          "XF86AudioMute" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "audio"
+              "mute"
+            ];
+          };
+          "XF86AudioMicMute" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "audio"
+              "micmute"
+            ];
+          };
 
           "XF86MonBrightnessUp".action = sh "brightnessctl set 10%+";
           "XF86MonBrightnessDown".action = sh "brightnessctl set 10%-";
@@ -257,11 +322,9 @@ in
     services.hypridle = let
       niri = lib.getExe config.programs.niri.package;
       loginctl = "${pkgs.systemd}/bin/loginctl";
-      pidof = "${pkgs.procps}/bin/pidof";
-      locking-script = "${pidof} hyprlock || ${lib.getExe pkgs.hyprlock}";
+      qs = "${inputs.quickshell.packages.${pkgs.system}.quickshell}/bin/qs";
+      locking-script = "${qs} -c DankMaterialShell ipc call lock lock";
       systemctl = "${pkgs.systemd}/bin/systemctl";
-      #locking-script = "${pkgs.swaylock}/bin/swaylock --daemonize";
-      #unlocking-script = "pkill -SIGUSR1 swaylock";
       suspendScript = cmd:
         pkgs.writeShellScript "suspend-script" ''
           # check if any player has status "Playing"
@@ -274,8 +337,8 @@ in
     in {
       enable = true;
       settings.general = {
-        before_sleep_cmd = "${pidof} hyprlock || ${loginctl} lock-session;#${niri} msg action power-off-monitors";
-        after_sleep_cmd = "#${niri} msg action power-on-monitors";
+        before_sleep_cmd = "${loginctl} lock-session";
+        #after_sleep_cmd = "#${niri} msg action power-on-monitors";
         lock_cmd = "${locking-script}";
       };
       settings.listener = let

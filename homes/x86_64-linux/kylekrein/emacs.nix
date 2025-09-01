@@ -18,7 +18,7 @@ in {
       Description = "Launches (and relaunches) emacs";
     };
     Install = {
-      WantedBy = ["default.target"];
+      WantedBy = ["graphical-session.target"];
     };
     Service = {
       ExecStart = "${pkgs.writeShellScript "run-emacs" ''

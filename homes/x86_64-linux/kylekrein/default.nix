@@ -18,6 +18,7 @@ in
           firstNixOSInstall = 1729112485;
         };
         nheko.enable = osConfig.custom.presets.wayland.enable;
+        xournalpp.enable = osConfig.custom.presets.wayland.enable;
         librewolf.enable = osConfig.custom.presets.wayland.enable;
         prismlauncher.enable = osConfig.custom.presets.gaming.enable;
         bottles.enable = osConfig.custom.presets.wayland.enable;

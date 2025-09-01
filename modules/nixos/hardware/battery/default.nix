@@ -30,9 +30,14 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (import ./batteryStatus.nix {
-    inherit config;
-    inherit namespace;
-    inherit pkgs;
-  });
+  config = mkIf cfg.enable (mkMerge [
+    (import ./batteryStatus.nix {
+      inherit config;
+      inherit namespace;
+      inherit pkgs;
+    })
+    {
+      services.upower.enable = true;
+    }
+  ]);
 }
