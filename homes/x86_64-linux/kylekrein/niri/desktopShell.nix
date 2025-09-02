@@ -54,6 +54,7 @@ in
       settings = {
         spawn-at-startup = [
           {command = ["qs" "-c" "DankMaterialShell"];}
+          {command = ["wl-paste" "--watch" "cliphist" "store"];}
         ];
       };
     };

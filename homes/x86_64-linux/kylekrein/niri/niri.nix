@@ -205,13 +205,49 @@ in
             ];
           };
 
-          "XF86MonBrightnessUp".action = sh "brightnessctl set 10%+";
-          "XF86MonBrightnessDown".action = sh "brightnessctl set 10%-";
+          "XF86MonBrightnessUp" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "brightness"
+              "increment"
+              "5"
+            ];
+          };
+          "XF86MonBrightnessDown" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "brightness"
+              "decrement"
+              "5"
+            ];
+          };
 
-          "XF86AudioNext".action = sh "playerctl next";
-          "XF86AudioPause".action = sh "playerctl play-pause";
-          "XF86AudioPlay".action = sh "playerctl play-pause";
-          "XF86AudioPrev".action = sh "playerctl previous";
+          "XF86AudioNext" = {
+            allow-when-locked = true;
+            action = sh "playerctl next";
+          };
+          "XF86AudioPause" = {
+            allow-when-locked = true;
+            action = sh "playerctl play-pause";
+          };
+          "XF86AudioPlay" = {
+            allow-when-locked = true;
+            action = sh "playerctl play-pause";
+          };
+          "XF86AudioPrev" = {
+            allow-when-locked = true;
+            action = sh "playerctl previous";
+          };
           #"Mod+Tab".action = focus-window-down-or-column-right;
           #"Mod+Shift+Tab".action = focus-window-up-or-column-left;
           "Mod+Tab".action = toggle-overview;
@@ -223,7 +259,7 @@ in
           };
           warp-mouse-to-focus.enable = true;
           keyboard = {
-            xkb.layout = "us, ru, de";
+            xkb.layout = "eu, ru";
             xkb.options = "grp:lctrl_toggle, ctrl:nocaps";
             track-layout = "window";
             numlock = true;

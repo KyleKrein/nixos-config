@@ -68,11 +68,11 @@ in {
     };
     # Configure keymap in X11
     services.xserver.xkb = {
-      layout = "us,ru";
+      layout = "eu,ru";
       variant = "";
       options = "grp:caps_toggle";
     };
-    console.keyMap = "us";
+    console.keyMap = "eu";
     nix = {
       settings = {
         experimental-features = [
