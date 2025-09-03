@@ -322,11 +322,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1756754735,
-        "narHash": "sha256-SaWkbxuEEp8Qe8WDAjHx+i10INdUArJ1dr6WXshuULQ=",
+        "lastModified": 1756878410,
+        "narHash": "sha256-MAgB/odrb8pdPjXxRUJWNKIYilz2Zf6PmN2XbnfMP6Y=",
         "owner": "KyleKrein",
         "repo": "DesktopShell",
-        "rev": "229656ac9edef9333090ea07a2f663dceadc0bf4",
+        "rev": "62a483c288a5875c92174d013b14e63cb67e3a4a",
         "type": "github"
       },
       "original": {

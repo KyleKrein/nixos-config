@@ -34,6 +34,7 @@
   "controlCenterShowAudioIcon": true,
   "showWorkspaceIndex": false,
   "showWorkspacePadding": false,
+  "showWorkspaceApps": true,
   "workspaceNameIcons": {},
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,
@@ -44,10 +45,13 @@
   "mediaSize": 1,
   "topBarLeftWidgets": [
     "launcherButton",
-    "workspaceSwitcher"
+    "advancedWorkspaceSwitcher",
+    {
+      "id": "workspaceSwitcher",
+      "enabled": true
+    }
   ],
   "topBarCenterWidgets": [
-    "music",
     "clock",
     "weather"
   ],

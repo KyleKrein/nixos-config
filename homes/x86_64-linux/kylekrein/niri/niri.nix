@@ -216,6 +216,7 @@ in
               "brightness"
               "increment"
               "5"
+              ""
             ];
           };
           "XF86MonBrightnessDown" = {
@@ -229,6 +230,7 @@ in
               "brightness"
               "decrement"
               "5"
+              ""
             ];
           };
 
@@ -257,7 +259,7 @@ in
           focus-follows-mouse = {
             #enable = true;
           };
-          warp-mouse-to-focus.enable = true;
+          warp-mouse-to-focus.enable = false;
           keyboard = {
             xkb.layout = "eu, ru";
             xkb.options = "grp:lctrl_toggle, ctrl:nocaps";
@@ -376,6 +378,8 @@ in
         before_sleep_cmd = "${loginctl} lock-session";
         #after_sleep_cmd = "#${niri} msg action power-on-monitors";
         lock_cmd = "${locking-script}";
+        ignore_dbus_inhibit = false; # whether to ignore dbus-sent idle-inhibit requests (used by e.g. firefox or steam)
+        ignore_systemd_inhibit = false; # whether to ignore systemd-inhibit --what=idle inhibitors
       };
       settings.listener = let
         secondary = "${systemctl} suspend";
@@ -400,13 +404,13 @@ in
         Description = "Makes sure that you have touchscreen gestures.";
       };
       Install = {
-        WantedBy = ["graphical.target"];
+        WantedBy = ["graphical-session.target"];
       };
       Service = {
         ExecStart = "${pkgs.writeShellScript "run-lisgd" ''
           ${pkgs.custom.lisgd-kylekrein}/bin/lisgd
         ''}";
-        Restart = "on-failure";
+        Restart = "always";
         RestartSec = 5;
       };
     };
@@ -415,7 +419,7 @@ in
         Description = "Adds auto rotation to Niri.";
       };
       Install = {
-        WantedBy = ["graphical.target"];
+        WantedBy = ["graphical-session.target"];
       };
       Service = {
         ExecStart = "${pkgs.writeShellScript "autorotate" ''
