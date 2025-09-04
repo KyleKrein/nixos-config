@@ -21,10 +21,9 @@ in {
 
   config = mkIf cfg.enable {
     ${namespace} = {
-      loginManagers.sddm.enable = mkDefault true;
       programs.dolphin.enable = mkDefault true;
     };
-    security.pam.services.hyprlock = {};
+    security.pam.services.quickshell = {};
     programs.niri = {
       enable = true;
       package = pkgs.niri-unstable;
@@ -36,7 +35,9 @@ in {
       libsecret
       gamescope
       xwayland-satellite-unstable
-      swaybg
     ];
+
+    #greeter
+    services.xserver.displayManager.gdm.enable = true;
   };
 }

@@ -47,7 +47,6 @@ in
     custom.presets.workstation = enabled;
     custom.presets.gaming = enabled;
     custom.windowManagers.niri = enabled;
-    custom.loginManagers.sddm = enabled;
     custom.services.ai = {
       enable = true;
       models = ["qwq" "llama3.1" "qwen2.5-coder:7b" "gpt-oss:20b"];

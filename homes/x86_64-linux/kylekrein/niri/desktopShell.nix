@@ -22,15 +22,24 @@ in
       wl-clipboard
       cliphist
       ddcutil
-      libsForQt5.qt5ct
-      kdePackages.qt6ct
       matugen
       dgop
       glib
       khal # calendar
       gammastep # night mode
-      kdePackages.qtvirtualkeyboard
+      colloid-gtk-theme
     ];
+    programs.niri.settings.environment = {
+      GTK_THEME = "Colloid";
+    };
+    qt.enable = true;
+    qt.style.name = "gtk3";
+    programs.kitty = {
+      themeFile = lib.mkForce null;
+      extraConfig = ''
+        include ${home}/.config/kitty/dank-theme.conf
+      '';
+    };
     xdg.configFile."quickshell".source = "${
       inputs.desktopShell.packages.${pkgs.system}.dankMaterialShell
     }/etc/xdg/quickshell";

@@ -35,6 +35,7 @@
   "showWorkspaceIndex": false,
   "showWorkspacePadding": false,
   "showWorkspaceApps": true,
+  "maxWorkspaceIcons": 30,
   "workspaceNameIcons": {},
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,

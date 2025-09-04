@@ -43,7 +43,6 @@ in
       swapSize = 32;
     };
     custom.windowManagers.niri = enabled;
-    custom.loginManagers.sddm = enabled;
     custom.services.ai = {
       enable = true;
       models = ["qwq" "llama3.1" "qwen2.5-coder:7b" "gpt-oss:20b" "gpt-oss:120b"];

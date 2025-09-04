@@ -72,7 +72,7 @@ in {
       variant = "";
       options = "grp:caps_toggle";
     };
-    console.keyMap = "eu";
+    console.keyMap = "us";
     nix = {
       settings = {
         experimental-features = [
