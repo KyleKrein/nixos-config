@@ -43,6 +43,8 @@ in {
         "/var/lib/zerotier-one"
         "/var/lib/systemd/coredump"
         "/var/lib/acme"
+        "/var/lib/upower"
+        "/var/lib/power-profiles-daemon"
         #"/var/lib/conduwuit"
         "/etc/NetworkManager/system-connections"
         {

@@ -51,12 +51,10 @@ in {
       gparted
       qdirstat
       exfatprogs
-      kitty
       tealdeer
       telegram-desktop
       vlc
       git-credential-manager
-      kitty-themes
       qpwgraph
       solaar
       pdfarranger
