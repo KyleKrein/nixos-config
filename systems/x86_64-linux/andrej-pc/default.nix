@@ -50,10 +50,9 @@ with lib.custom; {
 
   services.flatpak = enabled;
   security.pam.services.quickshell = {};
-
+  services.displayManager.sddm.enable = true;
   services.xserver = {
     enable = true;
-    displayManager.sddm.enable = true;
   };
   programs.hyprland.enable = true;
 
