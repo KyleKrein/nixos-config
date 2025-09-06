@@ -25,7 +25,7 @@ in {
     disko.devices = {
       disk = {
         "${cfg.device}" = {
-          inherit device;
+          inherit (cfg) device;
           type = "disk";
           content = {
             type = "gpt";

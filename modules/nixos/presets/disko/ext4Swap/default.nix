@@ -26,7 +26,7 @@ in {
     disko.devices = {
       disk.${cfg.device} = {
         type = "disk";
-        inherit device;
+        inherit (cfg) device;
         content = {
           type = "gpt"; # Initialize the disk with a GPT partition table
           partitions = {
