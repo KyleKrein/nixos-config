@@ -1,38 +1,37 @@
-# NixOS Config
+* NixOS Config
 
-Apply cloned config
+** Apply cloned config
 
-```bash
+#+begin_src shell
 sudo nixos-rebuild switch --flake ~/nixos-config#kylekrein-homepc
-```
+#+end_src
 
-Rebuild system
+** Rebuild system
 
-```bash
+#+begin_src shell
 nh os switch
-```
+#+end_src
 
-Generate hardware report
-
-```bash
+** Generate hardware report
+#+begin_src shell
 sudo nix run \
   --option experimental-features "nix-command flakes" \
   --option extra-substituters https://numtide.cachix.org \
   --option extra-trusted-public-keys numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE= \
   github:numtide/nixos-facter -- -o facter.json
-```
+#+end_src
 
-## Install system
+* Install system
 
 Assuming that you're in nixos installer
 
-```bash
+#+begin_src shell
 sudo nix --extra-experimental-features "flakes nix-command" run github:nix-community/disko -- --mode zap_create_mount --flake github:KyleKrein/nixos-config#kylekrein-homepc
-```
+#+end_src
 
 Copy sops age keys to `/persist/sops/age/keys.txt` or to
 `/var/lib/sops/age/keys.txt` if not using impermanence
 
-```bash
-sudo mkdir /mnt/tmp && TMPDIR=/mnt/tmp sudo nixos-install --flake github:KyleKrein/nixos-config#kylekrein-homepc --no-root-passwd && sudo rm -rf /mnt/tmp
-```
+#+begin_src shell
+sudo mkdir -p /mnt/tmp && TMPDIR=/mnt/tmp sudo nixos-install --flake github:KyleKrein/nixos-config#kylekrein-homepc --no-root-passwd && sudo rm -rf /mnt/tmp
+#+end_src
