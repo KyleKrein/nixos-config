@@ -41,7 +41,7 @@ with lib.custom; {
         swapSize = 16;
       };
       ext4 = {
-        enable = false;
+        enable = true;
         device = "/dev/sdb";
         mountpoint = "/home/andrej/SteamGames";
       };
