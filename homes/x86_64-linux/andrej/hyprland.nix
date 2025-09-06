@@ -25,7 +25,7 @@
     libnotify
     emacs-pgtk
   ];
-  home.environment = {
+  home.sessionVariables = {
     GTK_THEME = "Colloid";
   };
   qt.enable = true;
