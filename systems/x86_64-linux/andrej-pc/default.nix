@@ -15,6 +15,7 @@ with lib;
 with lib.custom; {
   facter.reportPath = ./facter.json;
   custom = {
+    programs.dolphin = enabled;
     presets.default = enabled;
     presets.wayland = enabled;
     presets.gaming = enabled;
@@ -40,20 +41,21 @@ with lib.custom; {
         swapSize = 16;
       };
       ext4 = {
-        enable = true;
+        enable = false;
         device = "/dev/sdb";
-        mountpoint = "/run/extraDrive";
+        mountpoint = "/home/andrej/SteamGames";
       };
     };
   };
 
   services.flatpak = enabled;
+  security.pam.services.quickshell = {};
 
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    displayManager.sddm.enable = true;
   };
+  programs.hyprland.enable = true;
 
   networking.firewall.allowedTCPPorts = [22 25565];
   networking.firewall.allowedUDPPorts = [22 25565];
