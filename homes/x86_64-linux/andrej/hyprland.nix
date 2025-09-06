@@ -25,7 +25,7 @@
     libnotify
     emacs-pgtk
   ];
-  programs.niri.settings.environment = {
+  home.environment = {
     GTK_THEME = "Colloid";
   };
   qt.enable = true;
