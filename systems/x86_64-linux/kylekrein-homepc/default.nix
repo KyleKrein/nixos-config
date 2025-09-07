@@ -33,6 +33,8 @@ in
 
     custom.hardware.nvidia = enabled;
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+    system.modulesTree = [pkgs.linux_cachyos.modules];
+
     services.scx.enable = true; # by default uses scx_rustland scheduler
     custom.impermanence = enabled;
     custom.presets.workstation = enabled;
