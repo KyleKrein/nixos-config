@@ -198,11 +198,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1754907869,
-        "narHash": "sha256-tzshAAjt0xDjCc/aOgii6PSqePIc2rWYSXF8VnqEhIg=",
+        "lastModified": 1757182941,
+        "narHash": "sha256-81TKa5U84gRc6krwhVOwb5gpgXgYxIeS1kkwOTw1GN4=",
         "owner": "chaotic-cx",
         "repo": "nyx",
-        "rev": "b5f83e0d7bce67af178f6aaef95853fedf4c00a0",
+        "rev": "11bfa4c0dc07da1e7e49c5111cc9bfa1260ba98f",
         "type": "github"
       },
       "original": {
@@ -318,15 +318,17 @@
     },
     "desktopShell": {
       "inputs": {
+        "dgop": "dgop",
+        "dms-cli": "dms-cli",
         "nixpkgs": "nixpkgs_7",
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1757102912,
-        "narHash": "sha256-rTu7++/SPGNbPKJe0W1HQvpT1CRzb56CI1EB3Do583E=",
+        "lastModified": 1757235604,
+        "narHash": "sha256-wjYdp2DolfsMFt03Z7TxAggesMoYFiFXm4weQqvp8yk=",
         "owner": "KyleKrein",
         "repo": "DesktopShell",
-        "rev": "8d674a4fdc250999700e6a2bba26e1b6e09fa61d",
+        "rev": "98c5798e66a98218b3cdb39bc8eb60fe18583dbc",
         "type": "github"
       },
       "original": {
@@ -372,6 +374,27 @@
     "dgop": {
       "inputs": {
         "nixpkgs": [
+          "desktopShell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755962344,
+        "narHash": "sha256-Who8Q9eZS2QTXasgTL4i9YtHkjPqAZven1znUI+nP6w=",
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "rev": "4d3a0431b7d65008349c45952d53665e3aade0f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "type": "github"
+      }
+    },
+    "dgop_2": {
+      "inputs": {
+        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -406,6 +429,27 @@
       "original": {
         "owner": "nix-community",
         "repo": "disko",
+        "type": "github"
+      }
+    },
+    "dms-cli": {
+      "inputs": {
+        "nixpkgs": [
+          "desktopShell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1757112511,
+        "narHash": "sha256-WE1cUTr53VJG06YAkpYG+HvdXp4fFyqZwXqsABOXYFY=",
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
+        "rev": "563c7fdcba0e8c6ac0f4b3292308e8bcbb553da6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
         "type": "github"
       }
     },
@@ -4286,7 +4330,7 @@
         "conduwuit": "conduwuit",
         "deploy-rs": "deploy-rs",
         "desktopShell": "desktopShell",
-        "dgop": "dgop",
+        "dgop": "dgop_2",
         "disko": "disko",
         "emacs-kylekrein": "emacs-kylekrein",
         "home-manager": "home-manager_2",

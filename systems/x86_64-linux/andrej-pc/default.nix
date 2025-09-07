@@ -60,7 +60,7 @@ with lib.custom; {
   networking.firewall.allowedUDPPorts = [22 25565];
 
   services.scx.enable = true; # by default uses scx_rustland scheduler
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest; #_cachyos-gcc;
 
   security.polkit.enable = true;
 
