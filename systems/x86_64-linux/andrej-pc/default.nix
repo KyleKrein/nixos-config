@@ -119,6 +119,7 @@ with lib.custom; {
   #hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
   systemd.network.wait-online.enable = lib.mkForce false;
 
+  networking.networkmanager.enable = true;
   services.udisks2.enable = true;
 
   services.zerotierone = {
