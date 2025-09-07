@@ -59,8 +59,8 @@ in
       blender
       video-downloader
     ];
-    services.power-profiles-daemon.enable = true;
-    services.tlp.enable = false;
+    #services.power-profiles-daemon.enable = true;
+    #services.tlp.enable = false;
     #Chat host
     networking.firewall.allowedTCPPorts = [80 443 22 8448 9993 8081];
 
