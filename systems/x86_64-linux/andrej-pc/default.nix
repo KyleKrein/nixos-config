@@ -54,7 +54,10 @@ with lib.custom; {
   services.xserver = {
     enable = true;
   };
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    systemd.setPath = enabled;
+  };
 
   networking.firewall.allowedTCPPorts = [22 25565];
   networking.firewall.allowedUDPPorts = [22 25565];
