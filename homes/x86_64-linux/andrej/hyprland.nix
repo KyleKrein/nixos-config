@@ -24,6 +24,7 @@
     brightnessctl
     libnotify
     emacs-pgtk
+    hyprshot
   ];
   home.sessionVariables = {
     GTK_THEME = "Colloid";
