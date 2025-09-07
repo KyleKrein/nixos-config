@@ -25,6 +25,8 @@
     libnotify
     emacs-pgtk
     hyprshot
+    jq
+    kdePackages.gwenview
   ];
   home.sessionVariables = {
     GTK_THEME = "Colloid";
