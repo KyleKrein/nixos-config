@@ -383,21 +383,20 @@ in
       };
       settings.listener = let
         secondary = "${systemctl} suspend";
-      in
-        lib.optionals (osConfig.custom.hardware.battery.enable) [
-          #{
-          #  timeout = 30;
-          #  command = "pidof hyprlock && ${secondary}";
-          #}
-          {
-            timeout = 870;
-            on-timeout = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
-          }
-          {
-            timeout = 900;
-            on-timeout = "${suspendScript "${systemctl} suspend"}";
-          }
-        ];
+      in [
+        #{
+        #  timeout = 30;
+        #  command = "pidof hyprlock && ${secondary}";
+        #}
+        {
+          timeout = 870;
+          on-timeout = "${suspendScript ''${pkgs.libnotify}/bin/notify-send "You are idle. Going to sleep in 30 seconds"''}";
+        }
+        {
+          timeout = 900;
+          on-timeout = "${suspendScript "${systemctl} suspend"}";
+        }
+      ];
     };
     systemd.user.services.lisgd-niri = lib.mkIf (osConfig.custom.hardware.framework12.enable) {
       Unit = {
