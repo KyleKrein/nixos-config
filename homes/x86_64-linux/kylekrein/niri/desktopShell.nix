@@ -29,11 +29,6 @@ in
       gammastep # night mode
       colloid-gtk-theme
     ];
-    programs.niri.settings.environment = {
-      GTK_THEME = "Colloid";
-    };
-    qt.enable = true;
-    qt.style.name = "gtk3";
     programs.kitty = {
       themeFile = lib.mkForce null;
       extraConfig = ''
@@ -59,10 +54,23 @@ in
       };
     };
 
+    systemd.user.services.desktop-shell = {
+      Unit = {
+        Description = "Launches (and relaunches) Desktop Shell";
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = ''${lib.getExe pkgs.bash} -c "qs -c DankMaterialShell"'';
+        Restart = "always";
+        RestartSec = 5;
+      };
+    };
+
     programs.niri = {
       settings = {
         spawn-at-startup = [
-          {command = ["qs" "-c" "DankMaterialShell"];}
           {command = ["wl-paste" "--watch" "cliphist" "store"];}
         ];
       };

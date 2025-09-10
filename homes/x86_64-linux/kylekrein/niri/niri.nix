@@ -67,7 +67,6 @@ in
           "Mod+Shift+C".action = sh "nautilus";
           "Mod+C".action = emacs ''(dirvish \"${home}\")'';
           "Mod+T".action = spawn "kitty";
-          "Mod+D".action = spawn "fuzzel";
           "Mod+B".action = spawn "librewolf";
           "Mod+H".action = show-hotkey-overlay;
           "Mod+F".action = fullscreen-window;
@@ -109,53 +108,77 @@ in
           "Mod+Shift+Ctrl+Left".action = move-column-to-monitor-left;
           "Mod+Shift+Ctrl+Right".action = move-column-to-monitor-right;
 
-          "Mod+Space".action.spawn = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "spotlight"
-            "toggle"
-          ];
-          "Mod+V".action.spawn = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "clipboard"
-            "toggle"
-          ];
-          "Mod+M".action.spawn = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "processlist"
-            "toggle"
-          ];
-          "Mod+Comma".action.spawn = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "settings"
-            "toggle"
-          ];
-          "Super+L".action.spawn = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "lock"
-            "lock"
-          ];
+          "Ctrl+Alt+Delete" = {
+            hotkey-overlay.title = "Restart Desktop Shell";
+            action.spawn = [
+              "pkill"
+              "quickshell"
+            ];
+          };
+
+          "Mod+Space" = {
+            hotkey-overlay.title = "App Launcher";
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "spotlight"
+              "toggle"
+            ];
+          };
+          "Mod+V" = {
+            hotkey-overlay.title = "Clipboard Manager";
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "clipboard"
+              "toggle"
+            ];
+          };
+          "Mod+M" = {
+            hotkey-overlay.title = "System Monitor";
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "processlist"
+              "toggle"
+            ];
+          };
+          "Mod+Comma" = {
+            hotkey-overlay.title = "Open Settings";
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "settings"
+              "toggle"
+            ];
+          };
+          "Super+L" = {
+            hotkey-overlay.title = "Lock";
+            action.spawn = [
+              "qs"
+              "-c"
+              "DankMaterialShell"
+              "ipc"
+              "call"
+              "lock"
+              "lock"
+            ];
+          };
           "XF86AudioRaiseVolume" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -169,6 +192,7 @@ in
           };
           "XF86AudioLowerVolume" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -182,6 +206,7 @@ in
           };
           "XF86AudioMute" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -194,6 +219,7 @@ in
           };
           "XF86AudioMicMute" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -207,6 +233,7 @@ in
 
           "XF86MonBrightnessUp" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -221,6 +248,7 @@ in
           };
           "XF86MonBrightnessDown" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action.spawn = [
               "qs"
               "-c"
@@ -236,18 +264,22 @@ in
 
           "XF86AudioNext" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action = sh "playerctl next";
           };
           "XF86AudioPause" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action = sh "playerctl play-pause";
           };
           "XF86AudioPlay" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action = sh "playerctl play-pause";
           };
           "XF86AudioPrev" = {
             allow-when-locked = true;
+            hotkey-overlay.hidden = true;
             action = sh "playerctl previous";
           };
           #"Mod+Tab".action = focus-window-down-or-column-right;

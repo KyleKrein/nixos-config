@@ -27,6 +27,7 @@
     hyprshot
     jq
     kdePackages.gwenview
+    kdePackages.ark
   ];
   home.sessionVariables = {
     GTK_THEME = "Colloid";

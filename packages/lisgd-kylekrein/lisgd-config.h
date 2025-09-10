@@ -20,7 +20,7 @@ double edgesizeleft = 50.0;
 double edgesizetop = 50.0;
 double edgesizeright = 50.0;
 double edgesizebottom = 50.0;
-double edgessizecaling = 1.0;
+double edgessizecaling = 2.0;
 char *device = "/dev/touchscreen";
 
 // Gestures can also be specified interactively from the command line using -g
@@ -49,6 +49,8 @@ Gesture gestures[] = {
      "niri msg action close-window"},
     {2, SwipeDU, EdgeBottom, DistanceAny, ActModeReleased,
      "pkill -34 -f wvkbd"},
+    {3, SwipeUD, EdgeTop, DistanceLong, ActModeReleased,
+     "pkill quickshell"},
     //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
     //"pkill -9 -f wvkbd-mobintl"},
     {3, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,
