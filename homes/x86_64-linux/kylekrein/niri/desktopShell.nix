@@ -28,6 +28,8 @@ in
       khal # calendar
       gammastep # night mode
       colloid-gtk-theme
+      qt6ct
+      libsForQt5.qt5ct
     ];
     programs.kitty = {
       themeFile = lib.mkForce null;

@@ -430,7 +430,7 @@ in
         }
       ];
     };
-    systemd.user.services.lisgd-niri = lib.mkIf (osConfig.custom.hardware.framework12.enable) {
+    systemd.user.services.lisgd-niri = lib.mkIf (config.custom.hardware.tablet.enable) {
       Unit = {
         Description = "Makes sure that you have touchscreen gestures.";
       };
@@ -445,7 +445,7 @@ in
         RestartSec = 5;
       };
     };
-    systemd.user.services.autorotate-niri = lib.mkIf (osConfig.custom.hardware.framework12.enable) {
+    systemd.user.services.autorotate-niri = lib.mkIf (config.custom.hardware.tablet.enable) {
       Unit = {
         Description = "Adds auto rotation to Niri.";
       };

@@ -8,7 +8,7 @@
   "use24HourClock": true,
   "useFahrenheit": false,
   "nightModeEnabled": false,
-  "weatherLocation": "Paderborn, Nordrhein-Westfalen",
+  "weatherLocation": "51.7177044, 8.7526530",
   "weatherCoordinates": "51.7177044,8.7526530",
   "useAutoLocation": false,
   "weatherEnabled": true,
@@ -36,6 +36,7 @@
   "showWorkspacePadding": false,
   "showWorkspaceApps": true,
   "maxWorkspaceIcons": 30,
+  "workspacesPerMonitor": true,
   "workspaceNameIcons": {},
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,
@@ -43,7 +44,7 @@
   "runningAppsCurrentWorkspace": false,
   "clockDateFormat": "ddd d",
   "lockDateFormat": "dddd, MMMM d",
-  "mediaSize": 1,
+  "mediaSize": 0,
   "topBarLeftWidgets": [
     "launcherButton",
     "advancedWorkspaceSwitcher",
@@ -53,8 +54,18 @@
     }
   ],
   "topBarCenterWidgets": [
-    "clock",
-    "weather"
+    {
+      "id": "music",
+      "enabled": true
+    },
+    {
+      "id": "clock",
+      "enabled": true
+    },
+    {
+      "id": "weather",
+      "enabled": true
+    }
   ],
   "topBarRightWidgets": [
     {
@@ -102,6 +113,7 @@
   "fontFamily": "Inter Variable",
   "monoFontFamily": "Fira Code",
   "fontWeight": 400,
+  "fontScale": 1,
   "gtkThemingEnabled": true,
   "qtThemingEnabled": true,
   "showDock": false,
@@ -109,12 +121,15 @@
   "cornerRadius": 12,
   "notificationOverlayEnabled": false,
   "topBarAutoHide": false,
+  "topBarOpenOnOverview": false,
   "topBarVisible": true,
   "topBarSpacing": 4,
   "topBarBottomGap": 0,
   "topBarInnerPadding": 8,
   "topBarSquareCorners": false,
   "topBarNoBackground": false,
+  "lockScreenShowPowerActions": true,
+  "hideBrightnessSlider": false,
   "notificationTimeoutLow": 5000,
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
