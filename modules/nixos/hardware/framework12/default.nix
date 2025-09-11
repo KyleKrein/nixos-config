@@ -53,6 +53,21 @@ in {
     hardware.enableRedistributableFirmware = true;
     environment.systemPackages = [
       pkgs.framework-tool
+      (pkgs.writeShellScriptBin "reset-tablet" ''
+        sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode tablet
+	sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode auto
+      '')
+    ];
+    security.sudo.extraRules = [
+      {
+        users = ["ALL"];
+        commands = [
+          {
+            command = "${pkgs.framework-tool}/bin/framework_tool";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
     ];
     users.groups.touchscreen = {};
     services.udev.extraRules = ''

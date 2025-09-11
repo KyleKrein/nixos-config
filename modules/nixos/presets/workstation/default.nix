@@ -60,6 +60,9 @@ in {
       pdfarranger
       densify
       gimp3
+      krita
+      inkscape
+      cameractrls-gtk4
 
       #kde
       kdePackages.gwenview
