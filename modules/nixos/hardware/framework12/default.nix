@@ -54,8 +54,8 @@ in {
     environment.systemPackages = [
       pkgs.framework-tool
       (pkgs.writeShellScriptBin "reset-tablet" ''
-        sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode tablet
-	sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode auto
+               sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode tablet
+        sudo ${pkgs.framework-tool}/bin/framework_tool --tablet-mode auto
       '')
     ];
     security.sudo.extraRules = [

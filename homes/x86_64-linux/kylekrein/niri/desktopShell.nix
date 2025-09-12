@@ -29,6 +29,9 @@ in
       gammastep # night mode
       colloid-gtk-theme
       qt6ct
+      grim
+      slurp
+      satty
       libsForQt5.qt5ct
     ];
     programs.kitty = {
