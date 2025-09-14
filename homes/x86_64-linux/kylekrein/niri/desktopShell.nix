@@ -27,7 +27,6 @@ in
       glib
       khal # calendar
       gammastep # night mode
-      colloid-gtk-theme
       qt6ct
       grim
       slurp
@@ -51,10 +50,10 @@ in
           ".local/share/color-schemes/DankMatugen.colors"
         ];
         directories = [
-          ".config/qt5ct"
-          ".config/qt6ct"
-          ".config/gtk-3.0"
-          ".config/gtk-4.0"
+          #".config/qt5ct"
+          #".config/qt6ct"
+          #".config/gtk-3.0"
+          #".config/gtk-4.0"
         ];
       };
     };

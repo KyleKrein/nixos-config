@@ -28,12 +28,8 @@
     jq
     kdePackages.gwenview
     kdePackages.ark
+    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
   ];
-  home.sessionVariables = {
-    GTK_THEME = "Colloid";
-  };
-  qt.enable = true;
-  qt.style.name = "gtk3";
   xdg.configFile."quickshell".source = "${
     inputs.desktopShell.packages.${pkgs.system}.dankMaterialShell
   }/etc/xdg/quickshell";
