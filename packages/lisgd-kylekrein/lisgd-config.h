@@ -52,7 +52,7 @@ Gesture gestures[] = {
     {3, SwipeUD, EdgeTop, DistanceLong, ActModeReleased,
      "systemctl --user restart desktop-shell.service"},
     {2, SwipeUD, EdgeTop, DistanceLong, ActModeReleased,
-     "grim -g \"$(slurp -w 0)\" -t ppm - | satty --early-exit --copy-command 'wl-copy' --filename '~/Pictures/Screenshots/Screenshot-%Y-%m-%d_%H:%M:%S.png' --initial-tool brush"},
+     "grim -g \"$(slurp -w 0)\" -t ppm - | satty --early-exit --copy-command 'wl-copy' --filename='-' -o '~/Pictures/Screenshots/Screenshot-%Y-%m-%d_%H:%M:%S.png' --initial-tool brush"},
     //{2, SwipeUD, EdgeBottom, DistanceAny, ActModeReleased,
     //"pkill -9 -f wvkbd-mobintl"},
     {3, SwipeDU, EdgeAny, DistanceAny, ActModeReleased,

@@ -42,7 +42,7 @@ in {
         "/var/lib/flatpak"
         "/var/lib/zerotier-one"
         "/var/lib/systemd/coredump"
-	"/var/lib/systemd/timers"
+        "/var/lib/systemd/timers"
         "/var/lib/acme"
         "/var/lib/upower"
         "/var/lib/power-profiles-daemon"

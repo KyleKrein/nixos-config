@@ -19,7 +19,7 @@ in
 
     programs.niri = {
       settings = {
-	cursor.theme = "Nordic-cursors";
+        cursor.theme = "Nordic-cursors";
       };
     };
   }

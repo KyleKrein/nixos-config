@@ -61,7 +61,7 @@ in
         binds = with config.lib.niri.actions; let
           sh = spawn "sh" "-c";
           emacs = action: sh "emacsclient -c --eval \"${action}\"";
-          screenshot-annotate = sh ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" -t ppm - | ${lib.getExe pkgs.satty} --early-exit --copy-command 'wl-copy' --filename '~/Pictures/Screenshots/Screenshot-%Y-%m-%d_%H:%M:%S.png' --initial-tool brush'';
+          screenshot-annotate = sh ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" -t ppm - | ${lib.getExe pkgs.satty} --early-exit --copy-command 'wl-copy' --filename='-' -o '~/Pictures/Screenshots/Screenshot-%Y-%m-%d_%H:%M:%S.png' --initial-tool brush'';
         in {
           "Mod+E".action = sh "emacsclient -c";
           "Mod+Shift+C".action = sh "nautilus";
