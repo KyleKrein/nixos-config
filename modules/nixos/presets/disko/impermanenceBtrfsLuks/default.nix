@@ -18,7 +18,7 @@ in {
   options.${namespace}.presets.disko.impermanenceBtrfsLuks = with types; {
     enable = mkBoolOpt false "Enable preset";
     device = mkOpt' str "/dev/nvme0n1";
-    swapSize = mkOpt' int 32;
+    swapSize = mkOpt' (nullOr int) 32;
   };
 
   config = mkIf cfg.enable {
@@ -77,7 +77,7 @@ in {
                         mountpoint = "/persist";
                         mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
                       };
-                      "/swap" = {
+                      "/swap" = mkIf (cfg.swapSize != null) {
                         mountpoint = "/swap";
                         swap.swapfile.size = "${builtins.toString cfg.swapSize}G";
                       };

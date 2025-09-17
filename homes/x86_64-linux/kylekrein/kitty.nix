@@ -1,9 +1,10 @@
 {
   osConfig,
+  config,
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [kitty-themes];
+  home.packages = with pkgs; lib.optionals (config.programs.kitty.enable) [kitty-themes];
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
