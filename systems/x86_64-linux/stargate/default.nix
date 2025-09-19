@@ -13,7 +13,10 @@
 }:
 with lib;
 with lib.custom; {
-  #facter.reportPath = ./facter.json;
+  facter.reportPath =
+    if (builtins.pathExists ./facter.json)
+    then ./facter.json
+    else null;
   imports = lib.snowfall.fs.get-non-default-nix-files ./. ++ [./services];
   #systemd.network.wait-online.enable = lib.mkForce false; #facter
   boot.supportedFilesystems = ["zfs"];

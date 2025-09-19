@@ -368,6 +368,18 @@ in
             open-focused = true;
           }
           {
+            #Screenshots
+            matches = [
+              {
+                title = "satty";
+              }
+            ];
+            open-floating = true;
+            open-focused = true;
+            min-width = 700;
+            min-height = 350;
+          }
+          {
             #PiP
             matches = [
               {
