@@ -60,11 +60,11 @@ in
       video-downloader
     ];
 
-    services.fprintd.enable = true;
+    #services.fprintd.enable = true;
     #services.fprintd.tod.enable = true;
     #services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan;
-    #services.power-profiles-daemon.enable = true;
-    #services.tlp.enable = false;
+    services.power-profiles-daemon.enable = true;
+    services.tlp.enable = false;
     #Chat host
     networking.firewall.allowedTCPPorts = [80 443 22 8448 9993 8081];
 

@@ -32,12 +32,13 @@
   "controlCenterShowNetworkIcon": true,
   "controlCenterShowBluetoothIcon": true,
   "controlCenterShowAudioIcon": true,
-  "showWorkspaceIndex": false,
+  "showWorkspaceIndex": true,
   "showWorkspacePadding": false,
   "showWorkspaceApps": true,
   "maxWorkspaceIcons": 30,
   "workspacesPerMonitor": true,
   "workspaceNameIcons": {},
+  "waveProgressEnabled": true,
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,
   "runningAppsCompactMode": true,
@@ -105,7 +106,7 @@
   "spotlightModalViewMode": "list",
   "networkPreference": "auto",
   "iconTheme": "System Default",
-  "useOSLogo": false,
+  "useOSLogo": true,
   "osLogoColorOverride": "",
   "osLogoBrightness": 0.5,
   "osLogoContrast": 1,
@@ -114,6 +115,9 @@
   "monoFontFamily": "Fira Code",
   "fontWeight": 400,
   "fontScale": 1,
+  "notepadUseMonospace": true,
+  "notepadFontFamily": "",
+  "notepadFontSize": 14,
   "gtkThemingEnabled": true,
   "qtThemingEnabled": true,
   "showDock": false,
@@ -121,17 +125,25 @@
   "cornerRadius": 12,
   "notificationOverlayEnabled": false,
   "topBarAutoHide": false,
-  "topBarOpenOnOverview": false,
+  "topBarOpenOnOverview": true,
   "topBarVisible": true,
   "topBarSpacing": 4,
   "topBarBottomGap": 0,
   "topBarInnerPadding": 8,
   "topBarSquareCorners": false,
   "topBarNoBackground": false,
+  "topBarGothCornersEnabled": false,
   "lockScreenShowPowerActions": true,
   "hideBrightnessSlider": false,
   "notificationTimeoutLow": 5000,
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
-  "screenPreferences": {}
+  "screenPreferences": {
+    "notifications": [
+      "all"
+    ],
+    "toast": [
+      "all"
+    ]
+  }
 }

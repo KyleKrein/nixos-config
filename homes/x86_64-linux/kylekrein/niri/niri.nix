@@ -51,12 +51,12 @@ in
         ];
         layout = {
           preset-column-widths = [
-            {proportion = 1.0 / 2.0;}
             {proportion = 1.0;}
+            {proportion = 1.0 / 2.0;}
             {proportion = 2.0 / 3.0;}
             {proportion = 1.0 / 3.0;}
           ];
-          default-column-width = {proportion = 1.0 / 2.0;};
+          default-column-width = {proportion = 1.0;};
         };
         binds = with config.lib.niri.actions; let
           sh = spawn "sh" "-c";
@@ -373,6 +373,9 @@ in
               {
                 title = "satty";
               }
+              {
+                app-id = "com.gabm.satty";
+              }
             ];
             open-floating = true;
             open-focused = true;
@@ -398,7 +401,7 @@ in
         ];
         xwayland-satellite = {
           enable = true;
-          path = "${lib.getExe pkgs.xwayland-satellite-stable}";
+          path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
         };
       };
     };

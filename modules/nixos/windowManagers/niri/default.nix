@@ -26,7 +26,7 @@ in {
     security.pam.services.quickshell = {};
     programs.niri = {
       enable = true;
-      package = pkgs.niri-stable;
+      package = pkgs.niri-unstable;
     };
     niri-flake.cache.enable = true;
     environment.systemPackages = with pkgs; [
@@ -34,7 +34,7 @@ in {
       wayland-utils
       libsecret
       gamescope
-      xwayland-satellite-stable
+      xwayland-satellite-unstable
     ];
 
     #greeter
