@@ -51,8 +51,8 @@ in
         ];
         layout = {
           preset-column-widths = [
+	    {proportion = 1.0 / 2.0;}
             {proportion = 1.0;}
-            {proportion = 1.0 / 2.0;}
             {proportion = 2.0 / 3.0;}
             {proportion = 1.0 / 3.0;}
           ];
@@ -72,6 +72,7 @@ in
           "Mod+F".action = fullscreen-window;
           "Mod+R".action = switch-preset-column-width;
           "Mod+Q".action = close-window;
+	  "Mod+P".action = sh ''emacsclient -cF "((visibility . nil))" -e "(emacs-run-password-copy-field)"'';
           "Mod+Shift+S".action = screenshot-annotate;
           "Mod+1".action = focus-workspace 1;
           "Mod+2".action = focus-workspace 2;
