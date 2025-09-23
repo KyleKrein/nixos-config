@@ -58,6 +58,9 @@ with lib.custom; {
     enable = true;
     systemd.setPath = enabled;
   };
+  services.scx.enable = true; # by default uses scx_rustland scheduler
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+  system.modulesTree = [pkgs.linux_cachyos.modules];
 
   networking.firewall.allowedTCPPorts = [22 25565];
   networking.firewall.allowedUDPPorts = [22 25565];

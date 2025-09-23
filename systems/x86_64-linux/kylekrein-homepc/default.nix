@@ -32,6 +32,9 @@ in
     systemd.network.wait-online.enable = lib.mkForce false; #facter
 
     custom.hardware.nvidia = enabled;
+    services.scx.enable = true; # by default uses scx_rustland scheduler
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+    system.modulesTree = [pkgs.linux_cachyos.modules];
     custom.impermanence = enabled;
     custom.presets.workstation = enabled;
     custom.presets.gaming = enabled;
