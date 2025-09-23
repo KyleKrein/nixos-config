@@ -23,8 +23,8 @@
     },
     "bluetooth": [
       {
-        "index": 42,
-        "attached_to": 40,
+        "index": 40,
+        "attached_to": 39,
         "class_list": [
           "usb",
           "bluetooth"
@@ -102,8 +102,8 @@
         "module_alias": "usb:v8087p0033d0000dcE0dsc01dp01icE0isc01ip01in00"
       },
       {
-        "index": 47,
-        "attached_to": 40,
+        "index": 44,
+        "attached_to": 39,
         "class_list": [
           "usb",
           "bluetooth"
@@ -298,6 +298,14 @@
           "secondary_bus": 0,
           "prog_if": 0
         },
+        "driver": "igen6_edac",
+        "driver_module": "igen6_edac",
+        "drivers": [
+          "igen6_edac"
+        ],
+        "driver_modules": [
+          "igen6_edac"
+        ],
         "module_alias": "pci:v00008086d0000A708sv0000F111sd0000000Cbc06sc00i00"
       },
       {
@@ -363,16 +371,20 @@
           "prog_if": 0
         },
         "driver": "pcieport",
+        "driver_module": "pcieportdrv",
         "drivers": [
           "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
         ],
         "module_alias": "pci:v00008086d0000A74Dsv0000F111sd0000000Cbc06sc04i00"
       }
     ],
     "camera": [
       {
-        "index": 39,
-        "attached_to": 40,
+        "index": 38,
+        "attached_to": 39,
         "class_list": [
           "camera",
           "usb"
@@ -406,7 +418,7 @@
           "name": "0.16",
           "value": 0
         },
-        "serial": "FRAPABCHA1521301YH",
+        "serial": "FRAPABCHA1521301WX",
         "model": "Framework Laptop 12 Webcam Module",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-7/3-7:1.0",
         "sysfs_bus_id": "3-7:1.0",
@@ -473,8 +485,8 @@
         "module_alias": "usb:v32ACp001Dd0016dcEFdsc02dp01ic0Eisc01ip01in00"
       },
       {
-        "index": 44,
-        "attached_to": 40,
+        "index": 41,
+        "attached_to": 39,
         "class_list": [
           "camera",
           "usb"
@@ -508,7 +520,7 @@
           "name": "0.16",
           "value": 0
         },
-        "serial": "FRAPABCHA1521301YH",
+        "serial": "FRAPABCHA1521301WX",
         "model": "Framework Laptop 12 Webcam Module",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-7/3-7:1.1",
         "sysfs_bus_id": "3-7:1.1",
@@ -644,6 +656,7 @@
           "cx16",
           "xtpr",
           "pdcm",
+          "pcid",
           "sse4_1",
           "sse4_2",
           "x2apic",
@@ -729,7 +742,9 @@
           "swapgs",
           "eibrs_pbrsb",
           "rfds",
-          "bhi"
+          "bhi",
+          "spectre_v2_user",
+          "vmscape"
         ],
         "power_management": [
           ""
@@ -737,6 +752,7 @@
         "bogo": 4992,
         "cache": 12288,
         "units": 64,
+        "page_size": 4096,
         "physical_id": 0,
         "siblings": 12,
         "cores": 10,
@@ -836,22 +852,11 @@
       },
       {
         "index": 37,
-        "attached_to": 32,
+        "attached_to": 0,
         "class_list": [
           "disk",
-          "usb",
-          "scsi",
           "block_device"
         ],
-        "bus_type": {
-          "hex": "0084",
-          "name": "SCSI",
-          "value": 132
-        },
-        "slot": {
-          "bus": 1,
-          "number": 0
-        },
         "base_class": {
           "hex": "0106",
           "name": "Mass Storage Device",
@@ -862,151 +867,21 @@
           "name": "Disk",
           "value": 0
         },
-        "vendor": {
-          "hex": "0781",
-          "name": "SanDisk",
-          "value": 1921
-        },
-        "device": {
-          "hex": "5567",
-          "name": "Cruzer Blade",
-          "value": 21863
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "1.26",
-          "value": 0
-        },
-        "serial": "4C532000020817105100",
-        "model": "SanDisk Cruzer Blade",
-        "sysfs_id": "/class/block/sdb",
-        "sysfs_bus_id": "1:0:0:0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb3/3-4/3-4:1.0/host1/target1:0:0/1:0:0:0",
+        "model": "Disk",
+        "sysfs_id": "/class/block/zram0",
         "unix_device_names": [
-          "/dev/disk/by-id/usb-SanDisk_Cruzer_Blade_4C532000020817105100-0:0",
-          "/dev/disk/by-path/pci-0000:00:14.0-usb-0:4:1.0-scsi-0:0:0:0",
-          "/dev/disk/by-path/pci-0000:00:14.0-usbv2-0:4:1.0-scsi-0:0:0:0",
-          "/dev/sdb"
+          "/dev/disk/by-label/zram0",
+          "/dev/disk/by-uuid/b18d0484-0df6-4e53-b431-97c36d8a68f3",
+          "/dev/zram0"
         ],
-        "unix_device_name2": "/dev/sg1",
         "resources": [
-          {
-            "type": "baud",
-            "speed": 480000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          },
-          {
-            "type": "disk_geo",
-            "cylinders": 1017,
-            "heads": 124,
-            "sectors": 62,
-            "size": "0x0",
-            "geo_type": "logical"
-          },
           {
             "type": "size",
             "unit": "sectors",
-            "value_1": 7821312,
-            "value_2": 512
+            "value_1": 6131456,
+            "value_2": 4096
           }
-        ],
-        "driver": "usb-storage",
-        "driver_module": "usb_storage",
-        "drivers": [
-          "sd",
-          "usb-storage"
-        ],
-        "driver_modules": [
-          "sd_mod",
-          "usb_storage"
-        ],
-        "module_alias": "usb:v0781p5567d0126dc00dsc00dp00ic08isc06ip50in00"
-      },
-      {
-        "index": 38,
-        "attached_to": 17,
-        "class_list": [
-          "disk",
-          "usb",
-          "scsi",
-          "block_device"
-        ],
-        "bus_type": {
-          "hex": "0084",
-          "name": "SCSI",
-          "value": 132
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0106",
-          "name": "Mass Storage Device",
-          "value": 262
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Disk",
-          "value": 0
-        },
-        "vendor": {
-          "hex": "0781",
-          "name": "USB",
-          "value": 1921
-        },
-        "device": {
-          "hex": "55ab",
-          "name": "SanDisk 3.2Gen1",
-          "value": 21931
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "1.00",
-          "value": 0
-        },
-        "serial": "0401570c9b2d0d0e2606",
-        "model": "USB SanDisk 3.2Gen1",
-        "sysfs_id": "/class/block/sda",
-        "sysfs_bus_id": "0:0:0:0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:0d.0/usb2/2-2/2-2:1.0/host0/target0:0:0/0:0:0:0",
-        "unix_device_names": [
-          "/dev/disk/by-id/usb-USB_SanDisk_3.2Gen1_0401570c9b2d0d0e2606c0209a79d144b8ba0d37318074eb2d6b8ddc150b5ee378c60000000000000000000068de47f9ff931b18ab5581075caa5978-0:0",
-          "/dev/disk/by-path/pci-0000:00:0d.0-usb-0:2:1.0-scsi-0:0:0:0",
-          "/dev/disk/by-path/pci-0000:00:0d.0-usbv3-0:2:1.0-scsi-0:0:0:0",
-          "/dev/sda"
-        ],
-        "unix_device_name2": "/dev/sg0",
-        "resources": [
-          {
-            "type": "disk_geo",
-            "cylinders": 58680,
-            "heads": 64,
-            "sectors": 32,
-            "size": "0x0",
-            "geo_type": "logical"
-          },
-          {
-            "type": "size",
-            "unit": "sectors",
-            "value_1": 120176640,
-            "value_2": 512
-          }
-        ],
-        "driver": "usb-storage",
-        "driver_module": "usb_storage",
-        "drivers": [
-          "sd",
-          "usb-storage"
-        ],
-        "driver_modules": [
-          "sd_mod",
-          "usb_storage"
-        ],
-        "module_alias": "usb:v0781p55ABd0100dc00dsc00dp00ic08isc06ip50in00"
+        ]
       }
     ],
     "graphics_card": [
@@ -1094,7 +969,7 @@
     ],
     "hub": [
       {
-        "index": 40,
+        "index": 39,
         "attached_to": 32,
         "class_list": [
           "usb",
@@ -1116,7 +991,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.6.63 xhci-hcd",
+          "name": "Linux 6.16.7 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1126,11 +1001,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.06",
+          "name": "6.16",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.6.63 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.16.7 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-0:1.0",
         "sysfs_bus_id": "3-0:1.0",
         "resources": [
@@ -1171,13 +1046,17 @@
         },
         "hotplug": "usb",
         "driver": "hub",
+        "driver_module": "usbcore",
         "drivers": [
           "hub"
         ],
-        "module_alias": "usb:v1D6Bp0002d0606dc09dsc00dp01ic09isc00ip00in00"
+        "driver_modules": [
+          "usbcore"
+        ],
+        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 45,
+        "index": 42,
         "attached_to": 32,
         "class_list": [
           "usb",
@@ -1199,7 +1078,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.6.63 xhci-hcd",
+          "name": "Linux 6.16.7 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1209,11 +1088,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.06",
+          "name": "6.16",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.6.63 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.16.7 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb4/4-0:1.0",
         "sysfs_bus_id": "4-0:1.0",
         "detail": {
@@ -1244,13 +1123,17 @@
         },
         "hotplug": "usb",
         "driver": "hub",
+        "driver_module": "usbcore",
         "drivers": [
           "hub"
         ],
-        "module_alias": "usb:v1D6Bp0003d0606dc09dsc00dp03ic09isc00ip00in00"
+        "driver_modules": [
+          "usbcore"
+        ],
+        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
       },
       {
-        "index": 46,
+        "index": 43,
         "attached_to": 17,
         "class_list": [
           "usb",
@@ -1272,7 +1155,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.6.63 xhci-hcd",
+          "name": "Linux 6.16.7 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1282,11 +1165,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.06",
+          "name": "6.16",
           "value": 0
         },
         "serial": "0000:00:0d.0",
-        "model": "Linux 6.6.63 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.16.7 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:0d.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -1327,13 +1210,17 @@
         },
         "hotplug": "usb",
         "driver": "hub",
+        "driver_module": "usbcore",
         "drivers": [
           "hub"
         ],
-        "module_alias": "usb:v1D6Bp0002d0606dc09dsc00dp01ic09isc00ip00in00"
+        "driver_modules": [
+          "usbcore"
+        ],
+        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 49,
+        "index": 46,
         "attached_to": 17,
         "class_list": [
           "usb",
@@ -1355,7 +1242,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.6.63 xhci-hcd",
+          "name": "Linux 6.16.7 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1365,11 +1252,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.06",
+          "name": "6.16",
           "value": 0
         },
         "serial": "0000:00:0d.0",
-        "model": "Linux 6.6.63 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.16.7 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:0d.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -1400,10 +1287,14 @@
         },
         "hotplug": "usb",
         "driver": "hub",
+        "driver_module": "usbcore",
         "drivers": [
           "hub"
         ],
-        "module_alias": "usb:v1D6Bp0003d0606dc09dsc00dp03ic09isc00ip00in00"
+        "driver_modules": [
+          "usbcore"
+        ],
+        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
       }
     ],
     "memory": [
@@ -1541,7 +1432,7 @@
     ],
     "mouse": [
       {
-        "index": 52,
+        "index": 49,
         "attached_to": 0,
         "bus_type": {
           "hex": "0081",
@@ -1566,9 +1457,9 @@
           "hex": "0239",
           "value": 569
         },
-        "sysfs_id": "/devices/pci0000:00/0000:00:19.0/i2c_designware.2/i2c-3/i2c-PIXA3854:00/0018:093A:0239.0003/input/input19",
+        "sysfs_id": "/devices/pci0000:00/0000:00:19.0/i2c_designware.2/i2c-16/i2c-PIXA3854:00/0018:093A:0239.0003/input/input13",
         "unix_device_names": [
-          "/dev/input/event9",
+          "/dev/input/event7",
           "/dev/input/ + handler"
         ]
       }
@@ -1742,29 +1633,7 @@
     ],
     "network_interface": [
       {
-        "index": 50,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 51,
+        "index": 47,
         "attached_to": 21,
         "class_list": [
           "network_interface"
@@ -1802,6 +1671,28 @@
         ],
         "driver_modules": [
           "iwlwifi"
+        ]
+      },
+      {
+        "index": 48,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
         ]
       }
     ],
@@ -1983,7 +1874,7 @@
         "sysfs_bus_id": "0000:00:04.0",
         "detail": {
           "function": 0,
-          "command": 1030,
+          "command": 6,
           "header_type": 0,
           "secondary_bus": 0,
           "prog_if": 0
@@ -2614,8 +2505,8 @@
     },
     "usb": [
       {
-        "index": 48,
-        "attached_to": 40,
+        "index": 45,
+        "attached_to": 39,
         "class_list": [
           "usb",
           "unknown"
@@ -2654,7 +2545,7 @@
           "name": "0.16",
           "value": 0
         },
-        "serial": "FRAPABCHA1521301YH",
+        "serial": "FRAPABCHA1521301WX",
         "model": "Framework Laptop 12 Webcam Module",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-7/3-7:1.2",
         "sysfs_bus_id": "3-7:1.2",
@@ -2841,7 +2732,7 @@
         "sysfs_bus_id": "0000:00:14.0",
         "detail": {
           "function": 0,
-          "command": 1030,
+          "command": 1026,
           "header_type": 0,
           "secondary_bus": 0,
           "prog_if": 48
@@ -3301,9 +3192,9 @@
           "value": 2
         },
         "admin": {
-          "hex": "0000",
-          "name": "Disabled",
-          "value": 0
+          "hex": "0001",
+          "name": "Enabled",
+          "value": 1
         },
         "reset": {
           "hex": "0002",
