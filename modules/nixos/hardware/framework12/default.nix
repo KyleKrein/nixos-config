@@ -69,6 +69,17 @@ in {
         ];
       }
     ];
+    services.xserver.videoDrivers = ["modesetting"];
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        # For modern Intel CPU's
+        intel-media-driver # Enable Hardware Acceleration
+        vpl-gpu-rt # Enable QSV
+      ];
+    };
+    environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
+
     users.groups.touchscreen = {};
     services.udev.extraRules = ''
       KERNEL=="event*", ATTRS{name}=="ILIT2901:00 222A:5539", SYMLINK+="touchscreen", MODE="0660", GROUP="touchscreen"
