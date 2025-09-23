@@ -463,11 +463,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1758626158,
-        "narHash": "sha256-U1q4b95ivMM1uLDL1yqQikYxanh7mARy3kdf6k/jRCA=",
+        "lastModified": 1758626934,
+        "narHash": "sha256-3LWlTa/5SRT7E4sUaXRF7yREWl+Jvs/dkDzsmJKcTug=",
         "owner": "kylekrein",
         "repo": "emacs-config",
-        "rev": "d947b3e4dc806322e91d107ded7966d5c3ada2d8",
+        "rev": "20d2be3fa2641577859670389d3c4acccb656a61",
         "type": "github"
       },
       "original": {
