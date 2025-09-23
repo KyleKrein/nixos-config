@@ -33,6 +33,7 @@ in
         ++ lib.optionals osConfig.custom.presets.wayland.enable [
           gdb
           element-desktop
+	  vesktop
           obs-studio
           localsend
           kdePackages.kdenlive

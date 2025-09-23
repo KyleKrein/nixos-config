@@ -64,6 +64,7 @@ in {
         ".local/share/Paradox Interactive"
         ".config/unity3d/Ludeon Studios/RimWorld by Ludeon Studios"
         ".config/solaar"
+	".config/vesktop"
         ".config/eww"
         ".config/kdeconnect"
         ".config/blender"
