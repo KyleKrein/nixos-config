@@ -27,6 +27,7 @@ in {
       wl-clipboard
       git-credential-manager
       egl-wayland
+      pwvucontrol
     ];
     hardware.graphics.enable = true;
   };
