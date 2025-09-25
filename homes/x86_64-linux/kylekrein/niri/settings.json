@@ -32,7 +32,66 @@
   "controlCenterShowNetworkIcon": true,
   "controlCenterShowBluetoothIcon": true,
   "controlCenterShowAudioIcon": true,
-  "showWorkspaceIndex": true,
+  "controlCenterWidgets": [
+    {
+      "id": "volumeSlider",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "brightnessSlider",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "wifi",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "bluetooth",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "audioOutput",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "audioInput",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "nightMode",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "idleInhibitor",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "doNotDisturb",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "battery",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "diskUsage",
+      "enabled": true,
+      "width": 100,
+      "instanceId": "mfz4b7s6aer4zpglo9g",
+      "mountPath": "/"
+    }
+  ],
+  "showWorkspaceIndex": false,
   "showWorkspacePadding": false,
   "showWorkspaceApps": true,
   "maxWorkspaceIcons": 30,
@@ -78,10 +137,6 @@
       "enabled": true
     },
     {
-      "id": "idleInhibitor",
-      "enabled": true
-    },
-    {
       "id": "notificationButton",
       "enabled": true
     },
@@ -110,7 +165,6 @@
   "osLogoColorOverride": "",
   "osLogoBrightness": 0.5,
   "osLogoContrast": 1,
-  "wallpaperDynamicTheming": true,
   "fontFamily": "Inter Variable",
   "monoFontFamily": "Fira Code",
   "fontWeight": 400,
@@ -118,10 +172,14 @@
   "notepadUseMonospace": true,
   "notepadFontFamily": "",
   "notepadFontSize": 14,
+  "notepadShowLineNumbers": false,
+  "notepadTransparencyOverride": -1,
+  "notepadLastCustomTransparency": 0.95,
   "gtkThemingEnabled": true,
   "qtThemingEnabled": true,
   "showDock": false,
   "dockAutoHide": false,
+  "dockGroupByApp": false,
   "cornerRadius": 12,
   "notificationOverlayEnabled": false,
   "topBarAutoHide": false,
@@ -135,6 +193,7 @@
   "topBarGothCornersEnabled": false,
   "lockScreenShowPowerActions": true,
   "hideBrightnessSlider": false,
+  "widgetBackgroundColor": "sth",
   "notificationTimeoutLow": 5000,
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
