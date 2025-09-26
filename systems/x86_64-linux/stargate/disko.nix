@@ -39,13 +39,7 @@ in {
       zstorage = {
         type = "zpool";
         mode = "raidz2";
-        rootFsOptions = {
-          mountpoint = "none";
-          compression = "zstd";
-          acltype = "posixacl";
-          xattr = "sa";
-          "com.sun:auto-snapshot" = "true";
-        };
+        options.compression = "zstd";
         options.ashift = "12";
         datasets = {
           "services" = {
