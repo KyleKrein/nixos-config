@@ -30,7 +30,7 @@ in {
       disk = {
         main = {
           type = "disk";
-          inherit device;
+          inherit (cfg) device;
           content = {
             type = "gpt";
             partitions = {
