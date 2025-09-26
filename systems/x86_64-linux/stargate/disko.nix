@@ -47,7 +47,7 @@ in {
         mode = "raidz2";
         options.compression = "zstd";
         options.ashift = "12";
-	mountpoint = "/zstorage";
+        mountpoint = "/zstorage";
         datasets = {
           services = {
             type = "zfs_fs";

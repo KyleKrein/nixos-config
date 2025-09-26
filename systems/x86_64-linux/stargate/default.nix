@@ -12,7 +12,22 @@
   ...
 }:
 with lib;
-with lib.custom; {
+with lib.custom; let
+  zfsCompatibleKernelPackages =
+    lib.filterAttrs (
+      name: kernelPackages:
+        (builtins.match "linux_[0-9]+_[0-9]+" name)
+        != null
+        && (builtins.tryEval kernelPackages).success
+        && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+    )
+    pkgs.linuxKernel.packages;
+  latestKernelPackage = lib.last (
+    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+      builtins.attrValues zfsCompatibleKernelPackages
+    )
+  );
+in {
   facter.reportPath =
     if (builtins.pathExists ./facter.json)
     then ./facter.json
@@ -20,6 +35,8 @@ with lib.custom; {
   imports = lib.snowfall.fs.get-non-default-nix-files ./. ++ [./services];
   #systemd.network.wait-online.enable = lib.mkForce false; #facter
   boot.supportedFilesystems = ["zfs"];
+  # Note this might jump back and forth as kernels are added or removed.
+  boot.kernelPackages = latestKernelPackage;
   networking.hostId = "049b86a7"; # head -c4 /dev/urandom | od -A none -t x4
   services.zfs.autoScrub = {
     enable = true;
