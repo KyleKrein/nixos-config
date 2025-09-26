@@ -16,9 +16,11 @@
               "--perf-no_read_workqueue"
               "--perf-no_write_workqueue"
             ];
+            format = {
+              keyFile = "/tmp/secret.key";
+            };
             # https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
             settings = {
-              keyFile = "/tmp/secret.key";
               crypttabExtraOpts = [
                 "fido2-device=auto"
                 "token-timeout=10"
