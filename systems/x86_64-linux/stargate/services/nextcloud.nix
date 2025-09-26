@@ -21,6 +21,6 @@ with lib.custom; {
       dbtype = "pgsql";
       adminpassFile = config.sops.secrets."services/nextcloud".path;
     };
-    hostName = "nextcloud.localhost";
+    hostName = "nextcloud.kylekrein.com";
   };
 }
