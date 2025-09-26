@@ -45,7 +45,7 @@ in {
                   mountpoint = "/boot";
                   mountOptions = [
                     "defaults"
-		    "umask=0077"
+                    "umask=0077"
                   ];
                 };
               };
@@ -61,7 +61,13 @@ in {
                     "--perf-no_write_workqueue"
                   ];
                   # https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
-                  settings = {crypttabExtraOpts = ["fido2-device=auto" "token-timeout=10"];};
+                  settings = {
+                    keyFile = "/tmp/secret.key";
+                    crypttabExtraOpts = [
+                      "fido2-device=auto"
+                      "token-timeout=10"
+                    ];
+                  };
                   content = {
                     type = "btrfs";
                     extraArgs = ["-L" "nixos" "-f"];
