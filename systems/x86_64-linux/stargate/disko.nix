@@ -49,19 +49,19 @@ in {
         options.ashift = "12";
 	mountpoint = "/zstorage";
         datasets = {
-          "services" = {
+          services = {
             type = "zfs_fs";
             mountpoint = "/var/lib";
             options."com.sun:auto-snapshot" = "true";
           };
-          "backups" = {
+          backups = {
             type = "zfs_fs";
-            mountpoint = "/backups";
+            mountpoint = "/zstorage/backups";
             options."com.sun:auto-snapshot" = "true";
           };
-          "media" = {
+          media = {
             type = "zfs_fs";
-            mountpoint = "/media";
+            mountpoint = "/zstorage/media";
             options."com.sun:auto-snapshot" = "true";
           };
         };
