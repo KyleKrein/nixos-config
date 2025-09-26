@@ -66,6 +66,7 @@ with lib.custom; {
     enable = true;
     swapSize = null;
   };
+  custom.presets.default = enabled;
   #custom.hardware.secureBoot = enabled;
   custom.impermanence = enabled;
 
