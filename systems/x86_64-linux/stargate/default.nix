@@ -67,7 +67,7 @@ with lib.custom; {
     swapSize = null;
   };
   custom.presets.default = enabled;
-  #custom.hardware.secureBoot = enabled;
+  custom.hardware.secureBoot = enabled;
   custom.impermanence = enabled;
 
   custom.users.kylekrein = {
