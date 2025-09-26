@@ -66,7 +66,7 @@ with lib.custom; {
     enable = true;
     swapSize = null;
   };
-  custom.hardware.secureBoot = enabled;
+  #custom.hardware.secureBoot = enabled;
   custom.impermanence = enabled;
 
   custom.users.kylekrein = {
