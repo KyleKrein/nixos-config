@@ -7,7 +7,7 @@
       partitions = {
         luks = {
           size = "100%";
-          label = "luks";
+          label = "luks-${name}";
           content = {
             type = "luks";
             inherit name;
