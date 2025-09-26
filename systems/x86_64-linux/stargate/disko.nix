@@ -45,7 +45,6 @@ in {
       zstorage = {
         type = "zpool";
         mode = "raidz2";
-        options.compression = "zstd";
         options.ashift = "12";
         mountpoint = "/zstorage";
         datasets = {
