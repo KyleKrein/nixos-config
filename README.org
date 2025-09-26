@@ -26,7 +26,7 @@ sudo nix run \
 Assuming that you're in nixos installer
 
 #+begin_src shell
-sudo nix --extra-experimental-features "flakes nix-command" run github:nix-community/disko -- --mode zap_create_mount --flake github:KyleKrein/nixos-config#kylekrein-homepc
+sudo nix --extra-experimental-features "flakes nix-command" run github:nix-community/disko -- --mode destroy,format,mount --yes-wipe-all-disks --flake github:KyleKrein/nixos-config#kylekrein-homepc
 #+end_src
 
 Copy sops age keys to `/persist/sops/age/keys.txt` or to
