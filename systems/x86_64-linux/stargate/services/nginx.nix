@@ -82,7 +82,7 @@ in {
         locations."/" = let
           cfg = config.services.paperless;
         in {
-          proxyPass = "http://${cfg.address}:${cfg.port}";
+          proxyPass = "http://${cfg.address}:${builtins.toString cfg.port}";
         };
       };
     };
