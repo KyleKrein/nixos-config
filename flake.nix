@@ -106,6 +106,10 @@
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    declarative-jellyfin = {
+      url = "github:Sveske-Juice/declarative-jellyfin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let
@@ -152,6 +156,7 @@
         chaotic.nixosModules.nyx-registry
         lanzaboote.nixosModules.lanzaboote
         impermanence.nixosModules.impermanence
+        declarative-jellyfin.nixosModules.default
       ];
 
       systems.hosts.kylekrein-framework12.modules = with inputs; [
