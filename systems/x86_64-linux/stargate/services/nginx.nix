@@ -64,6 +64,11 @@ in {
         };
       };
 
+      "${config.services.nextcloud.hostName}" = {
+        enableACME = true;
+        forceSSL = true;
+      };
+
       "ntfy.kylekrein.com" = {
         enableACME = true;
         forceSSL = true;

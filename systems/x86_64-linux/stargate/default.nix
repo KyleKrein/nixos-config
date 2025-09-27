@@ -78,6 +78,22 @@ in {
       extraArgs = ["--sshoption=StrictHostKeyChecking=off"];
     };
   };
+  sops.secrets."duckdns" = {mode = "777";};
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "*/5 * * * * ${lib.getExe (pkgs.writeShellScriptBin "duckdns" ''
+        TOKEN=$(cat ${config.sops.secrets."duckdns".path})
+        REALV6=$(ip -6 addr show dev enp3s0 scope global \
+         | awk '/inet6 2/{print $2}' \
+         | cut -d/ -f1 \
+         | grep -E 'f9c4$' \
+         | head -n1)
+        REALV4=$(curl -s https://ifconfig.me --ipv4)
+        echo url="https://www.duckdns.org/update?domains=kylekrein&token=$TOKEN&ipv6=$REALV6&ip=$REALV4" | curl -k -K -
+      '')} >/dev/null 2>&1"
+    ];
+  };
 
   custom.presets.disko.impermanenceBtrfsLuks = {
     enable = true;

@@ -22,5 +22,6 @@ with lib.custom; {
       adminpassFile = config.sops.secrets."services/nextcloud".path;
     };
     hostName = "nextcloud.kylekrein.com";
+    https = true;
   };
 }

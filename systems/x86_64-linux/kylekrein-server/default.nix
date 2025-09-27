@@ -115,6 +115,7 @@ with lib.custom; {
   services.gitlab = {
     enable = true;
     host = "gitlab.kylekrein.com";
+    https = true;
     port = 443;
     #statePath = "/persist/gitlab/state";
     backup.startAt = "3:00";

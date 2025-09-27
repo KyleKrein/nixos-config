@@ -21,9 +21,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [nextcloud-client];
+    home.packages = with pkgs; [
+      nextcloud-client
+      nextcloud-talk-desktop
+    ];
     home.persistence = mkIf impermanence.enable {
       "${impermanence.persistentStorage}".directories = [
+        ".config/Nextcloud"
+        ".config/Nextcloud Talk"
       ];
     };
   };
