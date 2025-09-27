@@ -76,6 +76,15 @@ in {
           proxyPass = "http://[::1]${config.services.ntfy-sh.settings.listen-http}";
         };
       };
+      "paperless.kylekrein.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = let
+          cfg = config.services.paperless;
+        in {
+          proxyPass = "http://${cfg.address}:${cfg.port}";
+        };
+      };
     };
   };
 
