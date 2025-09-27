@@ -23,6 +23,7 @@
     ignoreIP = [
       # Whitelist some subnets
       "192.168.178.0/24"
+      "kylekrein.duckdns.org"
     ];
     bantime = "24h"; # Ban IPs for one day on the first ban
     bantime-increment = {
