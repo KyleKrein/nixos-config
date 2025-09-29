@@ -86,9 +86,20 @@ in {
         extraConfig = ''
           proxy_buffering off;
         '';
-        locations."/" = {
-          proxyPass = "http://[::1]:8123";
-          proxyWebsockets = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://[::1]:8123";
+            proxyWebsockets = true;
+          };
+          "/api/prometheus" = {
+            proxyPass = "http://[::1]:8123";
+            proxyWebsockets = true;
+            extraConfig = ''
+              allow 127.0.0.1;
+              allow ::1;
+              deny all;
+            '';
+          };
         };
       };
       "grafana.kylekrein.com" = {

@@ -27,7 +27,15 @@
       {
         job_name = "stargate";
         static_configs = [
-          {targets = ["127.0.0.1:9100"];}
+          {targets = ["localhost:9100"];}
+        ];
+      }
+      {
+        job_name = "hass";
+        metrics_path = "/api/prometheus";
+        scrape_interval = "10s";
+        static_configs = [
+          {targets = ["localhost:8123"];}
         ];
       }
     ];

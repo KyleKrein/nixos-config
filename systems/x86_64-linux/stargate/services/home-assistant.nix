@@ -19,6 +19,10 @@
         trusted_proxies = ["::1"];
         use_x_forwarded_for = true;
       };
+      prometheus = {
+        namespace = "hass";
+        requires_auth = false;
+      };
       recorder.db_url = "postgresql://@/hass";
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/

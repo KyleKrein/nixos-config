@@ -20,14 +20,9 @@
     master = {
       url = "github:nixos/nixpkgs?ref=master";
     };
-    neovim = {
-      url = "github:kylekrein/neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     stylix.url = "github:danth/stylix?ref=release-25.05";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
 
     sops-nix.url = "github:Mic92/sops-nix";
 
@@ -42,19 +37,8 @@
     };
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
     impermanence.url = "github:nix-community/impermanence";
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     emacs-kylekrein = {
       url = "github:kylekrein/emacs-config";
       inputs.nixpkgs.follows = "nixpkgs";
