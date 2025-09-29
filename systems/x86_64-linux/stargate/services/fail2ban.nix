@@ -8,7 +8,7 @@
     "fail2ban/action.d/ntfy.local".text = pkgs.lib.mkDefault (pkgs.lib.mkAfter ''
       [Definition]
       norestored = true # Needed to avoid receiving a new notification after every restart
-      actionban = curl -H "Title: <ip> has been banned" -d "<name> jail has banned <ip> from accessing $(hostname) after <failures> attempts of hacking the system." https://ntfy.kylekrein.com/Fail2banNotifications
+      actionban = echo "<ip> has been banned: <name> jail has banned <ip> from accessing $(hostname) after <failures> attempts of hacking the system." | /run/wrappers/bin/sendmail -i fail2ban@localhost.com
     '');
     # Defines a filter that detects URL probing by reading the Nginx access log
     "fail2ban/filter.d/nginx-url-probe.local".text = pkgs.lib.mkDefault (pkgs.lib.mkAfter ''
