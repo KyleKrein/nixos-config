@@ -77,6 +77,7 @@ in {
         forceSSL = true;
         locations."/" = {
           proxyPass = "http://[::1]${config.services.ntfy-sh.settings.listen-http}";
+          proxyWebsockets = true;
         };
       };
       "paperless.kylekrein.com" = {

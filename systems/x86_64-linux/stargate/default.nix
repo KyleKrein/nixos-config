@@ -79,6 +79,28 @@ in {
     };
   };
 
+  services.zfs.zed.settings = {
+    ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+    ZED_NTFY_URL = "ntfy.kylekrein.com";
+    ZED_NTFY_TOPIC = "zed";
+
+    ZED_NOTIFY_INTERVAL_SECS = 3600;
+    ZED_NOTIFY_VERBOSE = true;
+
+    ZED_USE_ENCLOSURE_LEDS = true;
+    ZED_SCRUB_AFTER_RESILVER = true;
+  };
+
+  services.smartd = {
+    enable = true;
+    autodetect = true;
+    notifications.mail = {
+      enable = true;
+      recipient = "smartd@localhost.com";
+      sender = "smartd@smartd.com";
+    };
+  };
+
   custom.presets.disko.impermanenceBtrfsLuks = {
     enable = true;
     swapSize = null;
