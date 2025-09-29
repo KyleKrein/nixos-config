@@ -80,6 +80,25 @@ in {
           proxyWebsockets = true;
         };
       };
+      "smart-home.kylekrein.com" = {
+        forceSSL = true;
+        enableACME = true;
+        extraConfig = ''
+          proxy_buffering off;
+        '';
+        locations."/" = {
+          proxyPass = "http://[::1]:8123";
+          proxyWebsockets = true;
+        };
+      };
+      "grafana.kylekrein.com" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}";
+          proxyWebsockets = true;
+        };
+      };
       "paperless.kylekrein.com" = {
         enableACME = true;
         forceSSL = true;
