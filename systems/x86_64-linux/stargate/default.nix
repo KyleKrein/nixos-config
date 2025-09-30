@@ -108,6 +108,7 @@ in {
   };
   custom.presets.default = enabled;
   custom.hardware.secureBoot = enabled;
+  hardware.bluetooth.enable = mkForce false;
   custom.impermanence = enabled;
 
   custom.users.kylekrein = {

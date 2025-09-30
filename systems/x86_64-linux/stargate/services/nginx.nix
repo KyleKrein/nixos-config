@@ -48,13 +48,13 @@ in {
       #  locations = matrixLocations;
       #};
 
-      #"gitlab.kylekrein.com" = {
-      #  enableACME = true;
-      #  forceSSL = true;
-      #  locations."/" = {
-      #    proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-      #  };
-      #};
+      "gitlab.kylekrein.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+        };
+      };
 
       "immich.kylekrein.com" = {
         enableACME = true;
