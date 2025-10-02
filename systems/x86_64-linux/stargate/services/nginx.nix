@@ -67,6 +67,18 @@ in {
         };
       };
 
+      "music.kylekrein.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://${toString config.services.navidrome.settings.Address}:${toString config.services.navidrome.settings.Port}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            client_max_body_size 100M;
+          '';
+        };
+      };
+
       "${config.services.nextcloud.hostName}" = {
         enableACME = true;
         forceSSL = true;
