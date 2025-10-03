@@ -91,6 +91,11 @@ in {
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-tab-discard/latest.xpi";
               installation_mode = "force_installed";
             };
+	    #aliasvault
+            "{a06e3383-fc5f-431d-8405-1c54c2f85971}" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/aliasvault/latest.xpi";
+              installation_mode = "force_installed";
+            };
             # global speed
             "{f4961478-ac79-4a18-87e9-d2fb8c0442c4}" = {
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/global-speed/latest.xpi";
