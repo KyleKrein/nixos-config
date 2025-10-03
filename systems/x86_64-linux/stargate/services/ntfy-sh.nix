@@ -28,27 +28,4 @@ with lib.custom; {
       attachment-cache-dir = "/var/lib/ntfy-sh/attachments";
     };
   };
-
-  services.postfix = {
-    enable = true;
-    config = {
-      myhostname = "stargate.local";
-      mydestination = "localhost, localhost.com";
-      relayhost = "";
-      transport_maps = "hash:/etc/postfix.conf";
-    };
-  };
-
-  environment.etc."postfix.conf".text = ''
-    localhost.com   smtp:[127.0.0.1]:1299
-  '';
-  systemd.services.postmap-transport = {
-    description = "Generate postfix transport.db from transport";
-    wantedBy = ["multi-user.target"];
-    before = ["postfix.service"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.postfix}/bin/postmap /etc/postfix.conf";
-    };
-  };
 }
