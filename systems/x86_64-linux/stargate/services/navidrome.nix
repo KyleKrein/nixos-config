@@ -18,6 +18,7 @@
       MusicFolder = "/zstorage/media/music";
       EnableSharing = true;
       BaseUrl = "https://music.kylekrein.com";
+      FFmpegPath = "${pkgs.ffmpeg}/bin/ffmpeg";
     };
   };
 }
