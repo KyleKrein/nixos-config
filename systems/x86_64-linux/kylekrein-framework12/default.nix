@@ -31,9 +31,25 @@ in
   with lib.custom; {
     facter.reportPath = ./facter.json;
     systemd.network.wait-online.enable = lib.mkForce false; #facter
-
-    custom.hardware.hibernation = {
+    imports = [
+      "${inputs.sr-iov}/sriov.nix"
+    ];
+    virtualisation.cyberus.intel-graphics-sriov.enable = true;
+    virtualisation.virtualbox.host = {
       enable = true;
+      package =
+        (import (pkgs.fetchFromGitHub {
+          owner = "nixos";
+          repo = "nixpkgs";
+          rev = "0398740424de50bc851ece775b19cc5d5eb755e9";
+          sha256 = "sha256-ZA9s5LroljnJtU4HcGSGB2sqGcSVO3OD+qz5wo+wmlE=";
+        }) {inherit (pkgs) system;}).virtualbox;
+      enableKvm = true;
+      enableHardening = false;
+      addNetworkInterface = false;
+    };
+    custom.hardware.hibernation = {
+      enable = false;
       swapFileOffset = 533760;
     };
     custom.presets.disko.impermanenceBtrfsLuks = {

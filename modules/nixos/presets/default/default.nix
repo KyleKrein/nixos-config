@@ -19,7 +19,7 @@ in {
     };
     services.fwupd.enable = true; #fwupdmgr update
     boot = {
-      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
       loader = {
         systemd-boot.enable = !config.${namespace}.hardware.secureBoot.enable;
         efi.canTouchEfiVariables = !config.${namespace}.hardware.asahi.enable;
@@ -29,6 +29,12 @@ in {
       # It will just not appear on screen unless a key is pressed
       loader.timeout = 0;
     };
+    services.logind = {
+      lidSwitch = mkDefault "suspend";
+      powerKey = mkDefault "suspend";
+      powerKeyLongPress = mkDefault "poweroff";
+    };
+
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 

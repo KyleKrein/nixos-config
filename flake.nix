@@ -94,6 +94,10 @@
       url = "github:Sveske-Juice/declarative-jellyfin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sr-iov = {
+      url = "github:cyberus-technology/nixos-sriov";
+      flake = false;
+    };
   };
 
   outputs = inputs: let
