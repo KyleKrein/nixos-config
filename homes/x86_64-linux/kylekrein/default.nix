@@ -23,6 +23,7 @@ in
         prismlauncher.enable = osConfig.custom.presets.gaming.enable;
         bottles.enable = osConfig.custom.presets.wayland.enable;
         nextcloud-client.enable = osConfig.custom.presets.wayland.enable;
+        thunderbird.enable = osConfig.custom.presets.wayland.enable;
       };
     };
     home = {
