@@ -52,6 +52,11 @@ in {
       clean.extraArgs = "--keep-since 4d --keep 3";
       flake = "/etc/nixos-config";
     };
+    services.logind = {
+      lidSwitch = mkDefault "suspend";
+      powerKey = mkDefault "suspend";
+      powerKeyLongPress = mkDefault "poweroff";
+    };
     environment.systemPackages = with pkgs; [
       nix-output-monitor
       fzf

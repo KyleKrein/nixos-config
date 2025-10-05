@@ -85,7 +85,12 @@
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    desktopShell.url = "github:KyleKrein/DesktopShell"; #?ref=d4816bd174901cb5582151dac6ead636cf96090d";
+    desktopShell = {
+      url = "github:KyleKrein/DesktopShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+      inputs.quickshell.follows = "quickshell";
+    };
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -290,7 +290,7 @@ in
           "Mod+Tab".action = toggle-overview;
         };
         input = {
-          power-key-handling.enable = !osConfig.custom.hardware.hibernation.enable;
+          power-key-handling.enable = false;
           focus-follows-mouse = {
             #enable = true;
           };

@@ -33,7 +33,7 @@ in
     systemd.network.wait-online.enable = lib.mkForce false; #facter
 
     custom.hardware.hibernation = {
-      enable = true;
+      enable = false;
       swapFileOffset = 533760;
     };
     custom.presets.disko.impermanenceBtrfsLuks = {
