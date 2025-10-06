@@ -46,7 +46,6 @@ in {
         "/var/lib/acme"
         "/var/lib/upower"
         "/var/lib/power-profiles-daemon"
-        #"/var/lib/conduwuit"
         "/etc/NetworkManager/system-connections"
         {
           directory = "/var/lib/colord";
